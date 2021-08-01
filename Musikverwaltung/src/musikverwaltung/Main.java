@@ -46,9 +46,35 @@ public class Main {
 		System.out.println("Gesammte Datenbank:");
 		druckePlaylist(TitelDB.alleTitel);
 		
+		System.out.println("Gespeicherte Kategorien:");
+		TitelDB.druckeEigenschaften('i');
+		TitelDB.druckeEigenschaften('a');
+		TitelDB.druckeEigenschaften('j');
+		TitelDB.druckeEigenschaften('g');
 		
-		
-		
+		System.out.println("--------Sortieren Test------------");
+		System.out.println("Gesammte Datenbank:");
+		druckePlaylist(TitelDB.alleTitel);
+		System.out.println("------------------------------");
+		System.out.println(" - sort nach Interpret -");
+		TitelDB.sortiere('i');
+		druckePlaylist(TitelDB.alleTitel);
+		System.out.println("------------------------------");
+		System.out.println(" - sort nach Album -");
+		TitelDB.sortiere('a');
+		druckePlaylist(TitelDB.alleTitel);
+		System.out.println("------------------------------");
+		System.out.println(" - sort nach Jahr -");
+		TitelDB.sortiere('j');
+		druckePlaylist(TitelDB.alleTitel);
+		System.out.println("------------------------------");
+		System.out.println(" - sort nach Genre -");
+		TitelDB.sortiere('g');
+		druckePlaylist(TitelDB.alleTitel);
+		System.out.println("------------------------------");
+		System.out.println(" - sort nach Name -");
+		TitelDB.sortiere('n');
+		druckePlaylist(TitelDB.alleTitel);
 		/*
 		 * 
 		 * 
