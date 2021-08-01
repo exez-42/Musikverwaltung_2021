@@ -46,11 +46,19 @@ public class Main {
 		System.out.println("Gesammte Datenbank:");
 		druckePlaylist(TitelDB.alleTitel);
 		
-		TitelDB.loesche(TitelDB.alleTitel.get(3)); //Lösche an Index 3
+		
+		
+		
+		/*
+		 * 
+		 * 
+		 * 
+		 * TitelDB.loesche(TitelDB.alleTitel.get(3)); //Lösche an Index 3
 		System.out.println("\nGesammte Datenbank nach >Lösche Index 3 (Firework - Katy Perry)< :");
 		druckePlaylist(TitelDB.alleTitel);
 		
-		ArrayList<Titel> jahrPlaylist = TitelDB.getListJahr(1976);
+		
+		 * ArrayList<Titel> jahrPlaylist = TitelDB.getListJahr(1976);
 		System.out.println("\nDrucke 1976-Playlist:");
 		druckePlaylist(jahrPlaylist);
 		
@@ -58,13 +66,57 @@ public class Main {
 		System.out.println("\nDrucke Funk-Playlist:");
 		druckePlaylist(funkPlaylist);
 		
+			ArrayList<Titel> acdcPlaylist = TitelDB.getListInterpret("AC/DC");
+		System.out.println("\nDrucke ACDC-Playlist:");
+		druckePlaylist(acdcPlaylist);
+		
+		 * 
+		 */
+		
 		ArrayList<Titel> acdcPlaylist = TitelDB.getListInterpret("AC/DC");
 		System.out.println("\nDrucke ACDC-Playlist:");
 		druckePlaylist(acdcPlaylist);
 		
 		
+		//Playlist Test
+		System.out.println( "\n-----------PLaylist Test---------------"
+		+ "\nDrucke ACDC-Playlist(Playlist Objekt):");
+		
+		Playlist acdc = new Playlist("ACDC");
+		acdc.add_Interpret("AC/DC");
+		acdc.drucke_playlist();
+		druckePlaylist(acdc.getPlaylist());
+		
+		System.out.println("\nZur gleichen Playlist Album 'Mandalo' hinzufügen ");
+		acdc.add_Album("Mandalo");
+		acdc.drucke_playlist();
+		druckePlaylist(acdc.getPlaylist());
+		
+		System.out.println("\nZur gleichen Playlist Album 'Back in Black' hinzufügen \nHier wird nichts hinzugefügt da alle ACDC titel bereits enthalten sind.");
+		acdc.add_Album("Back in Black");
+		acdc.drucke_playlist();
+		druckePlaylist(acdc.getPlaylist());
+		
+		System.out.println("\nZur gleichen Playlist Genre Jazz hinzufügen ");
+		acdc.add_genre("Jazz");
+		acdc.drucke_playlist();
+		druckePlaylist(acdc.getPlaylist());
+		
+		//AUDIO TEST in Playlist Object
+		acdc.getPlaylist().get(0).player.select();
+
+		//AUDIOTEST ENDE
 		
 		
+		//Ende
+		
+		
+		
+		
+		
+		
+		
+		/*
 		//AUDIO TEST
 		System.out.println("\n -------------------Kleiner Audio Test: -------------------------------------");
 		Titel audio_test = new Titel("Fichtls Lied", "Die Woodys", "Woodys BEST OF EXTENDED", 1997, "VOLKSMUSIK", "C:\\Users\\charl\\OneDrive\\Desktop\\project\\Musikverwaltung\\musik_titel\\DieWoodys-FichtlsLied.wav");
@@ -75,15 +127,20 @@ public class Main {
 		audio_test.player.select();
 		
 		//AUDIOTEST ENDE
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 */
+		
+		
+		
 		
 		
 	}
 	
-	
-	
-	
-	
-	
+
 	
 	
 	
