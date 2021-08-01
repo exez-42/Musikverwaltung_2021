@@ -198,6 +198,21 @@ public class GUI extends JFrame {
 				textFieldgenre.setColumns(10);
 				
 				JButton btnaddfile = new JButton("Datei ausw\u00E4hlen");
+				btnaddfile.addActionListener(new ActionListener() {
+			
+					public void actionPerformed(ActionEvent arg0) {
+				
+						JFileChooser chooser = new JFileChooser();
+						int rueckgabeWert = chooser.showOpenDialog(null);
+				 			if(rueckgabeWert == JFileChooser.APPROVE_OPTION)
+			        				{
+			             					// Ausgabe der ausgewaehlten Datei
+			            					System.out.println("Die zu öffnende Datei ist: " +
+			                 					chooser.getSelectedFile().getAbsoluteFile());
+			        				}
+		    				}
+				});
+				
 				btnaddfile.setBounds(119, 172, 111, 23);
 				paneladd.add(btnaddfile);
 				
