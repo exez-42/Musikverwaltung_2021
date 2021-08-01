@@ -78,7 +78,7 @@ public class Main {
 		druckePlaylist(acdcPlaylist);
 		
 		
-		//Playlist Test
+		//---------------------Playlist Test----------------------
 		System.out.println( "\n-----------PLaylist Test---------------"
 		+ "\nDrucke ACDC-Playlist(Playlist Objekt):");
 		
@@ -86,6 +86,10 @@ public class Main {
 		acdc.add_Interpret("AC/DC");
 		acdc.drucke_playlist();
 		druckePlaylist(acdc.getPlaylist());
+		
+		Playlist.drucke_alle_pl();
+		
+		
 		
 		System.out.println("\nZur gleichen Playlist Album 'Mandalo' hinzufügen ");
 		acdc.add_Album("Mandalo");
@@ -101,6 +105,18 @@ public class Main {
 		acdc.add_genre("Jazz");
 		acdc.drucke_playlist();
 		druckePlaylist(acdc.getPlaylist());
+		
+		
+		Playlist pop = new Playlist("pop");
+		pop.add_genre("Pop");
+		
+		
+		
+		
+		
+		Playlist.drucke_alle_pl();
+		
+		
 		
 		System.out.println("Anzahl Playlisten : " + Playlist.getAll_pl().size());
 
