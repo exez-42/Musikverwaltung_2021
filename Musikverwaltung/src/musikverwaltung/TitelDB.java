@@ -1,12 +1,21 @@
 package musikverwaltung;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import musikverwaltung.Titel;
 
 public class TitelDB {
 	static ArrayList<Titel> alleTitel = new ArrayList<Titel>();
 	//einzige Titeldatenbank
+	
+	static ArrayList<String> interpreten = new ArrayList<String>();
+	static ArrayList<String> alben = new ArrayList<String>();
+	static ArrayList<Integer> jahre = new ArrayList<Integer>();
+	static ArrayList<String> genres = new ArrayList<String>();
+	
+	
 	private static TitelDB Titeldatenbank;
 	
 	
@@ -28,11 +37,84 @@ public class TitelDB {
 	}
 	//ende
 	
+	public static void sortiere(char k) { //Sortiere "alleTitel" nach i (Interpret), a (Album), j (Jahr), g (Genre) oder n (Name)
+		ArrayList<Titel> temp = new ArrayList<Titel>();
+		ArrayList<Titel> temp2 = new ArrayList<Titel>();
+		Comparator<Titel> namensVgl = new NamensVgl();
+		switch (k) {
+		case 'i':
+			for (int i = 0; i < interpreten.size(); i++) {
+				temp2 = getListInterpret(interpreten.get(i));
+				Collections.sort(temp2, namensVgl);
+				for(int j = 0; j < temp2.size(); j++) {
+					temp.add(temp2.get(j));
+				}
+			}
+			break;
+		case 'a':
+			for (int i = 0; i < alben.size(); i++) {
+				temp2 = getListAlbum(alben.get(i));
+				Collections.sort(temp2, namensVgl);
+				for(int j = 0; j < temp2.size(); j++) {
+					temp.add(temp2.get(j));
+				}
+			}
+			break;
+		case 'j':
+			for (int i = 0; i < jahre.size(); i++) {
+				temp2 = getListJahr(jahre.get(i));
+				Collections.sort(temp2, namensVgl);
+				for(int j = 0; j < temp2.size(); j++) {
+					temp.add(temp2.get(j));
+				}
+			}
+			break;
+		case 'g':
+			for (int i = 0; i < genres.size(); i++) {
+				temp2 = getListGenre(genres.get(i));
+				Collections.sort(temp2, namensVgl);
+				for(int j = 0; j < temp2.size(); j++) {
+					temp.add(temp2.get(j));
+				}
+			}
+			break;
+		case 'n':
+			Collections.sort(alleTitel, namensVgl);
+		}
+		if (k != 'n') {
+			alleTitel = temp;
+		}
+	}
 	
-	
-	
-	
-	
+	static void druckeEigenschaften (char c) {
+		switch (c) {
+		case 'i':
+			System.out.println("Alle Interpreten:");
+			for (int j = 0; j < interpreten.size(); j++) {
+				System.out.println(interpreten.get(j));
+			}
+			break;
+		case 'a':
+			System.out.println("Alle Alben:");
+			for (int j = 0; j < alben.size(); j++) {
+				System.out.println(alben.get(j));
+			}
+			break;
+		case 'j':
+			System.out.println("Alle Veröffentlichungsjahre:");
+			for (int j = 0; j < jahre.size(); j++) {
+				System.out.println(jahre.get(j));
+			}
+			break;
+		case 'g':
+			System.out.println("Alle Genres:");
+			for (int j = 0; j < genres.size(); j++) {
+				System.out.println(genres.get(j));
+			}
+			break;
+		default: 	
+		}
+	}
 	
 	
 	static void einf(Titel s) {
@@ -47,11 +129,73 @@ public class TitelDB {
 		}
 		else {
 			alleTitel.add(s);
+			if (!(interpreten.contains(s.getInterpret()))) {
+				interpreten.add(s.getInterpret());
+				Collections.sort(interpreten);
+			}
+			if (!(alben.contains(s.getAlbum()))) {
+				alben.add(s.getAlbum());
+				Collections.sort(alben);
+			}
+			if (!(jahre.contains(s.getJahr()))) {
+				jahre.add(s.getJahr());
+				Collections.sort(jahre);
+			}
+			if (!(genres.contains(s.getGenre()))) {
+				genres.add(s.getGenre());
+				Collections.sort(genres);
+			}
+		}
+	}
+	
+	public static void updateEigenschaften(Titel s) {
+		boolean inter = false;
+		boolean alb = false;
+		boolean jahr = false;
+		boolean gen = false;
+		for (int i = 0; i < alleTitel.size(); i++) {
+			if ((inter == false) && (alleTitel.get(i).getInterpret() == s.getInterpret())) {
+				inter = true;
+			}
+			if ((alb == false) && (alleTitel.get(i).getAlbum() == s.getAlbum())) {
+				alb = true;
+			}
+			if ((jahr == false) && (alleTitel.get(i).getJahr() == s.getJahr())) {
+				jahr = true;
+			}
+			if ((gen == false) && (alleTitel.get(i).getGenre() == s.getGenre())) {
+				gen = true;
+			}
+		}
+		if (!(inter)) {
+			interpreten.remove(s.getInterpret());
+			System.out.println(" - letzter Song von " + s.getInterpret() + " wurde entfernt -");
+		}
+		if (!(alb)) {
+			alben.remove(s.getAlbum());
+			System.out.println(" - letzter Song von dem Album >" + s.getAlbum() + "< wurde entfernt -");
+		}
+		if (!(jahr)) {
+			Integer i = s.getJahr();
+			jahre.remove(i);
+			System.out.println(" - letzter Song aus " + s.getJahr() + " wurde entfernt -");
+		}
+		if (!(gen)) {
+			genres.remove(s.getGenre());
+			System.out.println(" - letzter " + s.getGenre() + "-Song wurde entfernt -");
 		}
 	}
 	
 	public static void loesche(Titel s) {
 		alleTitel.remove(s); // (+ entfernen aus allen Playlists)
+		updateEigenschaften(s);
+		
+	}
+	
+	public static void loesche(int i) {
+		Titel s = alleTitel.get(i);
+		alleTitel.remove(s); // (+ entfernen aus allen Playlists)
+		updateEigenschaften(s);
 	}
 	
 	public static ArrayList<Titel> getListInterpret (String interpret) {
@@ -94,6 +238,8 @@ public class TitelDB {
 		return playlist;
 	}
 	
-	
+	public static void save () {
+		
+	}
 	
 }
