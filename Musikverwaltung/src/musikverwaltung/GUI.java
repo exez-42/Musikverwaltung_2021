@@ -62,22 +62,27 @@ public class GUI extends JFrame {
 		
 		JButton btnback = new JButton("");
 		btnback.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Back.png")));
-		btnback.setBounds(143, 76, 30, 25);
+		btnback.setBounds(119, 76, 30, 25);
 		getContentPane().add(btnback);
 		
 		JButton btnplay = new JButton("");
 		btnplay.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Play.png")));
-		btnplay.setBounds(183, 76, 30, 25);
+		btnplay.setBounds(159, 76, 30, 25);
 		getContentPane().add(btnplay);
 		
 		JButton btnpause = new JButton("");
 		btnpause.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Pause.png")));
-		btnpause.setBounds(223, 76, 30, 25);
+		btnpause.setBounds(199, 76, 30, 25);
 		getContentPane().add(btnpause);
+		
+		JButton btnstop = new JButton("");
+		btnstop.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Stop.png")));
+		btnstop.setBounds(239, 76, 30, 25);
+		getContentPane().add(btnstop);
 		
 		JButton btnfoward = new JButton("");
 		btnfoward.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Forward.png")));
-		btnfoward.setBounds(263, 76, 30, 25);
+		btnfoward.setBounds(279, 76, 30, 25);
 		getContentPane().add(btnfoward);
 		
 		JComboBox<String> comboBoxplaylist = new JComboBox<String>();
