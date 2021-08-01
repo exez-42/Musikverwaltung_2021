@@ -27,7 +27,9 @@ public class Main {
 			}
 		});
 	
-		TitelDB songdb = new TitelDB();
+		//singelton
+		TitelDB.erzeuge_TitelDB();
+		// fertig
 		TitelDB.einf(new Titel("Disco Ulysses (Instrumental)", "Vulfpeck", "Hill Climber", 2018, "Funk", "C:\\Users\\charl\\OneDrive\\Desktop\\project\\Musikverwaltung\\musik_titel\\DieWoodys-FichtlsLied.wav"));
 		TitelDB.einf(new Titel("Shia LaBeouf Live", "Rob Kantor", "Shia", 2014, "Oper", "C:\\Users\\charl\\OneDrive\\Desktop\\project\\Musikverwaltung\\musik_titel\\DieWoodys-FichtlsLied.wav"));
 		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project\\Musikverwaltung\\musik_titel\\DieWoodys-FichtlsLied.wav"));
@@ -44,8 +46,8 @@ public class Main {
 		System.out.println("Gesammte Datenbank:");
 		druckePlaylist(TitelDB.alleTitel);
 		
-		TitelDB.loesche(TitelDB.alleTitel.get(3)); //Lösche an Index 3
-		System.out.println("\nGesammte Datenbank nach >Lösche Index 3 (Firework - Katy Perry)< :");
+		TitelDB.loesche(TitelDB.alleTitel.get(3)); //LÃ¶sche an Index 3
+		System.out.println("\nGesammte Datenbank nach >LÃ¶sche Index 3 (Firework - Katy Perry)< :");
 		druckePlaylist(TitelDB.alleTitel);
 		
 		ArrayList<Titel> jahrPlaylist = TitelDB.getListJahr(1976);
