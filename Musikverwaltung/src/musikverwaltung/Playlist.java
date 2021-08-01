@@ -18,8 +18,17 @@ public class Playlist {
 		this.pl_name = pl_name;
 		playlist = new ArrayList<Titel>();
 		
+		all_pl.add(this);
+		
+		
 	}
 
+	
+	
+	
+	
+	
+	
 	//Print Ausgaben
 	@Override
 	public String toString() {
@@ -35,7 +44,7 @@ public class Playlist {
 		}
 	}
 	
-	//
+	//Playlist erstellen / Titel hinzufügen 
 	
 	public void add_Interpret(String Interpretname) {	
 	//temporärer zwichenspeicher um nach duplicaten zu überprüfen
@@ -50,7 +59,7 @@ public class Playlist {
 
 	}	
 	
-	add_playlist_to_db(this);
+	//add_playlist_to_db(this);
 	
 	}
 	
@@ -66,7 +75,7 @@ public class Playlist {
 			}
 
 		}
-		add_playlist_to_db(this);
+		//add_playlist_to_db(this);
 		
 	}
 	
@@ -83,32 +92,22 @@ public class Playlist {
 		}
 		
 		
-	add_playlist_to_db(this);	
+	//add_playlist_to_db(this);	
 	}
 	
 	//abstract void add_Jahrzehnt(int jahrzehnt) {}
 
 	
-	
-	private void add_playlist_to_db(Playlist a) {
+	static void drucke_alle_pl() {
+		System.out.println("Druck DB :\n");
 		
-	if(!(all_pl.contains(a))) {
-		
-		all_pl.add(a);
-		
-		
-	}else {
-		
-	all_pl.remove(a);
-	all_pl.add(a);
-		
-		
-	}	
-		
-		
-		
-		
+		for (int i = 0; i < all_pl.size(); i++) {
+			System.out.println((i+1) + " : " +  all_pl.get(i).toString());		
+		}
+		System.out.println("\nEnde Druck \n");
 	}
+	
+	
 	
 	
 	
