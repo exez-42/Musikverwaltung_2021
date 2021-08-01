@@ -6,6 +6,34 @@ import musikverwaltung.Titel;
 
 public class TitelDB {
 	static ArrayList<Titel> alleTitel = new ArrayList<Titel>();
+	//einzige Titeldatenbank
+	private static TitelDB Titeldatenbank;
+	
+	
+	
+	
+	//kontruktor muss private sein -> nur von klasse selbst aufrufbar 
+	private TitelDB() {}
+	
+	
+	//Konstruktor für die Main 
+	public static TitelDB erzeuge_TitelDB() {
+		
+		if(Titeldatenbank == null) {
+			
+			Titeldatenbank = new TitelDB();
+			return Titeldatenbank;
+		}
+		return Titeldatenbank;	
+	}
+	//ende
+	
+	
+	
+	
+	
+	
+	
 	
 	static void einf(Titel s) {
 		boolean enthalten = false;
