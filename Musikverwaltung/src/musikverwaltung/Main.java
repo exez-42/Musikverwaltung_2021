@@ -102,10 +102,19 @@ public class Main {
 		acdc.drucke_playlist();
 		druckePlaylist(acdc.getPlaylist());
 		
+		System.out.println("Anzahl Playlisten : " + Playlist.getAll_pl().size());
+
+		
+		
+		
+		
+		
 		//AUDIO TEST in Playlist Object
 		acdc.getPlaylist().get(0).player.select();
 
 		//AUDIOTEST ENDE
+		
+		
 		
 		
 		//Ende
