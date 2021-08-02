@@ -33,6 +33,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 @SuppressWarnings("serial")
 public class GUI extends JFrame {
 	
+	private JFrame verwaltung;
+	private JFrame playlistedit;
+	private JFrame playlistcreate;
+	private JFrame playlistdelete;
+	
 	private JFrame playlistedit;
 	private JPanel contentPane;
 	private JTextField textFieldname;
@@ -103,26 +108,40 @@ public class GUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mndatei = new JMenu("Datei");
+		menuBar.add(mndatei);
+		
+		JMenuItem mntmverwaltung = new JMenuItem("Verwaltungsmodus");
+		mndatei.add(mntmverwaltung);
+		
+		JMenu mnplaylisteditor = new JMenu("Playlist Editor");
+		menuBar.add(mnplaylisteditor);
+		
+		JMenuItem mntmcreate = new JMenuItem("Erstellen");
+		mnplaylisteditor.add(mntmcreate);
+		
+		JMenuItem mntmedit = new JMenuItem("Bearbeiten");
+		mnplaylisteditor.add(mntmedit);
+		
+		JMenuItem mntmdelete = new JMenuItem("Löschen");
+		mnplaylisteditor.add(mntmdelete);
+		
+		JMenuItem mntmbeenden = new JMenuItem("Beenden");
+		mndatei.add(mntmbeenden);
+		mntmbeenden.addActionListener(e->{System.exit(0);});
+		
 		JLabel lbplayback = new JLabel("Aktuelle Wiedergabe:");
 		lbplayback.setBounds(10, 26, 414, 14);
 		getContentPane().add(lbplayback);
-		
-		
-		
 		
 		JLabel lblsongisplaying = new JLabel();
 		lblsongisplaying.setHorizontalAlignment(SwingConstants.CENTER);
 		lblsongisplaying.setBounds(10, 51, 414, 14);
 		getContentPane().add(lblsongisplaying);
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		JButton btnback = new JButton("");
 		btnback.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Back.png")));
@@ -238,266 +257,256 @@ public class GUI extends JFrame {
 		lblplaylist.setBounds(10, 119, 414, 14);
 		contentPane.add(lblplaylist);
 		
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
 		
-		JMenu mndatei = new JMenu("Datei");
+		/**
+		 * Inhalt Verwaltungsmodus.
+		 */
+		
+		verwaltung = new JFrame();
+		verwaltung.getContentPane().setBackground(UIManager.getColor("TextField.inactiveBackground"));
+		verwaltung.setBounds(100, 100, 403, 551);
+		verwaltung.getContentPane().setLayout(null);
+		verwaltung.setVisible(false); 
+		verwaltung.setTitle("Verwaltungsmodus");
+				
+		menuBar = new JMenuBar();
+		verwaltung.setJMenuBar(menuBar);
+				
+		mndatei = new JMenu("Datei");
 		menuBar.add(mndatei);
+	
+		JMenuItem mntmbenutzer = new JMenuItem("Benutzermodus");
+		mndatei.add(mntmbenutzer);
+		mntmbenutzer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				verwaltung.setVisible(false); 
+				setVisible(true);
+				
+			}
+		});
 		
-		JMenuItem mntmverwaltung = new JMenuItem("Verwaltungsmodus");
-		mndatei.add(mntmverwaltung);
+		JLabel lbladd = new JLabel("Hinzuf\u00FCgen");
+		lbladd.setBounds(10, 11, 90, 14);
+		verwaltung.getContentPane().add(lbladd);
+		
+		JLabel lbldelete = new JLabel("Entfernen");
+		lbldelete.setBounds(10, 246, 57, 14);
+		verwaltung.getContentPane().add(lbldelete);
+		
+		JPanel paneladd = new JPanel();
+		paneladd.setBackground(UIManager.getColor("TextField.inactiveBackground"));
+		paneladd.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		paneladd.setBounds(10, 29, 367, 206);
+		verwaltung.getContentPane().add(paneladd);
+		paneladd.setLayout(null);
+		
+		JLabel lblname = new JLabel("Titel:");
+		lblname.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblname.setBounds(10, 23, 46, 14);
+		paneladd.add(lblname);
+		
+		JLabel lblartist = new JLabel("Interpret:");
+		lblartist.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblartist.setBounds(10, 54, 59, 14);
+		paneladd.add(lblartist);
+		
+		JLabel lblalbum = new JLabel("Album:");
+		lblalbum.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblalbum.setBounds(10, 85, 46, 14);
+		paneladd.add(lblalbum);
+		
+		JLabel lbldate = new JLabel("Erscheinungsjahr:");
+		lbldate.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lbldate.setBounds(9, 115, 100, 14);
+		paneladd.add(lbldate);
+		
+		JLabel lblgenre = new JLabel("Genre:");
+		lblgenre.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblgenre.setBounds(10, 143, 46, 14);
+		paneladd.add(lblgenre);
+		
+		textFieldname = new JTextField();
+		textFieldname.setEditable(false);
+		textFieldname.setBounds(119, 20, 238, 20);
+		paneladd.add(textFieldname);
+		textFieldname.setColumns(10);
+		
+		textFieldartist = new JTextField();
+		textFieldartist.setEditable(false);
+		textFieldartist.setBounds(119, 51, 238, 20);
+		paneladd.add(textFieldartist);
+		textFieldartist.setColumns(10);
+		
+		textFieldalbum = new JTextField();
+		textFieldalbum.setEditable(false);
+		textFieldalbum.setBounds(119, 82, 238, 20);
+		paneladd.add(textFieldalbum);
+		textFieldalbum.setColumns(10);
+		
+		textFielddate = new JTextField();
+		textFielddate.setEditable(false);
+		textFielddate.setBounds(119, 112, 238, 20);
+		paneladd.add(textFielddate);
+		textFielddate.setColumns(10);
+		
+		textFieldgenre = new JTextField();
+		textFieldgenre.setEditable(false);
+		textFieldgenre.setBounds(119, 140, 238, 20);
+		paneladd.add(textFieldgenre);
+		textFieldgenre.setColumns(10);
+		
+		textFieldfile = new JTextField();
+		textFieldfile.setEditable(false);
+		textFieldfile.setBounds(119, 172, 111, 21);
+		paneladd.add(textFieldfile);
+		textFieldfile.setColumns(10);
+		
+		JButton btnaddfile = new JButton("Datei ausw\u00E4hlen");
+		btnaddfile.setBounds(10, 171, 99, 23);
+		paneladd.add(btnaddfile);
+		btnaddfile.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				// Erstellung unseres FileFilters für Bilddateien
+		        FileFilter filter = new FileNameExtensionFilter("Musik", "wav");      
+				JFileChooser chooser = new JFileChooser("C:/Beispieldatei");
+				chooser.addChoosableFileFilter(filter); 
+				chooser.setAcceptAllFileFilterUsed(false);
+				int rueckgabeWert = chooser.showOpenDialog(null);
+		 			if(rueckgabeWert == JFileChooser.APPROVE_OPTION)
+	        				{
+	             					// Ausgabe der ausgewaehlten Datei
+	            					System.out.println("Die zu öffnende Datei ist: " +
+	                 					chooser.getSelectedFile().getAbsoluteFile());
+	        				}
+    				}
+		});
+		
+		JButton btnaddsong = new JButton("Hinzuf\u00FCgen");
+		btnaddsong.setBounds(240, 171, 117, 23);
+		paneladd.add(btnaddsong);
+		
+		JPanel paneldelete = new JPanel();
+		paneldelete.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		paneldelete.setBackground(UIManager.getColor("TextField.inactiveBackground"));
+		paneldelete.setBounds(10, 264, 367, 216);
+		verwaltung.getContentPane().add(paneldelete);
+		paneldelete.setLayout(null);
+		
+		List listsongs = new List();
+		listsongs.setBounds(10, 18, 347, 130);
+		paneldelete.add(listsongs);
+		
+		JButton btndeletesong = new JButton("L\u00F6schen");
+		btndeletesong.setBounds(10, 154, 111, 23);
+		paneldelete.add(btndeletesong);
+		
+		JButton btnsearch = new JButton("Suchen");
+		btnsearch.setBounds(10, 188, 111, 23);
+		paneldelete.add(btnsearch);
+		
+		textFieldsearch = new JTextField();
+		textFieldsearch.setColumns(10);
+		textFieldsearch.setBounds(131, 189, 226, 20);
+		paneldelete.add(textFieldsearch);
+		
+		JButton btntitle = new JButton("Titel");
+		btntitle.setBounds(10, 5, 70, 12);
+		paneldelete.add(btntitle);
+		btntitle.setOpaque(false);
+		btntitle.setContentAreaFilled(false);
+		
+		JButton btnartist = new JButton("Interpr.");
+		btnartist.setBounds(80, 5, 70, 12);
+		paneldelete.add(btnartist);
+		btnartist.setOpaque(false);
+		btnartist.setContentAreaFilled(false);
+		
+		JButton btnalbum = new JButton("Album");
+		btnalbum.setBounds(149, 5, 70, 12);
+		paneldelete.add(btnalbum);
+		btnalbum.setOpaque(false);
+		btnalbum.setContentAreaFilled(false);
+		
+		JButton btnyear = new JButton("Jahr");
+		btnyear.setBounds(219, 5, 70, 12);
+		paneldelete.add(btnyear);
+		btnyear.setOpaque(false);
+		btnyear.setContentAreaFilled(false);
+		
+		JButton btngenre = new JButton("Genre");
+		btngenre.setBounds(287, 5, 70, 12);
+		paneldelete.add(btngenre);
+		btngenre.setOpaque(false);
+		btngenre.setContentAreaFilled(false);
+			
 		mntmverwaltung.addActionListener(new ActionListener() {
 			
-			/**
-			 * Inhalt Verwaltungsmodus.
-			 */
-			
 			public void actionPerformed(ActionEvent e) {
-				JFrame verwaltung = new JFrame();
-				verwaltung.getContentPane().setBackground(UIManager.getColor("TextField.inactiveBackground"));
-				verwaltung.setBounds(100, 100, 403, 551);
-				verwaltung.getContentPane().setLayout(null);
 				verwaltung.setVisible(true);
 				setVisible(false);
-				verwaltung.setTitle("Verwaltungsmodus");
-				
-				JMenuBar menuBar = new JMenuBar();
-				verwaltung.setJMenuBar(menuBar);
-				
-				JMenu mndatei = new JMenu("Datei");
-				menuBar.add(mndatei);
-				
-				JMenuItem mntmbenutzer = new JMenuItem("Benutzermodus");
-				mndatei.add(mntmbenutzer);
-				mntmbenutzer.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						verwaltung.setVisible(false); 
-						setVisible(true);
-						
-					}
-				});
-				
-				JLabel lbladd = new JLabel("Hinzuf\u00FCgen");
-				lbladd.setBounds(10, 11, 90, 14);
-				verwaltung.getContentPane().add(lbladd);
-				
-				JLabel lbldelete = new JLabel("Entfernen");
-				lbldelete.setBounds(10, 246, 57, 14);
-				verwaltung.getContentPane().add(lbldelete);
-				
-				JPanel paneladd = new JPanel();
-				paneladd.setBackground(UIManager.getColor("TextField.inactiveBackground"));
-				paneladd.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-				paneladd.setBounds(10, 29, 367, 206);
-				verwaltung.getContentPane().add(paneladd);
-				paneladd.setLayout(null);
-				
-				JLabel lblname = new JLabel("Titel:");
-				lblname.setFont(new Font("Tahoma", Font.BOLD, 11));
-				lblname.setBounds(10, 23, 46, 14);
-				paneladd.add(lblname);
-				
-				JLabel lblartist = new JLabel("Interpret:");
-				lblartist.setFont(new Font("Tahoma", Font.BOLD, 11));
-				lblartist.setBounds(10, 54, 59, 14);
-				paneladd.add(lblartist);
-				
-				JLabel lblalbum = new JLabel("Album:");
-				lblalbum.setFont(new Font("Tahoma", Font.BOLD, 11));
-				lblalbum.setBounds(10, 85, 46, 14);
-				paneladd.add(lblalbum);
-				
-				JLabel lbldate = new JLabel("Erscheinungsjahr:");
-				lbldate.setFont(new Font("Tahoma", Font.BOLD, 11));
-				lbldate.setBounds(9, 115, 100, 14);
-				paneladd.add(lbldate);
-				
-				JLabel lblgenre = new JLabel("Genre:");
-				lblgenre.setFont(new Font("Tahoma", Font.BOLD, 11));
-				lblgenre.setBounds(10, 143, 46, 14);
-				paneladd.add(lblgenre);
-				
-				textFieldname = new JTextField();
-				textFieldname.setEditable(false);
-				textFieldname.setBounds(119, 20, 238, 20);
-				paneladd.add(textFieldname);
-				textFieldname.setColumns(10);
-				
-				textFieldartist = new JTextField();
-				textFieldartist.setEditable(false);
-				textFieldartist.setBounds(119, 51, 238, 20);
-				paneladd.add(textFieldartist);
-				textFieldartist.setColumns(10);
-				
-				textFieldalbum = new JTextField();
-				textFieldalbum.setEditable(false);
-				textFieldalbum.setBounds(119, 82, 238, 20);
-				paneladd.add(textFieldalbum);
-				textFieldalbum.setColumns(10);
-				
-				textFielddate = new JTextField();
-				textFielddate.setEditable(false);
-				textFielddate.setBounds(119, 112, 238, 20);
-				paneladd.add(textFielddate);
-				textFielddate.setColumns(10);
-				
-				textFieldgenre = new JTextField();
-				textFieldgenre.setEditable(false);
-				textFieldgenre.setBounds(119, 140, 238, 20);
-				paneladd.add(textFieldgenre);
-				textFieldgenre.setColumns(10);
-				
-				textFieldfile = new JTextField();
-				textFieldfile.setEditable(false);
-				textFieldfile.setBounds(119, 172, 111, 21);
-				paneladd.add(textFieldfile);
-				textFieldfile.setColumns(10);
-				
-				JButton btnaddfile = new JButton("Datei ausw\u00E4hlen");
-				btnaddfile.setBounds(10, 171, 99, 23);
-				paneladd.add(btnaddfile);
-				btnaddfile.addActionListener(new ActionListener() {
-					
-					public void actionPerformed(ActionEvent arg0) {
-						// Erstellung unseres FileFilters für Bilddateien
-				        FileFilter filter = new FileNameExtensionFilter("Musik", "wav");      
-						JFileChooser chooser = new JFileChooser("C:/Beispieldatei");
-						chooser.addChoosableFileFilter(filter); 
-						chooser.setAcceptAllFileFilterUsed(false);
-						int rueckgabeWert = chooser.showOpenDialog(null);
-				 			if(rueckgabeWert == JFileChooser.APPROVE_OPTION)
-			        				{
-			             					// Ausgabe der ausgewaehlten Datei
-			            					System.out.println("Die zu öffnende Datei ist: " +
-			                 					chooser.getSelectedFile().getAbsoluteFile());
-			        				}
-		    				}
-				});
-				
-				JButton btnaddsong = new JButton("Hinzuf\u00FCgen");
-				btnaddsong.setBounds(240, 171, 117, 23);
-				paneladd.add(btnaddsong);
-				
-				JPanel paneldelete = new JPanel();
-				paneldelete.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-				paneldelete.setBackground(UIManager.getColor("TextField.inactiveBackground"));
-				paneldelete.setBounds(10, 264, 367, 216);
-				verwaltung.getContentPane().add(paneldelete);
-				paneldelete.setLayout(null);
-				
-				List listsongs = new List();
-				listsongs.setBounds(10, 18, 347, 130);
-				paneldelete.add(listsongs);
-				
-				JButton btndeletesong = new JButton("L\u00F6schen");
-				btndeletesong.setBounds(10, 154, 111, 23);
-				paneldelete.add(btndeletesong);
-				
-				JButton btnsearch = new JButton("Suchen");
-				btnsearch.setBounds(10, 188, 111, 23);
-				paneldelete.add(btnsearch);
-				
-				textFieldsearch = new JTextField();
-				textFieldsearch.setColumns(10);
-				textFieldsearch.setBounds(131, 189, 226, 20);
-				paneldelete.add(textFieldsearch);
-				
-				JButton btntitle = new JButton("Titel");
-				btntitle.setBounds(10, 5, 70, 12);
-				paneldelete.add(btntitle);
-				btntitle.setOpaque(false);
-				btntitle.setContentAreaFilled(false);
-				
-				JButton btnartist = new JButton("Interpr.");
-				btnartist.setBounds(80, 5, 70, 12);
-				paneldelete.add(btnartist);
-				btnartist.setOpaque(false);
-				btnartist.setContentAreaFilled(false);
-				
-				JButton btnalbum = new JButton("Album");
-				btnalbum.setBounds(149, 5, 70, 12);
-				paneldelete.add(btnalbum);
-				btnalbum.setOpaque(false);
-				btnalbum.setContentAreaFilled(false);
-				
-				JButton btnyear = new JButton("Jahr");
-				btnyear.setBounds(219, 5, 70, 12);
-				paneldelete.add(btnyear);
-				btnyear.setOpaque(false);
-				btnyear.setContentAreaFilled(false);
-				
-				JButton btngenre = new JButton("Genre");
-				btngenre.setBounds(287, 5, 70, 12);
-				paneldelete.add(btngenre);
-				btngenre.setOpaque(false);
-				btngenre.setContentAreaFilled(false);
+			}
+		});
+ 	
+		
+		/**
+		 * Inhalt Playlist Erstellen.
+		 */
+		
+		
+		playlistcreate = new JFrame();
+		playlistcreate.setVisible(false);
+		playlistcreate.setBounds(100, 100, 300, 166);
+		playlistcreate.setTitle("Playlist - Erstellen");
+		
+		menuBar = new JMenuBar();
+		playlistcreate.setJMenuBar(menuBar);
+		
+		JMenu mnplaylistwindow = new JMenu("Fenster");
+		menuBar.add(mnplaylistwindow);
+	
+		JMenuItem mntmclose = new JMenuItem("Schlie\u00DFen");
+		mnplaylistwindow.add(mntmclose);
+		mntmclose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				playlistcreate.setVisible(false);
 				}
 			});
-		 	
-		JMenuItem mntmbeenden = new JMenuItem("Beenden");
-		mndatei.add(mntmbeenden);
-		mntmbeenden.addActionListener(e->{System.exit(0);});
 		
-		JMenu mnplaylisteditor = new JMenu("Playlist Editor");
-		menuBar.add(mnplaylisteditor);
 		
-		JMenuItem mntmcreate = new JMenuItem("Erstellen");
-		mnplaylisteditor.add(mntmcreate);
-		mntmcreate.addActionListener(new ActionListener() {
-			
-			/**
-			 * Inhalt Playlist Erstellen.
-			 */
-			
+		contentPane = new JPanel();
+		contentPane.setBackground(UIManager.getColor("TextField.inactiveBackground"));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		playlistcreate.setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblplaylistname = new JLabel("Name eingeben:");
+		lblplaylistname.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblplaylistname.setBounds(10, 11, 99, 14);
+		contentPane.add(lblplaylistname);
+		
+		textFieldplaylistname = new JTextField();
+		textFieldplaylistname.setBounds(10, 36, 264, 20);
+		contentPane.add(textFieldplaylistname);
+		textFieldplaylistname.setColumns(10);
+		
+		JButton btncreateplaylist = new JButton("Erstellen");
+		btncreateplaylist.setBounds(10, 67, 105, 25);
+		contentPane.add(btncreateplaylist);
+		
+		JButton btncreatecategory = new JButton("Titel hinzuf\u00FCgen");
+		btncreatecategory.setBounds(125, 67, 149, 25);
+		contentPane.add(btncreatecategory);
+		btncreatecategory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame playlistcreate = new JFrame();
+				playlistedit.setVisible(true);
+			}
+		});
+		
+		mntmcreate.addActionListener(new ActionListener() {
+					
+			public void actionPerformed(ActionEvent e) {
 				playlistcreate.setVisible(true);
-				playlistcreate.setBounds(100, 100, 300, 166);
-				playlistcreate.setTitle("Playlist - Erstellen");
-				
-				JMenuBar menuBar = new JMenuBar();
-				playlistcreate.setJMenuBar(menuBar);
-				
-				JMenu mnplaylistwindow = new JMenu("Fenster");
-				menuBar.add(mnplaylistwindow);
-			
-				JMenuItem mntmclose = new JMenuItem("Schlie\u00DFen");
-				mnplaylistwindow.add(mntmclose);
-				mntmclose.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						playlistcreate.setVisible(false);
-						}
-					});
-				
-				
-				contentPane = new JPanel();
-				contentPane.setBackground(UIManager.getColor("TextField.inactiveBackground"));
-				contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-				playlistcreate.setContentPane(contentPane);
-				contentPane.setLayout(null);
-				
-				JLabel lblplaylistname = new JLabel("Name eingeben:");
-				lblplaylistname.setFont(new Font("Tahoma", Font.BOLD, 11));
-				lblplaylistname.setBounds(10, 11, 99, 14);
-				contentPane.add(lblplaylistname);
-				
-				textFieldplaylistname = new JTextField();
-				textFieldplaylistname.setBounds(10, 36, 264, 20);
-				contentPane.add(textFieldplaylistname);
-				textFieldplaylistname.setColumns(10);
-				
-				JButton btncreateplaylist = new JButton("Erstellen");
-				btncreateplaylist.setBounds(10, 67, 105, 25);
-				contentPane.add(btncreateplaylist);
-				
-				JButton btncreatecategory = new JButton("Titel hinzuf\u00FCgen");
-				btncreatecategory.setBounds(125, 67, 149, 25);
-				contentPane.add(btncreatecategory);
-				btncreatecategory.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						playlistedit.setVisible(true);
-					}
-				});
 			}
 		});
 		
@@ -506,7 +515,6 @@ public class GUI extends JFrame {
 		* Inhalt Playlist Bearbeiten.
 		*/
 		
-		JMenuItem mntmedit = new JMenuItem("Bearbeiten");
 		playlistedit = new JFrame();
 		playlistedit.setVisible(false);
 		playlistedit.setTitle("Playlist - Bearbeiten");
@@ -516,12 +524,11 @@ public class GUI extends JFrame {
 		playlistedit.setJMenuBar(menuBaredit);
 		
 		JMenu mnmnplaylistwindow = new JMenu("Fenster");
-		mnplaylisteditor.add(mntmedit);
 		menuBaredit.add(mnmnplaylistwindow);
 		
-		JMenuItem mntmclose = new JMenuItem("Schlie\u00DFen");
-		mnmnplaylistwindow.add(mntmclose);
-		mntmclose.addActionListener(new ActionListener() {
+		JMenuItem mntmclose1 = new JMenuItem("Schlie\u00DFen");
+		mnmnplaylistwindow.add(mntmclose1);
+		mntmclose1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				playlistedit.setVisible(false);
 			}
@@ -554,7 +561,7 @@ public class GUI extends JFrame {
 		btnaddtoplaylist.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Left.png")));
 		btnaddtoplaylist.setBounds(286, 108, 33, 23);
 		contentPane.add(btnaddtoplaylist);
-		
+			
 		JButton btndeletefromplaylist = new JButton("");
 		btndeletefromplaylist.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Right.png")));
 		btndeletefromplaylist.setBounds(286, 187, 33, 23);
@@ -566,9 +573,9 @@ public class GUI extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JButton btnsearch = new JButton("Manuelle Suche");
-		btnsearch.setBounds(372, 71, 135, 23);
-		panel.add(btnsearch);
+		JButton btnsearchedit = new JButton("Manuelle Suche");
+		btnsearchedit.setBounds(372, 71, 135, 23);
+		panel.add(btnsearchedit);
 		
 		textallsearch = new JTextField();
 		textallsearch.setBounds(322, 38, 239, 22);
@@ -667,56 +674,59 @@ public class GUI extends JFrame {
 		* Inhalt Playlist Löschen.
 		*/
 		
-		JMenuItem mntmdelete = new JMenuItem("L\u00F6schen");
-		mnplaylisteditor.add(mntmdelete);
+		
+		
+		playlistdelete = new JFrame();
+		playlistdelete.setVisible(false);
+		playlistdelete.setTitle("Playlist - L\u00F6schen");
+		playlistdelete.setBounds(100, 100, 400, 335);
+		
+		menuBar = new JMenuBar();
+		playlistdelete.setJMenuBar(menuBar);
+		
+		JMenu mnwindow = new JMenu("Fenster");
+		menuBar.add(mnwindow);
+		
+		JMenuItem mntmclose2 = new JMenuItem("Schlie\u00DFen");
+		mnwindow.add(mntmclose2);
+		mntmclose2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				playlistdelete.setVisible(false);
+				}
+			});
+		
+		contentPane = new JPanel();
+		contentPane.setBackground(UIManager.getColor("TextField.inactiveBackground"));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		playlistdelete.setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblplaylistdelete = new JLabel("Playlist ausw\u00E4hlen:");
+		lblplaylistdelete.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblplaylistdelete.setBounds(123, 22, 121, 18);
+		contentPane.add(lblplaylistdelete);
+		
+		JComboBox comboBoxplaylistdelete = new JComboBox();
+		comboBoxplaylistdelete.setBounds(54, 51, 267, 18);
+		contentPane.add(comboBoxplaylistdelete);
+		
+		List listdelete = new List();
+		listdelete.setBounds(10, 89, 364, 142);
+		contentPane.add(listdelete);
+		
+		JButton btnplaylistdelete = new JButton("Playlist entfernen");
+		btnplaylistdelete.setBounds(10, 242, 140, 23);
+		contentPane.add(btnplaylistdelete);
+		
+		JButton btnNewButton = new JButton("Playlist entfernen");
+		btnNewButton.setBounds(10, 242, 140, 23);
+		contentPane.add(btnNewButton);
+		
 		mntmdelete.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				JFrame playlistdelete = new JFrame();
+				
 				playlistdelete.setVisible(true);
-				playlistdelete.setTitle("Playlist - L\u00F6schen");
-				playlistdelete.setBounds(100, 100, 400, 335);
-				
-				JMenuBar menuBar = new JMenuBar();
-				playlistdelete.setJMenuBar(menuBar);
-				
-				JMenu mnwindow = new JMenu("Fenster");
-				menuBar.add(mnwindow);
-				
-				JMenuItem mntmclose = new JMenuItem("Schlie\u00DFen");
-				mnwindow.add(mntmclose);
-				mntmclose.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						playlistdelete.setVisible(false);
-						}
-					});
-				
-				contentPane = new JPanel();
-				contentPane.setBackground(UIManager.getColor("TextField.inactiveBackground"));
-				contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-				playlistdelete.setContentPane(contentPane);
-				contentPane.setLayout(null);
-				
-				JLabel lblplaylistdelete = new JLabel("Playlist ausw\u00E4hlen:");
-				lblplaylistdelete.setFont(new Font("Tahoma", Font.BOLD, 12));
-				lblplaylistdelete.setBounds(123, 22, 121, 18);
-				contentPane.add(lblplaylistdelete);
-				
-				JComboBox comboBoxplaylistdelete = new JComboBox();
-				comboBoxplaylistdelete.setBounds(54, 51, 267, 18);
-				contentPane.add(comboBoxplaylistdelete);
-				
-				List listdelete = new List();
-				listdelete.setBounds(10, 89, 364, 142);
-				contentPane.add(listdelete);
-				
-				JButton btnplaylistdelete = new JButton("Playlist entfernen");
-				btnplaylistdelete.setBounds(10, 242, 140, 23);
-				contentPane.add(btnplaylistdelete);
-				
-				JButton btnNewButton = new JButton("Playlist entfernen");
-				btnNewButton.setBounds(10, 242, 140, 23);
-				contentPane.add(btnNewButton);
 			}
 		});
 	}
