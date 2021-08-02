@@ -99,62 +99,8 @@ public class Main {
 		System.out.println(" - sort nach Name - ");
 		TitelDB.sortiere('n');
 		druckePlaylist(TitelDB.alleTitel);
-		//---------------------Playlist Test----------------------
-				System.out.println( "\n-----------PLaylist Test---------------"
-				+ "\nDrucke ACDC-Playlist(Playlist Objekt):");
-				
-				Playlist acdc = new Playlist("ACDC");
-				acdc.add_Interpret("AC/DC");
-				acdc.drucke_playlist();
-				druckePlaylist(acdc.getPlaylist());
-				
-				Playlist.drucke_alle_pl();
-				
-				
-				
-				System.out.println("\nZur gleichen Playlist Album 'Mandalo' hinzufügen ");
-				acdc.add_Album("Mandalo");
-				acdc.drucke_playlist();
-				druckePlaylist(acdc.getPlaylist());
-				
-				System.out.println("\nZur gleichen Playlist Album 'Back in Black' hinzufügen \nHier wird nichts hinzugefügt da alle ACDC titel bereits enthalten sind.");
-				acdc.add_Album("Back in Black");
-				acdc.drucke_playlist();
-				druckePlaylist(acdc.getPlaylist());
-				
-				System.out.println("\nZur gleichen Playlist Genre Jazz hinzufügen ");
-				acdc.add_genre("Jazz");
-				acdc.drucke_playlist();
-				druckePlaylist(acdc.getPlaylist());
-				
-				
-				Playlist pop = new Playlist("pop");
-				pop.add_genre("Pop");
-				
-				
-				
-				
-				
-				Playlist.drucke_alle_pl();
-				
-				
-				
-				System.out.println("Anzahl Playlisten : " + Playlist.getAll_pl().size());
-
-				
-				
-				
-				
-				
-				//AUDIO TEST in Playlist Object
-				acdc.getPlaylist().get(0).player.select();
-
-				//AUDIOTEST ENDE
-				
-				
-				
-				
-				//Ende
+	
+			
 		
 	}
 	
