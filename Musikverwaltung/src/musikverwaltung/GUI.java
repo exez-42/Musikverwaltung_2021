@@ -38,7 +38,7 @@ public class GUI extends JFrame {
 	private JFrame playlistcreate;
 	private JFrame playlistdelete;
 	
-	private JFrame playlistedit;
+	//private JFrame playlistedit;
 	private JPanel contentPane;
 	private JTextField textFieldname;
 	private JTextField textFieldartist;
@@ -78,7 +78,7 @@ public class GUI extends JFrame {
 			Playlist.get_playlist_wID("Sommer_Playlist").add_genre("Rock");
 			Playlist.create_Playlist("Sommernacht zu zweit");
 			Playlist.get_playlist_wID("Sommernacht zu zweit").add_Interpret("AC/DD");
-
+			System.out.println(Playlist.create_Playlist("Sommer_Playlist"));
 		
 		/*Ende
 		 * 
@@ -497,7 +497,36 @@ public class GUI extends JFrame {
 		JButton btncreatecategory = new JButton("Titel hinzuf\u00FCgen");
 		btncreatecategory.setBounds(125, 67, 149, 25);
 		contentPane.add(btncreatecategory);
+		/*LOGIK PLAYLIST hinzufügen
+		 * 
+		 * 
+		 * 
+		 */
+		
+		
+		
+		;
+		
+		btncreateplaylist.addActionListener(e-> { if(Playlist.create_Playlist(textFieldplaylistname.getText()) == true) {
+			
+			textFieldplaylistname.setText("Playlist wurde hinzugefügt");
+			
+		}else {textFieldplaylistname.setText("ERROR: Playlistname wurde bereits vergeben.Neuen Namen erforderlich!");}
+			
+			
+			
+		});
+		
+		
+		
+		
+		
 		btncreatecategory.addActionListener(new ActionListener() {
+		
+			
+			
+			
+			
 			public void actionPerformed(ActionEvent e) {
 				playlistedit.setVisible(true);
 			}
@@ -549,7 +578,7 @@ public class GUI extends JFrame {
 		lblNewLabel.setBounds(243, 10, 121, 18);
 		contentPane.add(lblNewLabel);
 		
-		JComboBox comboBoxeditplaylist = new JComboBox();
+		JComboBox comboBoxeditplaylist = new JComboBox(Playlist.get_all_plname_string());
 		comboBoxeditplaylist.setBounds(142, 39, 322, 18);
 		contentPane.add(comboBoxeditplaylist);
 		
@@ -593,6 +622,14 @@ public class GUI extends JFrame {
 		JButton btnaddall = new JButton("Alle hinzuf\u00FCgen");
 		btnaddall.setBounds(449, 147, 127, 23);
 		panel.add(btnaddall);
+		
+		//////test
+		
+		btnaddall.addActionListener(e-> Playlist.drucke_alle_pl());
+		
+		/////Test
+		
+		
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("Nach Interpret");
 		rdbtnNewRadioButton.setBounds(6, 54, 109, 23);
