@@ -38,6 +38,22 @@ public class Titel {
 		return (name + "; " + interpret + "; " + album + "; " + jahr + "; " + genre);
 	}
 
+	/*Liefert Anzeige für Titel im Player
+	 * 
+	 * 
+	 */
+	public String player_out() {
+		
+		
+		return (name + " - " + interpret);
+		
+		
+	}
+	
+	
+	
+	
+	
 	public String getName() {
 		return name;
 	}
