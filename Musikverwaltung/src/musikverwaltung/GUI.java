@@ -74,12 +74,10 @@ public class GUI extends JFrame {
 		TitelDB.einf(new Titel("Sommer Sonne Kaktus", "Helge Schneider", "Sommer auf Balkonien", 2013, "Pop","C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
 		
 			Playlist.create_Playlist("Sommer_Playlist");
-			Playlist.get_playlist_wID("Sommer_Playlist").add_Interpret("Helge Schneider");
 			Playlist.get_playlist_wID("Sommer_Playlist").add_genre("Rock");
 			Playlist.create_Playlist("Sommernacht zu zweit");
-			Playlist.get_playlist_wID("Sommernacht zu zweit").add_Interpret("AC/DD");
-			System.out.println(Playlist.create_Playlist("Sommer_Playlist"));
-		
+			Playlist.get_playlist_wID("Sommernacht zu zweit").add_Interpret("Helge Schneider");
+			
 		/*Ende
 		 * 
 		 * 
@@ -221,7 +219,8 @@ public class GUI extends JFrame {
 		 * repaint() damit neuer Titelname angezeigt wird
 		 */
 		btnback.addActionListener(e-> {Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track().player.stop(); 
-										Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).previos_track();});				
+										Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).previos_track();
+										});				
 										//repaint hinzufügen
 	
 				
@@ -507,11 +506,14 @@ public class GUI extends JFrame {
 		
 		;
 		
-		btncreateplaylist.addActionListener(e-> { if(Playlist.create_Playlist(textFieldplaylistname.getText()) == true) {
+		btncreateplaylist.addActionListener(e-> { 
+			boolean tmp = Playlist.create_Playlist(textFieldplaylistname.getText());
+			
+			if(tmp == true) {
 			
 			textFieldplaylistname.setText("Playlist wurde hinzugefügt");
 			
-		}else {textFieldplaylistname.setText("ERROR: Playlistname wurde bereits vergeben.Neuen Namen erforderlich!");}
+		}else {textFieldplaylistname.setText("ERROR: Playlistname bereits vergeben.");}
 			
 			
 			
