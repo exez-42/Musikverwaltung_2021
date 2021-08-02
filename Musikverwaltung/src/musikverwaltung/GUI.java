@@ -502,32 +502,23 @@ public class GUI extends JFrame {
 		 * 
 		 */
 		
-		
-		
-		;
-		
-		btncreateplaylist.addActionListener(e-> { 
-			boolean tmp = Playlist.create_Playlist(textFieldplaylistname.getText());
-			
-			if(tmp == true) {
-			
+		btncreateplaylist.addActionListener(new ActionListener() {
+			 
+			@SuppressWarnings({ "rawtypes", "unchecked" })
+			public void actionPerformed(ActionEvent e) {
+
+			if(Playlist.create_Playlist(textFieldplaylistname.getText()) == true) {
+
 			textFieldplaylistname.setText("Playlist wurde hinzugefügt");
-			
-		}else {textFieldplaylistname.setText("ERROR: Playlistname bereits vergeben.");}
-			
-			
-			
+			comboBoxplaylist.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
+
+			}else {textFieldplaylistname.setText("ERROR: Playlistname wurde bereits vergeben.Neuen Namen erforderlich!");}
+
+			}
 		});
 		
 		
-		
-		
-		
 		btncreatecategory.addActionListener(new ActionListener() {
-		
-			
-			
-			
 			
 			public void actionPerformed(ActionEvent e) {
 				playlistedit.setVisible(true);
