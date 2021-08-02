@@ -67,9 +67,10 @@ public class Playlist {
 	 */
 	static boolean create_Playlist(String pl_name) {
 	boolean name_vergeben = false;
+	
 	for(int i = 0; i < all_pl.size(); i++) {
-		
-	if(all_pl.get(i).getPl_name() == pl_name) {
+		String tmp = all_pl.get(i).getPl_name();
+	if(tmp.equals(pl_name)) {
 		
 		name_vergeben = true;
 		
@@ -89,7 +90,7 @@ public class Playlist {
 		new Playlist(pl_name);
 		return true;
 		
-		
+		 
 	}	
 	}
 
@@ -102,7 +103,7 @@ public class Playlist {
 		
 		for(int i = 0; i < all_pl.size(); i++) {
 			
-		if(all_pl.get(i).getPl_name() == pl_name) {
+		if(all_pl.get(i).getPl_name().equals(pl_name)) {
 			
 			return all_pl.get(i);
 		}
@@ -143,7 +144,7 @@ public class Playlist {
 		
 		for (int i = 0; i < all_pl.size(); i++) {
 			
-		if(all_pl.get(i).getPl_name() == pl_name) {return all_pl.get(i);}	
+		if(all_pl.get(i).getPl_name().equals(pl_name)) {return all_pl.get(i);}	
 			
 			
 			
