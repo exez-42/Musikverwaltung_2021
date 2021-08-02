@@ -257,7 +257,8 @@ public class GUI extends JFrame {
 				verwaltung.getContentPane().setBackground(UIManager.getColor("TextField.inactiveBackground"));
 				verwaltung.setBounds(100, 100, 403, 551);
 				verwaltung.getContentPane().setLayout(null);
-				verwaltung.setVisible(true); 
+				verwaltung.setVisible(true);
+				setVisible(false);
 				verwaltung.setTitle("Verwaltungsmodus");
 				
 				JMenuBar menuBar = new JMenuBar();
