@@ -678,7 +678,7 @@ public class GUI extends JFrame {
 				playlistdelete.setBounds(100, 100, 400, 335);
 				
 				JMenuBar menuBar = new JMenuBar();
-				setJMenuBar(menuBar);
+				playlistdelete.setJMenuBar(menuBar);
 				
 				JMenu mnwindow = new JMenu("Fenster");
 				menuBar.add(mnwindow);
