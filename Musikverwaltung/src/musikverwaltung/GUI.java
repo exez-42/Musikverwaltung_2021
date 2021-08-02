@@ -510,12 +510,6 @@ public class GUI extends JFrame {
 		playlistedit.setVisible(false);
 		playlistedit.setTitle("Playlist - Bearbeiten");
 		playlistedit.setBounds(100, 100, 622, 516);
-			
-		JMenuItem mntmedit = new JMenuItem("Bearbeiten");
-		playlistedit = new JFrame();
-		playlistedit.setVisible(false);
-		playlistedit.setTitle("Playlist - Bearbeiten");
-		playlistedit.setBounds(100, 100, 622, 516);
 		
 		JMenuBar menuBaredit = new JMenuBar();
 		playlistedit.setJMenuBar(menuBaredit);
