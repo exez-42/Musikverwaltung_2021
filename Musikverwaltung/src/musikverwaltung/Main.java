@@ -2,6 +2,9 @@ package musikverwaltung;
 
 import java.awt.EventQueue;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 import musikverwaltung.Titel;
 import musikverwaltung.TitelDB;
 
@@ -27,8 +30,6 @@ public class Main {
 			}
 		});
 	
-		
-	//----------------------------------------------------------------------------------------------------------------------------------
 		//singelton
 		TitelDB.erzeuge_TitelDB();
 		// fertig
@@ -166,19 +167,6 @@ public class Main {
 			playl.get(i).printMe();
 		}
 	}
-	
-
-}
-
-	//----------------------------------------------------------------------------------------------------------------------------------
-		
-	}
-	
-
-
-
-	
-	
 	
 
 }
