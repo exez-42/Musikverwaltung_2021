@@ -7,9 +7,12 @@ import java.awt.Panel;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -37,11 +40,54 @@ public class GUI extends JFrame {
 	private JTextField textFieldplaylistname;
 	private JTextField textField;
 	
+	
+	
+
 	/**
 	 * Inhalt Benutzermodus.
 	 */
 	
+	
+	
 	public GUI() {
+	
+		
+		/*Titel, TitelDB, Playlisten werden erstellt
+		 * 
+		 * 
+		 * 
+		 */
+		TitelDB.erzeuge_TitelDB();
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\2Pac-Changesft.Talent.wav"));
+		TitelDB.einf(new Titel("Thunderstruck", "AC/DD", "The Razors Edge", 1990, "Rock","C:\\Users\\charl\\OneDrive\\Desktop\\project\\Musikverwaltung\\musik_titel\\DieWoodys-FichtlsLied.wav"));
+		TitelDB.einf(new Titel("Sommer Sonne Kaktus", "Helge Schneider", "Sommer auf Balkonien", 2013, "Pop","C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
+		
+			Playlist.create_Playlist("Sommer_Playlist");
+			Playlist.get_playlist_wID("Sommer_Playlist").add_Interpret("Helge Schneider");
+			Playlist.get_playlist_wID("Sommer_Playlist").add_genre("Rock");
+			Playlist.create_Playlist("Sommernacht zu zweit");
+			Playlist.get_playlist_wID("Sommernacht zu zweit").add_Interpret("AC/DD");
+
+		
+		/*Ende
+		 * 
+		 * 
+		 * 
+		 */
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		setTitle("Benutzermodus");
 		setBackground(SystemColor.inactiveCaption);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,10 +101,22 @@ public class GUI extends JFrame {
 		lbplayback.setBounds(10, 26, 414, 14);
 		getContentPane().add(lbplayback);
 		
-		JLabel lblsongisplaying = new JLabel("Liste - Playlist - Song");
+		
+		
+		
+		JLabel lblsongisplaying = new JLabel();
 		lblsongisplaying.setHorizontalAlignment(SwingConstants.CENTER);
 		lblsongisplaying.setBounds(10, 51, 414, 14);
 		getContentPane().add(lblsongisplaying);
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		JButton btnback = new JButton("");
 		btnback.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Back.png")));
@@ -85,10 +143,90 @@ public class GUI extends JFrame {
 		btnfoward.setBounds(279, 76, 30, 25);
 		getContentPane().add(btnfoward);
 		
-		JComboBox<String> comboBoxplaylist = new JComboBox<String>();
+		
+		/*Logik Implementierung Benutzeroberfläsche
+		 * 
+		 * 
+		 */
+
+		/*ComboBox bekommt alle PlaylistNamen Übergeben
+		 * 
+		 */
+		JComboBox<String> comboBoxplaylist = new JComboBox<String>(Playlist.get_all_plname_string());
 		comboBoxplaylist.setBackground(SystemColor.window);
 		comboBoxplaylist.setBounds(10, 143, 414, 20);
 		getContentPane().add(comboBoxplaylist);
+		
+		
+		
+		/*ActionListener Benutzeroberfläsche
+		 * 
+		 * 
+		 */
+		
+		/*Playbutton bekommt aktuellen Track.player übergeben
+		 * + speichert diesen in der Hilfsvariable previos_track von Playlist ab um bei Playlist wechsel diesen stoppen zu können.
+		 * 
+		 */
+		btnplay.addActionListener(e-> {Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.play();
+										Playlist.set_previos_track((String)comboBoxplaylist.getSelectedItem()); });
+		
+		
+		/*Pausebutton wird player.pause() 
+		 * 
+		 */
+		btnpause.addActionListener(e->Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.pause());
+		btnstop.addActionListener(e-> Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.stop());
+		
+		
+		
+		/*Nächster Titel Track 
+		 * stopt laufenden Track 
+		 * lädt nächsten Track
+		 * repaint() damit neuer Titelname angezeigt wird
+		 */
+		btnfoward.addActionListener(e-> {Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track().player.stop(); 
+										Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).next_track();
+										repaint();});
+										//repaint hinzufügen
+		
+		/*letzter Titel Track 
+		 * stopt laufenden Track 
+		 * lädt letzten Track
+		 * repaint() damit neuer Titelname angezeigt wird
+		 */
+		btnback.addActionListener(e-> {Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track().player.stop(); 
+										Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).previos_track();});				
+										//repaint hinzufügen
+	
+				
+		/*Titelanzeige
+		 * 
+		 */
+		lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
+		
+	
+		/*Bei neuer playlist auswahl wird laufender Track aus "alter" Playlist gestoppt.
+		 * -> mit  der Hilfsvariable previos_track aus Playlist.
+		 */
+		comboBoxplaylist.addActionListener(e-> Playlist.get_current_playlist(Playlist.get_previos_track()).get_current_track().player.stop());                                 
+		
+		
+		
+		/*Logik Ende
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 */
+		
+
+		
+		
 		
 		JLabel lblplaylist = new JLabel("Aktuelle Playlist:");
 		lblplaylist.setBounds(10, 119, 414, 14);
