@@ -25,11 +25,15 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.UIManager;
+import javax.swing.ButtonGroup;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 @SuppressWarnings("serial")
 public class GUI extends JFrame {
-
+	
+	private JFrame playlistedit;
 	private JPanel contentPane;
 	private JTextField textFieldname;
 	private JTextField textFieldartist;
@@ -38,7 +42,9 @@ public class GUI extends JFrame {
 	private JTextField textFieldgenre;
 	private JTextField textFieldsearch;
 	private JTextField textFieldplaylistname;
-	private JTextField textField;
+	private JTextField textallsearch;
+	private JTextField textFieldfile;
+	
 	
 	
 	
@@ -239,6 +245,7 @@ public class GUI extends JFrame {
 		menuBar.add(mndatei);
 		
 		JMenuItem mntmverwaltung = new JMenuItem("Verwaltungsmodus");
+		mndatei.add(mntmverwaltung);
 		mntmverwaltung.addActionListener(new ActionListener() {
 			
 			/**
@@ -250,7 +257,6 @@ public class GUI extends JFrame {
 				verwaltung.getContentPane().setBackground(UIManager.getColor("TextField.inactiveBackground"));
 				verwaltung.setBounds(100, 100, 403, 551);
 				verwaltung.getContentPane().setLayout(null);
-				setVisible(false);
 				verwaltung.setVisible(true); 
 				verwaltung.setTitle("Verwaltungsmodus");
 				
@@ -261,6 +267,7 @@ public class GUI extends JFrame {
 				menuBar.add(mndatei);
 				
 				JMenuItem mntmbenutzer = new JMenuItem("Benutzermodus");
+				mndatei.add(mntmbenutzer);
 				mntmbenutzer.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						verwaltung.setVisible(false); 
@@ -268,7 +275,6 @@ public class GUI extends JFrame {
 						
 					}
 				});
-				mndatei.add(mntmbenutzer);
 				
 				JLabel lbladd = new JLabel("Hinzuf\u00FCgen");
 				lbladd.setBounds(10, 11, 90, 14);
@@ -340,12 +346,23 @@ public class GUI extends JFrame {
 				paneladd.add(textFieldgenre);
 				textFieldgenre.setColumns(10);
 				
-				JButton btnaddfile = new JButton("Datei ausw\u00E4hlen");
-				btnaddfile.addActionListener(new ActionListener() {
-			
-					public void actionPerformed(ActionEvent arg0) {
+				textFieldfile = new JTextField();
+				textFieldfile.setEditable(false);
+				textFieldfile.setBounds(119, 172, 111, 21);
+				paneladd.add(textFieldfile);
+				textFieldfile.setColumns(10);
 				
-						JFileChooser chooser = new JFileChooser();
+				JButton btnaddfile = new JButton("Datei ausw\u00E4hlen");
+				btnaddfile.setBounds(10, 171, 99, 23);
+				paneladd.add(btnaddfile);
+				btnaddfile.addActionListener(new ActionListener() {
+					
+					public void actionPerformed(ActionEvent arg0) {
+						// Erstellung unseres FileFilters für Bilddateien
+				        FileFilter filter = new FileNameExtensionFilter("Musik", "wav");      
+						JFileChooser chooser = new JFileChooser("C:/Beispieldatei");
+						chooser.addChoosableFileFilter(filter); 
+						chooser.setAcceptAllFileFilterUsed(false);
 						int rueckgabeWert = chooser.showOpenDialog(null);
 				 			if(rueckgabeWert == JFileChooser.APPROVE_OPTION)
 			        				{
@@ -355,9 +372,6 @@ public class GUI extends JFrame {
 			        				}
 		    				}
 				});
-				
-				btnaddfile.setBounds(119, 172, 111, 23);
-				paneladd.add(btnaddfile);
 				
 				JButton btnaddsong = new JButton("Hinzuf\u00FCgen");
 				btnaddsong.setBounds(240, 171, 117, 23);
@@ -371,7 +385,7 @@ public class GUI extends JFrame {
 				paneldelete.setLayout(null);
 				
 				List listsongs = new List();
-				listsongs.setBounds(10, 10, 347, 138);
+				listsongs.setBounds(10, 18, 347, 130);
 				paneldelete.add(listsongs);
 				
 				JButton btndeletesong = new JButton("L\u00F6schen");
@@ -386,10 +400,39 @@ public class GUI extends JFrame {
 				textFieldsearch.setColumns(10);
 				textFieldsearch.setBounds(131, 189, 226, 20);
 				paneldelete.add(textFieldsearch);
+				
+				JButton btntitle = new JButton("Titel");
+				btntitle.setBounds(10, 5, 70, 12);
+				paneldelete.add(btntitle);
+				btntitle.setOpaque(false);
+				btntitle.setContentAreaFilled(false);
+				
+				JButton btnartist = new JButton("Interpr.");
+				btnartist.setBounds(80, 5, 70, 12);
+				paneldelete.add(btnartist);
+				btnartist.setOpaque(false);
+				btnartist.setContentAreaFilled(false);
+				
+				JButton btnalbum = new JButton("Album");
+				btnalbum.setBounds(149, 5, 70, 12);
+				paneldelete.add(btnalbum);
+				btnalbum.setOpaque(false);
+				btnalbum.setContentAreaFilled(false);
+				
+				JButton btnyear = new JButton("Jahr");
+				btnyear.setBounds(219, 5, 70, 12);
+				paneldelete.add(btnyear);
+				btnyear.setOpaque(false);
+				btnyear.setContentAreaFilled(false);
+				
+				JButton btngenre = new JButton("Genre");
+				btngenre.setBounds(287, 5, 70, 12);
+				paneldelete.add(btngenre);
+				btngenre.setOpaque(false);
+				btngenre.setContentAreaFilled(false);
 				}
 			});
-		mndatei.add(mntmverwaltung); 
-			
+		 	
 		JMenuItem mntmbeenden = new JMenuItem("Beenden");
 		mndatei.add(mntmbeenden);
 		mntmbeenden.addActionListener(e->{System.exit(0);});
@@ -398,6 +441,7 @@ public class GUI extends JFrame {
 		menuBar.add(mnplaylisteditor);
 		
 		JMenuItem mntmcreate = new JMenuItem("Erstellen");
+		mnplaylisteditor.add(mntmcreate);
 		mntmcreate.addActionListener(new ActionListener() {
 			
 			/**
@@ -407,7 +451,7 @@ public class GUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JFrame playlistcreate = new JFrame();
 				playlistcreate.setVisible(true);
-				playlistcreate.setBounds(100, 100, 300, 279);
+				playlistcreate.setBounds(100, 100, 300, 166);
 				playlistcreate.setTitle("Playlist - Erstellen");
 				
 				JMenuBar menuBar = new JMenuBar();
@@ -437,7 +481,7 @@ public class GUI extends JFrame {
 				contentPane.add(lblplaylistname);
 				
 				textFieldplaylistname = new JTextField();
-				textFieldplaylistname.setBounds(10, 36, 250, 20);
+				textFieldplaylistname.setBounds(10, 36, 264, 20);
 				contentPane.add(textFieldplaylistname);
 				textFieldplaylistname.setColumns(10);
 				
@@ -445,174 +489,192 @@ public class GUI extends JFrame {
 				btncreateplaylist.setBounds(10, 67, 105, 25);
 				contentPane.add(btncreateplaylist);
 				
-				JButton btncreatecategory = new JButton("Nach Kategorie erstellen");
-				btncreatecategory.setBounds(10, 181, 180, 25);
+				JButton btncreatecategory = new JButton("Titel hinzuf\u00FCgen");
+				btncreatecategory.setBounds(125, 67, 149, 25);
 				contentPane.add(btncreatecategory);
-				
-				@SuppressWarnings("rawtypes")
-				JComboBox comboBox = new JComboBox();
-				comboBox.setBounds(10, 113, 180, 23);
-				contentPane.add(comboBox);
-				
-				@SuppressWarnings("rawtypes")
-				JComboBox comboBox_1 = new JComboBox();
-				comboBox_1.setBounds(10, 147, 180, 23);
-				contentPane.add(comboBox_1);
+				btncreatecategory.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						playlistedit.setVisible(true);
+					}
+				});
 			}
 		});
-		mnplaylisteditor.add(mntmcreate);
+		
+		
+		/**
+		* Inhalt Playlist Bearbeiten.
+		*/
 		
 		JMenuItem mntmedit = new JMenuItem("Bearbeiten");
-		mntmedit.addActionListener(new ActionListener() {
+		playlistedit = new JFrame();
+		playlistedit.setVisible(false);
+		playlistedit.setTitle("Playlist - Bearbeiten");
+		playlistedit.setBounds(100, 100, 622, 516);
 			
-			/**
-			 * Inhalt Playlist Bearbeiten.
-			 */
-			
+		JMenuItem mntmedit = new JMenuItem("Bearbeiten");
+		playlistedit = new JFrame();
+		playlistedit.setVisible(false);
+		playlistedit.setTitle("Playlist - Bearbeiten");
+		playlistedit.setBounds(100, 100, 622, 516);
+		
+		JMenuBar menuBaredit = new JMenuBar();
+		playlistedit.setJMenuBar(menuBaredit);
+		
+		JMenu mnmnplaylistwindow = new JMenu("Fenster");
+		mnplaylisteditor.add(mntmedit);
+		menuBaredit.add(mnmnplaylistwindow);
+		
+		JMenuItem mntmclose = new JMenuItem("Schlie\u00DFen");
+		mnmnplaylistwindow.add(mntmclose);
+		mntmclose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame playlistedit = new JFrame();
-				playlistedit.setVisible(true);
-				playlistedit.setTitle("Playlist - Bearbeiten");
-				playlistedit.setBounds(100, 100, 622, 516);
-				
-				JMenuBar menuBar = new JMenuBar();
-				playlistedit.setJMenuBar(menuBar);
-				
-				JMenu mnmnplaylistwindow = new JMenu("Fenster");
-				menuBar.add(mnmnplaylistwindow);
-				
-				JMenuItem mntmclose = new JMenuItem("Schlie\u00DFen");
-				mnmnplaylistwindow.add(mntmclose);
-				mntmclose.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						playlistedit.setVisible(false);
-						}
-					});
-				
-				contentPane = new JPanel();
-				contentPane.setBackground(UIManager.getColor("TextField.inactiveBackground"));
-				contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-				playlistedit.setContentPane(contentPane);
-				contentPane.setLayout(null);
-				
-				List list = new List();
-				list.setBounds(10, 88, 270, 140);
-				contentPane.add(list);
-				
-				JLabel lblNewLabel = new JLabel("Playlist ausw\u00E4hlen:");
-				lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-				lblNewLabel.setBounds(243, 10, 121, 18);
-				contentPane.add(lblNewLabel);
-				
-				@SuppressWarnings("rawtypes")
-				JComboBox comboBox = new JComboBox();
-				comboBox.setBounds(142, 39, 322, 18);
-				contentPane.add(comboBox);
-				
-				List list_1 = new List();
-				list_1.setBounds(326, 88, 270, 140);
-				contentPane.add(list_1);
-				
-				JButton btnNewButton = new JButton("");
-				btnNewButton.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Left.png")));
-				btnNewButton.setBounds(286, 108, 33, 23);
-				contentPane.add(btnNewButton);
-				
-				JButton btnNewButton_1 = new JButton("");
-				btnNewButton_1.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Right.png")));
-				btnNewButton_1.setBounds(286, 187, 33, 23);
-				contentPane.add(btnNewButton_1);
-				
-				JPanel panel = new JPanel();
-				panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-				panel.setBounds(10, 264, 586, 181);
-				contentPane.add(panel);
-				panel.setLayout(null);
-				
-				JButton btnNewButton_2 = new JButton("Manuelle Suche");
-				btnNewButton_2.setBounds(441, 54, 135, 23);
-				panel.add(btnNewButton_2);
-				
-				textField = new JTextField();
-				textField.setBounds(337, 22, 239, 22);
-				panel.add(textField);
-				textField.setColumns(10);
-				
-				@SuppressWarnings("rawtypes")
-				JComboBox comboBox_1 = new JComboBox();
-				comboBox_1.setBounds(337, 88, 239, 20);
-				panel.add(comboBox_1);
-				
-				JButton btnNewButton_4 = new JButton("Filter anwenden");
-				btnNewButton_4.setBounds(441, 119, 135, 23);
-				panel.add(btnNewButton_4);
-				
-				JButton btnNewButton_5 = new JButton("Zur\u00FCcksetzen");
-				btnNewButton_5.setBounds(441, 147, 135, 23);
-				panel.add(btnNewButton_5);
-				
-				JRadioButton rdbtnNewRadioButton = new JRadioButton("Nach Interpret");
-				rdbtnNewRadioButton.setBounds(6, 54, 109, 23);
-				panel.add(rdbtnNewRadioButton);
-				
-				JRadioButton rdbtnNach = new JRadioButton("Nach Titel");
-				rdbtnNach.setSelected(true);
-				rdbtnNach.setBounds(6, 22, 109, 23);
-				panel.add(rdbtnNach);
-				
-				JRadioButton rdbtnAufsteigend = new JRadioButton("Aufsteigend");
-				rdbtnAufsteigend.setSelected(true);
-				rdbtnAufsteigend.setBounds(146, 67, 109, 23);
-				panel.add(rdbtnAufsteigend);
-				
-				JRadioButton rdbtnAbsteigend = new JRadioButton("Absteigend");
-				rdbtnAbsteigend.setBounds(146, 93, 109, 23);
-				panel.add(rdbtnAbsteigend);
-				
-				JRadioButton rdbtnNachAlbum = new JRadioButton("Nach Album");
-				rdbtnNachAlbum.setBounds(6, 87, 109, 23);
-				panel.add(rdbtnNachAlbum);
-				
-				JRadioButton rdbtnNachErscheinungsjahr = new JRadioButton("Nach Erscheinungsjahr");
-				rdbtnNachErscheinungsjahr.setBounds(6, 119, 135, 23);
-				panel.add(rdbtnNachErscheinungsjahr);
-				
-				JRadioButton rdbtnNachGenre = new JRadioButton("Nach Genre");
-				rdbtnNachGenre.setBounds(6, 147, 135, 23);
-				panel.add(rdbtnNachGenre);
-				
-				Panel panel_1 = new Panel();
-				panel_1.setBackground(UIManager.getColor("TextField.foreground"));
-				panel_1.setBounds(289, 0, 3, 181);
-				panel.add(panel_1);
-				
-				JLabel lblNewLabel_1 = new JLabel("Sotieren:");
-				lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-				lblNewLabel_1.setBounds(10, 246, 81, 14);
-				contentPane.add(lblNewLabel_1);
-				
-				JLabel lblNewLabel_2 = new JLabel("Playlist");
-				lblNewLabel_2.setBounds(115, 68, 46, 14);
-				contentPane.add(lblNewLabel_2);
-				
-				JLabel lblNewLabel_3 = new JLabel("Song Bibliothek");
-				lblNewLabel_3.setBounds(418, 68, 93, 14);
-				contentPane.add(lblNewLabel_3);
-				
-				JLabel lblNewLabel_1_1 = new JLabel("Suchen:");
-				lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-				lblNewLabel_1_1.setBounds(304, 246, 81, 14);
-				contentPane.add(lblNewLabel_1_1);
+				playlistedit.setVisible(false);
 			}
 		});
-		mnplaylisteditor.add(mntmedit);
+		
+		contentPane = new JPanel();
+		contentPane.setBackground(UIManager.getColor("TextField.inactiveBackground"));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		playlistedit.setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		List listplaylist = new List();
+		listplaylist.setBounds(10, 88, 270, 140);
+		contentPane.add(listplaylist);
+		
+		JLabel lblNewLabel = new JLabel("Playlist ausw\u00E4hlen:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel.setBounds(243, 10, 121, 18);
+		contentPane.add(lblNewLabel);
+		
+		JComboBox comboBoxeditplaylist = new JComboBox();
+		comboBoxeditplaylist.setBounds(142, 39, 322, 18);
+		contentPane.add(comboBoxeditplaylist);
+		
+		List listall = new List();
+		listall.setBounds(326, 88, 270, 140);
+		contentPane.add(listall);
+		
+		JButton btnaddtoplaylist = new JButton("");
+		btnaddtoplaylist.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Left.png")));
+		btnaddtoplaylist.setBounds(286, 108, 33, 23);
+		contentPane.add(btnaddtoplaylist);
+		
+		JButton btndeletefromplaylist = new JButton("");
+		btndeletefromplaylist.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Right.png")));
+		btndeletefromplaylist.setBounds(286, 187, 33, 23);
+		contentPane.add(btndeletefromplaylist);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel.setBounds(10, 264, 586, 181);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JButton btnsearch = new JButton("Manuelle Suche");
+		btnsearch.setBounds(372, 71, 135, 23);
+		panel.add(btnsearch);
+		
+		textallsearch = new JTextField();
+		textallsearch.setBounds(322, 38, 239, 22);
+		panel.add(textallsearch);
+		textallsearch.setColumns(10);
+		
+		JComboBox comboBoxfilter1 = new JComboBox();
+		comboBoxfilter1.setBounds(322, 120, 117, 20);
+		panel.add(comboBoxfilter1);
+		
+		JButton btnapplyfilter = new JButton("Filter anwenden");
+		btnapplyfilter.setBounds(449, 119, 127, 23);
+		panel.add(btnapplyfilter);
+		
+		JButton btnaddall = new JButton("Alle hinzuf\u00FCgen");
+		btnaddall.setBounds(449, 147, 127, 23);
+		panel.add(btnaddall);
+		
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("Nach Interpret");
+		rdbtnNewRadioButton.setBounds(6, 54, 109, 23);
+		panel.add(rdbtnNewRadioButton);
+		
+		JRadioButton rdbtnNach = new JRadioButton("Nach Titel");
+		rdbtnNach.setSelected(true);
+		rdbtnNach.setBounds(6, 22, 109, 23);
+		panel.add(rdbtnNach);
+		
+		JRadioButton rdbtnNachAlbum = new JRadioButton("Nach Album");
+		rdbtnNachAlbum.setBounds(6, 87, 109, 23);
+		panel.add(rdbtnNachAlbum);	
+		
+		JRadioButton rdbtnNachErscheinungsjahr = new JRadioButton("Nach Erscheinungsjahr");
+		rdbtnNachErscheinungsjahr.setBounds(6, 119, 135, 23);
+		panel.add(rdbtnNachErscheinungsjahr);
+		
+		JRadioButton rdbtnNachGenre = new JRadioButton("Nach Genre");
+		rdbtnNachGenre.setBounds(6, 147, 135, 23);
+		panel.add(rdbtnNachGenre);
+		
+		JRadioButton rdbtnAufsteigend = new JRadioButton("Aufsteigend");
+		rdbtnAufsteigend.setSelected(true);
+		rdbtnAufsteigend.setBounds(146, 67, 109, 23);
+		panel.add(rdbtnAufsteigend);
+		
+		JRadioButton rdbtnAbsteigend = new JRadioButton("Absteigend");
+		rdbtnAbsteigend.setBounds(146, 93, 109, 23);
+		panel.add(rdbtnAbsteigend);
+		
+		//Grupppierung fuer die radio buttons 
+		ButtonGroup groupleft = new ButtonGroup();
+		groupleft.add(rdbtnNewRadioButton);
+		groupleft.add(rdbtnNach);
+		groupleft.add(rdbtnNachAlbum);
+		groupleft.add(rdbtnNachErscheinungsjahr);
+		groupleft.add(rdbtnNachGenre);
+		ButtonGroup groupright = new ButtonGroup();
+		groupright.add(rdbtnAufsteigend);
+		groupright.add(rdbtnAbsteigend);
+		
+		Panel panel_1 = new Panel();
+		panel_1.setBackground(UIManager.getColor("TextField.foreground"));
+		panel_1.setBounds(289, 0, 3, 181);
+		panel.add(panel_1);
+		
+		JComboBox comboBoxfilter2 = new JComboBox();
+		comboBoxfilter2.setBounds(322, 148, 117, 20);
+		panel.add(comboBoxfilter2);
+		
+		JLabel lblNewLabel_1 = new JLabel("Sotieren:");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_1.setBounds(10, 246, 81, 14);
+		contentPane.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Playlist");
+		lblNewLabel_2.setBounds(115, 68, 46, 14);
+		contentPane.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("Song Bibliothek");
+		lblNewLabel_3.setBounds(418, 68, 93, 14);
+		contentPane.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("Suchen:");
+		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_1_1.setBounds(304, 246, 81, 14);
+		contentPane.add(lblNewLabel_1_1);
+		mntmedit.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				playlistedit.setVisible(true);
+			}
+		});
+			
+		
+		
+		/**
+		* Inhalt Playlist Löschen.
+		*/
 		
 		JMenuItem mntmdelete = new JMenuItem("L\u00F6schen");
+		mnplaylisteditor.add(mntmdelete);
 		mntmdelete.addActionListener(new ActionListener() {
-			
-			/**
-			 * Inhalt Playlist Löschen.
-			 */
 			
 			public void actionPerformed(ActionEvent e) {
 				JFrame playlistdelete = new JFrame();
@@ -621,7 +683,7 @@ public class GUI extends JFrame {
 				playlistdelete.setBounds(100, 100, 400, 335);
 				
 				JMenuBar menuBar = new JMenuBar();
-				playlistdelete.setJMenuBar(menuBar);
+				setJMenuBar(menuBar);
 				
 				JMenu mnwindow = new JMenu("Fenster");
 				menuBar.add(mnwindow);
@@ -640,25 +702,27 @@ public class GUI extends JFrame {
 				playlistdelete.setContentPane(contentPane);
 				contentPane.setLayout(null);
 				
-				JLabel lblNewLabel = new JLabel("Playlist ausw\u00E4hlen:");
-				lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-				lblNewLabel.setBounds(123, 22, 121, 18);
-				contentPane.add(lblNewLabel);
+				JLabel lblplaylistdelete = new JLabel("Playlist ausw\u00E4hlen:");
+				lblplaylistdelete.setFont(new Font("Tahoma", Font.BOLD, 12));
+				lblplaylistdelete.setBounds(123, 22, 121, 18);
+				contentPane.add(lblplaylistdelete);
 				
-				@SuppressWarnings("rawtypes")
-				JComboBox comboBox = new JComboBox();
-				comboBox.setBounds(54, 51, 267, 18);
-				contentPane.add(comboBox);
+				JComboBox comboBoxplaylistdelete = new JComboBox();
+				comboBoxplaylistdelete.setBounds(54, 51, 267, 18);
+				contentPane.add(comboBoxplaylistdelete);
 				
-				List list = new List();
-				list.setBounds(10, 89, 364, 142);
-				contentPane.add(list);
+				List listdelete = new List();
+				listdelete.setBounds(10, 89, 364, 142);
+				contentPane.add(listdelete);
+				
+				JButton btnplaylistdelete = new JButton("Playlist entfernen");
+				btnplaylistdelete.setBounds(10, 242, 140, 23);
+				contentPane.add(btnplaylistdelete);
 				
 				JButton btnNewButton = new JButton("Playlist entfernen");
 				btnNewButton.setBounds(10, 242, 140, 23);
 				contentPane.add(btnNewButton);
 			}
 		});
-		mnplaylisteditor.add(mntmdelete);
 	}
 }
