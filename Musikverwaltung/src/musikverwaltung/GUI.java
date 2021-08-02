@@ -326,31 +326,31 @@ public class GUI extends JFrame {
 		paneladd.add(lblgenre);
 		
 		textFieldname = new JTextField();
-		textFieldname.setEditable(false);
+		textFieldname.setEditable(true);
 		textFieldname.setBounds(119, 20, 238, 20);
 		paneladd.add(textFieldname);
 		textFieldname.setColumns(10);
 		
 		textFieldartist = new JTextField();
-		textFieldartist.setEditable(false);
+		textFieldartist.setEditable(true);
 		textFieldartist.setBounds(119, 51, 238, 20);
 		paneladd.add(textFieldartist);
 		textFieldartist.setColumns(10);
 		
 		textFieldalbum = new JTextField();
-		textFieldalbum.setEditable(false);
+		textFieldalbum.setEditable(true);
 		textFieldalbum.setBounds(119, 82, 238, 20);
 		paneladd.add(textFieldalbum);
 		textFieldalbum.setColumns(10);
 		
 		textFielddate = new JTextField();
-		textFielddate.setEditable(false);
+		textFielddate.setEditable(true);
 		textFielddate.setBounds(119, 112, 238, 20);
 		paneladd.add(textFielddate);
 		textFielddate.setColumns(10);
 		
 		textFieldgenre = new JTextField();
-		textFieldgenre.setEditable(false);
+		textFieldgenre.setEditable(true);
 		textFieldgenre.setBounds(119, 140, 238, 20);
 		paneladd.add(textFieldgenre);
 		textFieldgenre.setColumns(10);
