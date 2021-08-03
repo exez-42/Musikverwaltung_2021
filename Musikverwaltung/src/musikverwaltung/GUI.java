@@ -2,7 +2,6 @@ package musikverwaltung;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.List;
 import java.awt.Panel;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -461,7 +460,8 @@ public class GUI extends JFrame {
 		verwaltung.getContentPane().add(paneldelete);
 		paneldelete.setLayout(null);
 		
-		List listsongs = new List();
+		JList listsongs = new JList();
+		listsongs.setBorder(BorderFactory.createLineBorder(Color.black));
 		listsongs.setBounds(10, 18, 347, 130);
 		paneldelete.add(listsongs);
 		
@@ -669,17 +669,14 @@ public class GUI extends JFrame {
 		
 		JList listplaylist = new JList();
 		
-		
+	
 		if(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()) == null) {
-			
-			
-			
-		}else {				listplaylist.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());		}
+		
+				
+		}else {	listplaylist.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());	}
 		
 		
-		
-		
-		
+		listplaylist.setBorder(BorderFactory.createLineBorder(Color.black));
 		listplaylist.setBounds(10, 88, 270, 140);
 		contentPane.add(listplaylist);
 		
@@ -703,7 +700,8 @@ public class GUI extends JFrame {
 		
 		
 		
-		List listall = new List();
+		JList listall = new JList();
+		listall.setBorder(BorderFactory.createLineBorder(Color.black));
 		listall.setBounds(326, 88, 270, 140);
 		contentPane.add(listall);
 		
@@ -862,7 +860,8 @@ public class GUI extends JFrame {
 		comboBoxplaylistdelete.setBounds(54, 51, 267, 18);
 		contentPane.add(comboBoxplaylistdelete);
 		
-		List listdelete = new List();
+		JList listdelete = new JList();
+		listdelete.setBorder(BorderFactory.createLineBorder(Color.black));
 		listdelete.setBounds(10, 89, 364, 142);
 		contentPane.add(listdelete);
 		
