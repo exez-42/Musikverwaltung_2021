@@ -20,6 +20,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -30,6 +31,8 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+
 
 
 @SuppressWarnings("serial")
@@ -43,6 +46,9 @@ public class GUI extends JFrame {
 	
 	@SuppressWarnings("rawtypes")
 	private JComboBox comboBoxeditplaylist;
+	private JComboBox comboBoxplaylistdelete;
+	
+	private JList listdelete;
 	
 	private JPanel contentPane;
 	private JTextField textFieldname;
@@ -70,18 +76,21 @@ public class GUI extends JFrame {
 		 * 
 		 */
 		TitelDB.erzeuge_TitelDB();
-		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\2Pac-Changesft.Talent.wav"));
-		TitelDB.einf(new Titel("Sommer Sonne Kaktus", "Helge Schneider", "Sommer auf Balkonien", 2013, "Pop","C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\2Pac-Changesft.Talent.wav"));
-		TitelDB.einf(new Titel("T.A.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-		TitelDB.einf(new Titel("T.B.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-		TitelDB.einf(new Titel("T.C.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-		TitelDB.einf(new Titel("T.D.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-		TitelDB.einf(new Titel("T.E.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-		TitelDB.einf(new Titel("T.F.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-		
-		
-		
-		
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage1", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage2", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage3", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage4", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage5", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage6", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage7", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage8", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage9", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage10", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage11", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage12", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage13", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("Sommer Sonne Kaktus", "Helge Schneider", "Sommer auf Balkonien", 2013, "Pop","C:\\\\Beispieldatei\\\\LOL.wav"));
 		
 			Playlist.create_Playlist("Sommer_Playlist");
 			Playlist.get_playlist_wID("Sommer_Playlist").add_genre("Rock");
@@ -116,9 +125,6 @@ public class GUI extends JFrame {
 		
 		JMenu mnplaylisteditor = new JMenu("Playlist Editor");
 		menuBar.add(mnplaylisteditor);
-		
-		
-		
 		
 		JMenuItem mntmcreate = new JMenuItem("Erstellen");
 		mnplaylisteditor.add(mntmcreate);
@@ -304,14 +310,10 @@ public class GUI extends JFrame {
 		 * -> mit  der Hilfsvariable previos_track aus Playlist.
 		 */
 		comboBoxplaylist.addActionListener(e-> {if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
-		else{
+		else{Playlist.get_current_playlist(Playlist.get_previos_track()).get_current_track().player.stop();}
 			Playlist.get_current_playlist(Playlist.get_previos_track()).set_current_titel_zero();
-			Playlist.get_current_playlist(Playlist.get_previos_track()).get_current_track().player.stop();}});
-		
-		
-		
-		
-		
+		});
+			
 		
 		/*Logik Ende
 		 * 
@@ -325,13 +327,9 @@ public class GUI extends JFrame {
 		 */
 		
 
-		
-		
-		
 		JLabel lblplaylist = new JLabel("Aktuelle Playlist:");
 		lblplaylist.setBounds(10, 119, 414, 14);
 		contentPane.add(lblplaylist);
-		
 		
 		/**
 		 * Inhalt Verwaltungsmodus.
@@ -666,11 +664,7 @@ public class GUI extends JFrame {
 		 * 
 		 */
 		
-		
-		
-		
-		
-		
+	
 		
 		/*Combobox: Listet alle Playlisten auf
 		 * 
@@ -684,16 +678,19 @@ public class GUI extends JFrame {
 		 * 
 		 */
 		
-	
- 
-		
 		JList listplaylist = new JList();
+		JScrollPane playlistScrollPane = new JScrollPane(listplaylist);
 		
+		playlistScrollPane.setBounds(10, 88, 270, 140);
+		listplaylist.setBorder(BorderFactory.createLineBorder(Color.black));
+		listplaylist.setBounds(10, 88, 270, 140);
+		contentPane.add(playlistScrollPane);  
 		
+
 		
 		if(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()) == null) {
 		
-			
+		
 		}else {	listplaylist.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());	
 		
 			comboBoxeditplaylist.addActionListener (new ActionListener ()
@@ -707,42 +704,23 @@ public class GUI extends JFrame {
 		}
 		
 		
-		listplaylist.setBorder(BorderFactory.createLineBorder(Color.black));
-		listplaylist.setBounds(10, 88, 270, 140);
-		contentPane.add(listplaylist);
-		
-		
-		
-		
-		
-		
 		JLabel lblNewLabel = new JLabel("Playlist ausw\u00E4hlen:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNewLabel.setBounds(243, 10, 121, 18);
 		contentPane.add(lblNewLabel);
-		
-		
-		
-		
-		
-		
 		
 		/*Playlist auswählen
 		 * 
 		 * 
 		 */
 		
-		
-		
-		
-		
-		
-		
 		JList listall = new JList();
+		JScrollPane allScrollPane = new JScrollPane(listall);
+		
+		allScrollPane.setBounds(326, 88, 270, 140);
 		listall.setBorder(BorderFactory.createLineBorder(Color.black));
 		listall.setBounds(326, 88, 270, 140);
-		contentPane.add(listall);
-		
+		contentPane.add(allScrollPane);  
 		
 		
 		/*Liste mit allen Tracks füllen
@@ -751,8 +729,8 @@ public class GUI extends JFrame {
 		 * 
 		 */
 		listall.setListData(TitelDB.get_titelDB_array());
-		
-		
+
+
 		/*
 		 * 
 		 * 
@@ -771,6 +749,7 @@ public class GUI extends JFrame {
 		btndeletefromplaylist.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Right.png")));
 		btndeletefromplaylist.setBounds(286, 187, 33, 23);
 		contentPane.add(btndeletefromplaylist);
+		
 		/*Löschen / hinzufügen
 		 * 
 		 * 
@@ -778,47 +757,42 @@ public class GUI extends JFrame {
 		 * 
 		 */
 		
-		//einzeln hinzufügen
-		
 		btnaddtoplaylist.addActionListener(e-> {
 			if(listall.getSelectedValue() == null) {}
 			else {
-				Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.stop();	
+
 			Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).add_singletitel((String) listall.getSelectedValue());
-			Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).set_current_titel_zero();	
-				
+			listplaylist.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
+			Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).set_current_titel_zero();	
+
 			}
-			
-			
-			
-			
-			
+
+
+
+
+
 		});
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
 		//löschen
-		
+
 		btndeletefromplaylist.addActionListener(e-> {
 			if(listplaylist.getSelectedValue() == null) {} 
 			else {Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.stop();	
-				Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).delete_singletitel((String) listplaylist.getSelectedValue());
-			     listplaylist.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
-			     Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).set_current_titel_zero();	
-			     }
+				Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).delete_singletitel((String) listplaylist.getSelectedValue());	
+				listplaylist.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
+				listdelete.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
+				Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).set_current_titel_zero();
+				
+				}
 			});
-		
-		
+
+
 		/*Ende
 		*
 		*
 		*/
-		
 		
 		
 		JPanel panel = new JPanel();
@@ -847,8 +821,6 @@ public class GUI extends JFrame {
 		JButton btnaddall = new JButton("Alle hinzuf\u00FCgen");
 		btnaddall.setBounds(449, 147, 127, 23);
 		panel.add(btnaddall);
-		
-		
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("Nach Interpret");
 		rdbtnNewRadioButton.setBounds(6, 54, 109, 23);
@@ -963,19 +935,22 @@ public class GUI extends JFrame {
 		
 		//Alle Playlisten an Combobox übergeben
 		
-		JComboBox comboBoxplaylistdelete = new JComboBox(Playlist.get_all_plname_string());
+		comboBoxplaylistdelete = new JComboBox(Playlist.get_all_plname_string());
 		comboBoxplaylistdelete.setBounds(54, 51, 267, 18);
 		contentPane.add(comboBoxplaylistdelete);
 		
-		JList listdelete = new JList();
+		listdelete = new JList();
+		JScrollPane deleteScrollPane = new JScrollPane(listdelete);
+		
+		deleteScrollPane.setBounds(10, 89, 364, 142);
 		listdelete.setBorder(BorderFactory.createLineBorder(Color.black));
 		listdelete.setBounds(10, 89, 364, 142);
-		listdelete.setEnabled(false);
-		contentPane.add(listdelete);
-		
+		contentPane.add(deleteScrollPane); 
+	
 		JButton btnplaylistdelete = new JButton("Playlist entfernen");
 		btnplaylistdelete.setBounds(10, 242, 140, 23);
 		contentPane.add(btnplaylistdelete);
+		
 		
 		/*Logik Playlist loeschen
 		 * 
@@ -986,8 +961,6 @@ public class GUI extends JFrame {
 		 * btnplaylistdelete
 		 * 
 		 */
-
-
 
 		/*JList bekommt Titel der aktuellen Playlist als String[] übergeben.
 		 * + prüft ob es überhaupt Playlisten gibt
@@ -1021,6 +994,7 @@ public class GUI extends JFrame {
 			comboBoxplaylistdelete.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
 			listdelete.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()).get_all_titel_array()));
 			comboBoxplaylist.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
+			comboBoxeditplaylist.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
 			}                                        
 		});
 	}
