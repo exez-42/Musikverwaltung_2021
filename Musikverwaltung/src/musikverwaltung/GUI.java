@@ -70,8 +70,18 @@ public class GUI extends JFrame {
 		 * 
 		 */
 		TitelDB.erzeuge_TitelDB();
-		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
-		TitelDB.einf(new Titel("Sommer Sonne Kaktus", "Helge Schneider", "Sommer auf Balkonien", 2013, "Pop","C:\\Beispieldatei\\LOL.wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\2Pac-Changesft.Talent.wav"));
+		TitelDB.einf(new Titel("Sommer Sonne Kaktus", "Helge Schneider", "Sommer auf Balkonien", 2013, "Pop","C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\2Pac-Changesft.Talent.wav"));
+		TitelDB.einf(new Titel("T.A.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
+		TitelDB.einf(new Titel("T.B.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
+		TitelDB.einf(new Titel("T.C.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
+		TitelDB.einf(new Titel("T.D.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
+		TitelDB.einf(new Titel("T.E.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
+		TitelDB.einf(new Titel("T.F.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
+		
+		
+		
+		
 		
 			Playlist.create_Playlist("Sommer_Playlist");
 			Playlist.get_playlist_wID("Sommer_Playlist").add_genre("Rock");
@@ -106,6 +116,9 @@ public class GUI extends JFrame {
 		
 		JMenu mnplaylisteditor = new JMenu("Playlist Editor");
 		menuBar.add(mnplaylisteditor);
+		
+		
+		
 		
 		JMenuItem mntmcreate = new JMenuItem("Erstellen");
 		mnplaylisteditor.add(mntmcreate);
@@ -291,7 +304,13 @@ public class GUI extends JFrame {
 		 * -> mit  der Hilfsvariable previos_track aus Playlist.
 		 */
 		comboBoxplaylist.addActionListener(e-> {if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
-		else{Playlist.get_current_playlist(Playlist.get_previos_track()).get_current_track().player.stop();}});
+		else{
+			Playlist.get_current_playlist(Playlist.get_previos_track()).set_current_titel_zero();
+			Playlist.get_current_playlist(Playlist.get_previos_track()).get_current_track().player.stop();}});
+		
+		
+		
+		
 		
 		
 		/*Logik Ende
@@ -724,6 +743,25 @@ public class GUI extends JFrame {
 		listall.setBounds(326, 88, 270, 140);
 		contentPane.add(listall);
 		
+		
+		
+		/*Liste mit allen Tracks füllen
+		 * 
+		 * 
+		 * 
+		 */
+		listall.setListData(TitelDB.get_titelDB_array());
+		
+		
+		/*
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 */
+		
 		JButton btnaddtoplaylist = new JButton("");
 		btnaddtoplaylist.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Left.png")));
 		btnaddtoplaylist.setBounds(286, 108, 33, 23);
@@ -740,10 +778,37 @@ public class GUI extends JFrame {
 		 * 
 		 */
 		
+		//einzeln hinzufügen
+		
+		btnaddtoplaylist.addActionListener(e-> {
+			if(listall.getSelectedValue() == null) {}
+			else {
+				
+			Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).add_singletitel((String) listall.getSelectedValue());
+			Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).set_current_titel_zero();	
+				
+			}
+			
+			
+			
+			
+			
+		});
+		
+		
+		
+		
+		
+		
+		
+		
+		//löschen
+		
 		btndeletefromplaylist.addActionListener(e-> {
 			if(listplaylist.getSelectedValue() == null) {} 
 			else {	Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).delete_singletitel((String) listplaylist.getSelectedValue());
 			     listplaylist.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
+			     Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).set_current_titel_zero();	
 			     }
 			});
 		
