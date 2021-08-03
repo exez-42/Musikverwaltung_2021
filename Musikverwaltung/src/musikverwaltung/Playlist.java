@@ -213,17 +213,15 @@ public class Playlist {
 	
 	
 	
-	
 	/*return aktuellen Playlist Titel 
 	 * 
 	 */
 	public Titel get_current_track() {
 		
-		if(playlist.get(current_titel) == null) {
+		if( playlist.size() == 0) {
 			
 			return null;
 		}else {
-			
 			return playlist.get(current_titel);
 			
 		}
