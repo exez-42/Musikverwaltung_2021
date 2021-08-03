@@ -277,7 +277,14 @@ public class Playlist {
 	}
 
 
-	
+	public void set_current_titel_zero() {
+		
+	this.current_titel = 0;	
+		
+		
+		
+		
+	}
 	
 	
 	/*
@@ -367,10 +374,22 @@ public class Playlist {
 	 * 
 	 */
 	public void add_singletitel(String titel) {
+	Titel tmp = TitelDB.get_singleTitel(titel);
+	if(tmp == null) {	System.out.println("null");		}
+	else {
 	
-	this.playlist.add(TitelDB.get_singleTitel(titel));
+	this.playlist.add(tmp);
+		
+	}
+		
+	
 
 	}
+	
+	
+	
+	
+	
 	
 	
 	public void delete_singletitel(String titel) {
