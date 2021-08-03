@@ -40,6 +40,9 @@ public class GUI extends JFrame {
 	private JFrame playlistcreate;
 	private JFrame playlistdelete;
 	
+	@SuppressWarnings("rawtypes")
+	private JComboBox comboBoxeditplaylist;
+	
 	//private JFrame playlistedit;
 	private JPanel contentPane;
 	private JTextField textFieldname;
@@ -61,7 +64,7 @@ public class GUI extends JFrame {
 	 */
 	
 	
-	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public GUI() {
 	
 		
@@ -578,6 +581,8 @@ public class GUI extends JFrame {
 			if(tmp == true) {
 			
 			textFieldplaylistname.setText("Playlist wurde hinzugefügt");
+			comboBoxplaylist.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
+			comboBoxeditplaylist.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));	
 			
 		}else {textFieldplaylistname.setText("ERROR: Playlistname bereits vergeben.");}
 			
@@ -650,7 +655,7 @@ public class GUI extends JFrame {
 		/*Combobox: Listet alle Playlisten auf
 		 * 
 		 */
-		JComboBox comboBoxeditplaylist = new JComboBox(Playlist.get_all_plname_string());
+		comboBoxeditplaylist = new JComboBox(Playlist.get_all_plname_string());
 		
 		comboBoxeditplaylist.setBounds(142, 39, 322, 18);
 		contentPane.add(comboBoxeditplaylist);
