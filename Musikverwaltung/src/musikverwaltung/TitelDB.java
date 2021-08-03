@@ -1,5 +1,13 @@
 package musikverwaltung;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -86,7 +94,7 @@ public class TitelDB {
 		}
 	}
 	
-	static void druckeEigenschaften (char c) {
+	static void druckeEigenschaften (char c) { //Listen der Kriterien; muss angepasst werden 
 		switch (c) {
 		case 'i':
 			System.out.println("Alle Interpreten:");
@@ -120,12 +128,12 @@ public class TitelDB {
 	static void einf(Titel s) {
 		boolean enthalten = false;
 		for (int i = 0; i < alleTitel.size(); i++) {
-			if (alleTitel.get(i).toString() == s.toString()) { //funktioniert noch nicht
+			if (alleTitel.get(i).toString().equals(s.toString())) { //funktioniert noch nicht
 				enthalten = true;
 			}
 		}
 		if (enthalten) {
-			System.out.println(" - Song ist bereits enthalten -");
+			System.out.println(" - Song ist bereits enthalten -"); //Ausgabe
 		}
 		else {
 			alleTitel.add(s);
@@ -154,35 +162,35 @@ public class TitelDB {
 		boolean jahr = false;
 		boolean gen = false;
 		for (int i = 0; i < alleTitel.size(); i++) {
-			if ((inter == false) && (alleTitel.get(i).getInterpret() == s.getInterpret())) {
+			if ((inter == false) && (alleTitel.get(i).getInterpret().equals(s.getInterpret()))) {
 				inter = true;
 			}
-			if ((alb == false) && (alleTitel.get(i).getAlbum() == s.getAlbum())) {
+			if ((alb == false) && (alleTitel.get(i).getAlbum().equals(s.getAlbum()))) {
 				alb = true;
 			}
 			if ((jahr == false) && (alleTitel.get(i).getJahr() == s.getJahr())) {
 				jahr = true;
 			}
-			if ((gen == false) && (alleTitel.get(i).getGenre() == s.getGenre())) {
+			if ((gen == false) && (alleTitel.get(i).getGenre().equals(s.getGenre()))) {
 				gen = true;
 			}
 		}
 		if (!(inter)) {
 			interpreten.remove(s.getInterpret());
-			System.out.println(" - letzter Song von " + s.getInterpret() + " wurde entfernt -");
+			System.out.println(" - letzter Song von " + s.getInterpret() + " wurde entfernt -"); //Ausgabe
 		}
 		if (!(alb)) {
 			alben.remove(s.getAlbum());
-			System.out.println(" - letzter Song von dem Album >" + s.getAlbum() + "< wurde entfernt -");
+			System.out.println(" - letzter Song von dem Album >" + s.getAlbum() + "< wurde entfernt -"); //Ausgabe
 		}
 		if (!(jahr)) {
 			Integer i = s.getJahr();
 			jahre.remove(i);
-			System.out.println(" - letzter Song aus " + s.getJahr() + " wurde entfernt -");
+			System.out.println(" - letzter Song aus " + s.getJahr() + " wurde entfernt -"); //Ausgabe
 		}
 		if (!(gen)) {
 			genres.remove(s.getGenre());
-			System.out.println(" - letzter " + s.getGenre() + "-Song wurde entfernt -");
+			System.out.println(" - letzter " + s.getGenre() + "-Song wurde entfernt -"); //Ausgabe
 		}
 	}
 	
@@ -201,7 +209,7 @@ public class TitelDB {
 	public static ArrayList<Titel> getListInterpret (String interpret) {
 		ArrayList<Titel> playlist = new ArrayList<Titel>();
 		for (int i = 0; i < alleTitel.size(); i++) {
-			if (alleTitel.get(i).getInterpret() == interpret) {
+			if (alleTitel.get(i).getInterpret().equals(interpret)) {
 				playlist.add(TitelDB.alleTitel.get(i));
 			}
 		}
@@ -211,7 +219,7 @@ public class TitelDB {
 	public static ArrayList<Titel> getListAlbum (String album) {
 		ArrayList<Titel> playlist = new ArrayList<Titel>();
 		for (int i = 0; i < alleTitel.size(); i++) {
-			if (alleTitel.get(i).getAlbum() == album) {
+			if (alleTitel.get(i).getAlbum().equals(album)) {
 				playlist.add(TitelDB.alleTitel.get(i));
 			}
 		}
@@ -231,15 +239,72 @@ public class TitelDB {
 	public static ArrayList<Titel> getListGenre (String genre) {
 		ArrayList<Titel> playlist = new ArrayList<Titel>();
 		for (int i = 0; i < alleTitel.size(); i++) {
-			if (alleTitel.get(i).getGenre() == genre) {
+			if (alleTitel.get(i).getGenre().equals(genre)) {
 				playlist.add(TitelDB.alleTitel.get(i));
 			}
 		}
 		return playlist;
 	}
 	
-	public static void save () {
-		
+	public static void saveDB () throws IOException {
+		File f = new File(".\\src\\Daten\\TitelDatenBank.txt"); // Ordner "Daten" in "src" erforderlich!
+		OutputStream ostream = new FileOutputStream(f);
+		PrintWriter writer = new PrintWriter(ostream);
+		for (int i = 0; i < alleTitel.size(); i++) {
+			writer.println(alleTitel.get(i).getName());
+			writer.println(alleTitel.get(i).getInterpret());
+			writer.println(alleTitel.get(i).getAlbum());
+			writer.println(alleTitel.get(i).getJahr());
+			writer.println(alleTitel.get(i).getGenre());
+			writer.println(alleTitel.get(i).getPath());
+		}
+		System.out.println(" - Datenbank wurde gespeichert -"); //Ausgabe
+		writer.close();
 	}
+	
+	public static void initDB () {
+		try {
+			BufferedReader reader = new BufferedReader ( new FileReader (".\\src\\Daten\\TitelDatenBank.txt"));
+			System.out.println(" - Daten gefunden - "); //Ausgabe
+			String info, name = null, interpret = null, album = null, genre = null, path = null;
+			ArrayList<Titel> geleseneTitel = new ArrayList<Titel>();
+			Integer jahr = null;
+			int zaehler = 0;
+			while ((info = reader.readLine()) != null) {
+				System.out.println(zaehler + ": " + info); //Ausgabe
+				switch (zaehler) {
+				case 0:
+					name = info;
+					break;
+				case 1:
+					interpret = info;
+					break;
+				case 2:
+					album = info;
+					break;
+				case 3:
+					jahr = Integer.valueOf(info);
+					break;
+				case 4:
+					genre = info;
+					break;
+				case 5:
+					path = info;
+					geleseneTitel.add(new Titel(name, interpret, album, jahr, genre, path));
+					break;
+				}
+				zaehler = (zaehler+1)%6;
+			}
+			for (int j = 0; j < geleseneTitel.size(); j++) {
+				geleseneTitel.get(j).printMe();
+				einf(geleseneTitel.get(j));
+			}
+			reader.close();
+		} catch (Exception e) {
+			System.out.println(" - Keine oder fehlerhafte Speicherdatei vorhanden - "); //Ausgabe
+			return;
+		}
+	}
+	
 	
 }
