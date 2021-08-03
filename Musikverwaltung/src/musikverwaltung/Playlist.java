@@ -95,6 +95,22 @@ public class Playlist {
 	}
 
 	
+	
+	
+	static void delete_playlist(String playlist_name) {
+		
+	for(int i = 0; i < all_pl.size(); i++) {
+		
+		if(all_pl.get(i).getPl_name().equals(playlist_name)) {
+		
+			all_pl.remove(i);
+			
+		}
+	}	
+	}
+	
+	
+	
 	/*
 	 * Liefert geuschte Playlist zurück mit übergebenen eindeutigen Playlist namen
 	 * 
