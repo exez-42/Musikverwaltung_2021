@@ -733,7 +733,9 @@ public class GUI extends JFrame {
 		
 		btndeletefromplaylist.addActionListener(e-> {
 			if(listplaylist.getSelectedValue() == null) {} 
-			else {	Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).delete_singletitel((String) listplaylist.getSelectedValue());							}
+			else {	Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).delete_singletitel((String) listplaylist.getSelectedValue());
+			     listplaylist.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
+			     }
 			});
 		
 		
@@ -741,10 +743,6 @@ public class GUI extends JFrame {
 		*
 		*
 		*/
-		
-		
-		
-		
 		
 		
 		
