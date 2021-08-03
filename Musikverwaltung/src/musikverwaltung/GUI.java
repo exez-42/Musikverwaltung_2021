@@ -71,7 +71,7 @@ public class GUI extends JFrame {
 		 */
 		TitelDB.erzeuge_TitelDB();
 		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
-		TitelDB.einf(new Titel("Sommer Sonne Kaktus", "Helge Schneider", "Sommer auf Balkonien", 2013, "Pop","C:\\\\Beispieldatei\\\\LOL.wav"));
+		TitelDB.einf(new Titel("Sommer Sonne Kaktus", "Helge Schneider", "Sommer auf Balkonien", 2013, "Pop","C:\\Beispieldatei\\LOL.wav"));
 		
 			Playlist.create_Playlist("Sommer_Playlist");
 			Playlist.get_playlist_wID("Sommer_Playlist").add_genre("Rock");
