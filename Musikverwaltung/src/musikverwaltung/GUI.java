@@ -870,7 +870,12 @@ public class GUI extends JFrame {
 		lblplaylistdelete.setBounds(123, 22, 121, 18);
 		contentPane.add(lblplaylistdelete);
 		
-		JComboBox comboBoxplaylistdelete = new JComboBox();
+		//Alle Playlisten an Combobox übergeben
+		JComboBox comboBoxplaylistdelete = new JComboBox(Playlist.get_all_plname_string());
+		
+		
+		
+		
 		comboBoxplaylistdelete.setBounds(54, 51, 267, 18);
 		contentPane.add(comboBoxplaylistdelete);
 		
@@ -886,6 +891,57 @@ public class GUI extends JFrame {
 		JButton btnNewButton = new JButton("Playlist entfernen");
 		btnNewButton.setBounds(10, 242, 140, 23);
 		contentPane.add(btnNewButton);
+		
+		
+		
+		/*Logik Playlist loeschen
+		 * 
+		 * comboBoxplaylistdelete 
+		 * 
+		 * listdelete
+		 * 
+		 * btnplaylistdelete
+		 * 
+		 */
+		
+	
+		
+		/*JList bekommt Titel der aktuellen Playlist als String[] übergeben.
+		 * + prüft ob es überhaupt Playlisten gibt
+		 */
+		
+		if(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()) == null) {}
+		else { listdelete.setListData(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()).get_all_titel_array()); }
+		
+		
+		
+		
+		/*Button bekommt löschen aufforderung von ausgewähler Playlist
+		 * + überprüft ob es überhaupt Playlisten gibt
+		 * 
+		 */
+		if(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()) == null) {System.out.println("true");}
+		else {    btnplaylistdelete.addActionListener(e-> {
+			Playlist.delete_playlist((String) comboBoxplaylistdelete.getSelectedItem()); 
+			
+			
+			Playlist.drucke_alle_pl();
+			} );                                        }
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/*Logik Ende
+		 * 
+		 * 
+		 * 
+		 * 
+		 */
 		
 		mntmdelete.addActionListener(new ActionListener() {
 			
