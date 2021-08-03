@@ -783,7 +783,7 @@ public class GUI extends JFrame {
 		btnaddtoplaylist.addActionListener(e-> {
 			if(listall.getSelectedValue() == null) {}
 			else {
-				
+				Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.stop();	
 			Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).add_singletitel((String) listall.getSelectedValue());
 			Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).set_current_titel_zero();	
 				
@@ -806,7 +806,8 @@ public class GUI extends JFrame {
 		
 		btndeletefromplaylist.addActionListener(e-> {
 			if(listplaylist.getSelectedValue() == null) {} 
-			else {	Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).delete_singletitel((String) listplaylist.getSelectedValue());
+			else {Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.stop();	
+				Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).delete_singletitel((String) listplaylist.getSelectedValue());
 			     listplaylist.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
 			     Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).set_current_titel_zero();	
 			     }
