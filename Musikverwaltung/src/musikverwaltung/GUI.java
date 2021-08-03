@@ -15,6 +15,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -566,23 +567,32 @@ public class GUI extends JFrame {
 		 * 
 		 */
 		
-		btncreateplaylist.addActionListener(new ActionListener() {
-			 
-			@SuppressWarnings({ "rawtypes", "unchecked" })
-			public void actionPerformed(ActionEvent e) {
-
-			if(Playlist.create_Playlist(textFieldplaylistname.getText()) == true) {
-
+		
+		
+		;
+		
+		btncreateplaylist.addActionListener(e-> { 
+			boolean tmp = Playlist.create_Playlist(textFieldplaylistname.getText());
+			
+			if(tmp == true) {
+			
 			textFieldplaylistname.setText("Playlist wurde hinzugefügt");
-			comboBoxplaylist.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
-
-			}else {textFieldplaylistname.setText("ERROR: Playlistname wurde bereits vergeben.Neuen Namen erforderlich!");}
-
-			}
+			
+		}else {textFieldplaylistname.setText("ERROR: Playlistname bereits vergeben.");}
+			
+			
+			
 		});
 		
 		
+		
+		
+		
 		btncreatecategory.addActionListener(new ActionListener() {
+		
+			
+			
+			
 			
 			public void actionPerformed(ActionEvent e) {
 				playlistedit.setVisible(true);
@@ -625,19 +635,67 @@ public class GUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		playlistedit.setContentPane(contentPane);
 		contentPane.setLayout(null);
+		/*LOGIK PLAYLIST EDITOR
+		 * 
+		 * 
+		 */
 		
-		List listplaylist = new List();
+		
+		
+		
+		
+		
+		
+		/*Combobox: Listet alle Playlisten auf
+		 * 
+		 */
+		JComboBox comboBoxeditplaylist = new JComboBox(Playlist.get_all_plname_string());
+		
+		comboBoxeditplaylist.setBounds(142, 39, 322, 18);
+		contentPane.add(comboBoxeditplaylist);
+		
+		/*JLIST: Listet alle Titel der ausgewählten Playlist auf.
+		 * 
+		 */
+		
+	
+ 
+		
+		JList listplaylist = new JList();
+		
+		
+		if(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()) == null) {
+			
+			
+			
+		}else {				listplaylist.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());		}
+		
+		
+		
+		
+		
 		listplaylist.setBounds(10, 88, 270, 140);
 		contentPane.add(listplaylist);
+		
+		
+		
+		
+		
 		
 		JLabel lblNewLabel = new JLabel("Playlist ausw\u00E4hlen:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNewLabel.setBounds(243, 10, 121, 18);
 		contentPane.add(lblNewLabel);
+		/*Playlist auswählen
+		 * 
+		 * 
+		 */
 		
-		JComboBox comboBoxeditplaylist = new JComboBox(Playlist.get_all_plname_string());
-		comboBoxeditplaylist.setBounds(142, 39, 322, 18);
-		contentPane.add(comboBoxeditplaylist);
+		
+		
+		
+		
+		
 		
 		List listall = new List();
 		listall.setBounds(326, 88, 270, 140);
@@ -679,12 +737,6 @@ public class GUI extends JFrame {
 		JButton btnaddall = new JButton("Alle hinzuf\u00FCgen");
 		btnaddall.setBounds(449, 147, 127, 23);
 		panel.add(btnaddall);
-		
-		//////test
-		
-		btnaddall.addActionListener(e-> Playlist.drucke_alle_pl());
-		
-		/////Test
 		
 		
 		
