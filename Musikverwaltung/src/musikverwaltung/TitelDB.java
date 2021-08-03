@@ -256,8 +256,7 @@ public class TitelDB {
 			
 			
 		}	
-			
-		return null;	
+				
 			
 			
 		}
@@ -265,7 +264,22 @@ public class TitelDB {
 		return null;
 	}
 	
-	
+	public static String[] get_titelDB_array() {
+        String[] tmp = new String[alleTitel.size()];
+        for (int i = 0; i < alleTitel.size(); i++) {
+
+            tmp[i] = alleTitel.get(i).player_out_bearbeiten();
+        }
+
+        if(tmp.length == 0) {
+
+        tmp = new String[1];
+        tmp[0] = "Kein Titel gespeichert";
+        return tmp;
+
+        }else {return tmp;}
+
+    }
 	
 		public static void saveDB () throws IOException {
 		File f = new File(".\\src\\Daten\\TitelDatenBank.txt"); // Ordner "Daten" in "src" erforderlich!
