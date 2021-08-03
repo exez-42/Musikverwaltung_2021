@@ -675,8 +675,17 @@ public class GUI extends JFrame {
 		if(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()) == null) {
 		
 			
-			
-		}else {	listplaylist.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());	}
+		}else {	listplaylist.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());	
+		
+			comboBoxeditplaylist.addActionListener (new ActionListener ()
+			{
+			    public void actionPerformed(ActionEvent e)
+			    {
+			    	listplaylist.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
+			       
+			    }
+			});
+		}
 		
 		
 		listplaylist.setBorder(BorderFactory.createLineBorder(Color.black));
