@@ -361,9 +361,38 @@ public class Playlist {
 	}
 	
 	
+	/*add_singletitel:
+	 * liefert ein Titelobjekt zurück
+	 * eindeutige eingabe von einem Titel String 
+	 * 
+	 */
+	public void add_singletitel(String titel) {
 	
-	
+	this.playlist.add(TitelDB.get_singleTitel(titel));
 
+	}
+	
+	
+	public void delete_singletitel(String titel) {
+		
+	for(int i = 0; i < this.playlist.size(); i++) {
+		
+	if(this.playlist.get(i).player_out_bearbeiten().equals(titel)) {
+		
+		this.playlist.remove(i);
+		
+		
+		
+	}	
+		
+		
+		
+	}	
+		
+		
+		
+		
+	}
 	
 	/*
 	 * ToString() für alle erstellten Playlisten
