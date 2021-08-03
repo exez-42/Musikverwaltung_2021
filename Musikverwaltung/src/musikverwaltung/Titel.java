@@ -25,7 +25,7 @@ public class Titel {
 		this.genre = genre;
 		//Audio
 		this.path = "C:\\Users\\charl\\OneDrive\\Desktop\\project\\Musikverwaltung\\musik_titel\\DieWoodys-FichtlsLied.wav"; //Windows Path Beispiel
-		player = new Wave_player(path);
+		this.player = new Wave_player(path);
 		
 	}
 	
@@ -37,7 +37,8 @@ public class Titel {
 	public String toString() {
 		return (name + "; " + interpret + "; " + album + "; " + jahr + "; " + genre);
 	}
-
+	
+	
 	/*Liefert Anzeige für Titel im Player
 	 * 
 	 * 
@@ -46,14 +47,18 @@ public class Titel {
 		
 		
 		return (name + " - " + interpret);
+	
+	}
+	
+	public String player_out_bearbeiten() {
+		
+		
+		return(name + " - " + interpret + " - "  + album + " - " + genre);
 		
 		
 	}
 	
-	
-	
-	
-	
+
 	public String getName() {
 		return name;
 	}
