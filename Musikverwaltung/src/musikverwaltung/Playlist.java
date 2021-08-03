@@ -132,7 +132,27 @@ public class Playlist {
 	}
 	
 	
-	
+	public String[] get_all_titel_array() {
+		String[] tmp = new String[this.playlist.size()];
+		for (int i = 0; i < this.playlist.size(); i++) {
+			
+			tmp[i] = this.playlist.get(i).player_out_bearbeiten();
+			
+			
+			
+		}
+		
+		if(tmp.length == 0) {
+		
+		tmp = new String[1];
+		tmp[0] = "kein Titel vorhanden";
+		return tmp;	
+			
+		}else {return tmp;}
+		
+		
+		
+	}
  	
  	
 	/*
@@ -159,6 +179,23 @@ public class Playlist {
 		
 	}
 	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	/*return aktuellen Playlist Titel 
@@ -166,9 +203,16 @@ public class Playlist {
 	 */
 	public Titel get_current_track() {
 		
+		if(playlist.get(current_titel) == null) {
+			
+			return null;
+		}else {
+			
+			return playlist.get(current_titel);
+			
+		}
 		
 		
-		return playlist.get(current_titel);
 		
 	}
 	
