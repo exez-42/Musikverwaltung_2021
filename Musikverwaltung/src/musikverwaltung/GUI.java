@@ -25,6 +25,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.UIManager;
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.filechooser.FileFilter;
@@ -34,6 +35,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 @SuppressWarnings("serial")
 public class GUI extends JFrame {
 	
+	
 	private JFrame verwaltung;
 	private JFrame playlistedit;
 	private JFrame playlistcreate;
@@ -42,7 +44,6 @@ public class GUI extends JFrame {
 	@SuppressWarnings("rawtypes")
 	private JComboBox comboBoxeditplaylist;
 	
-	//private JFrame playlistedit;
 	private JPanel contentPane;
 	private JTextField textFieldname;
 	private JTextField textFieldartist;
@@ -54,14 +55,10 @@ public class GUI extends JFrame {
 	private JTextField textallsearch;
 	private JTextField textFieldfile;
 	
-	
-	
-	
 
 	/**
 	 * Inhalt Benutzermodus.
 	 */
-	
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public GUI() {
@@ -73,9 +70,8 @@ public class GUI extends JFrame {
 		 * 
 		 */
 		TitelDB.erzeuge_TitelDB();
-		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\2Pac-Changesft.Talent.wav"));
-		TitelDB.einf(new Titel("Thunderstruck", "AC/DD", "The Razors Edge", 1990, "Rock","C:\\Users\\charl\\OneDrive\\Desktop\\project\\Musikverwaltung\\musik_titel\\DieWoodys-FichtlsLied.wav"));
-		TitelDB.einf(new Titel("Sommer Sonne Kaktus", "Helge Schneider", "Sommer auf Balkonien", 2013, "Pop","C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("Sommer Sonne Kaktus", "Helge Schneider", "Sommer auf Balkonien", 2013, "Pop","C:\\\\Beispieldatei\\\\LOL.wav"));
 		
 			Playlist.create_Playlist("Sommer_Playlist");
 			Playlist.get_playlist_wID("Sommer_Playlist").add_genre("Rock");
@@ -88,20 +84,8 @@ public class GUI extends JFrame {
 		 * 
 		 */
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		setTitle("Benutzermodus");
+		setResizable(false);
 		setBackground(SystemColor.inactiveCaption);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 235);
@@ -170,7 +154,6 @@ public class GUI extends JFrame {
 		btnfoward.setBounds(279, 76, 30, 25);
 		getContentPane().add(btnfoward);
 		
-		
 		/*Logik Implementierung Benutzeroberfläsche
 		 * 
 		 * 
@@ -179,6 +162,7 @@ public class GUI extends JFrame {
 		/*ComboBox bekommt alle PlaylistNamen Übergeben
 		 * 
 		 */
+		
 		JComboBox<String> comboBoxplaylist = new JComboBox<String>(Playlist.get_all_plname_string());
 		comboBoxplaylist.setBackground(SystemColor.window);
 		comboBoxplaylist.setBounds(10, 143, 414, 20);
@@ -196,6 +180,7 @@ public class GUI extends JFrame {
 		       
 		    }
 		});
+		
 		
 		
 		/*ActionListener Benutzeroberfläsche
@@ -263,7 +248,7 @@ public class GUI extends JFrame {
 		btnfoward.addActionListener(e-> { if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
 		else {
 			Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track().player.stop(); 
-			Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).next_track();
+			Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).next_track();	
 			lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
 		}});
 		//repaint hinzufügen
@@ -285,7 +270,6 @@ public class GUI extends JFrame {
 			lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
 			
 			
-			
 		}	});				
 										//repaint hinzufügen
 	
@@ -299,18 +283,9 @@ public class GUI extends JFrame {
 		if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
 		else {
 			lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
-			
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 	
 		/*Bei neuer playlist auswahl wird laufender Track aus "alter" Playlist gestoppt.
 		 * -> mit  der Hilfsvariable previos_track aus Playlist.
@@ -344,8 +319,20 @@ public class GUI extends JFrame {
 		 */
 		
 		verwaltung = new JFrame();
+		verwaltung.setResizable(false);
 		verwaltung.getContentPane().setBackground(UIManager.getColor("TextField.inactiveBackground"));
 		verwaltung.setBounds(100, 100, 403, 551);
+		
+		
+		verwaltung.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		verwaltung.addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent e) {
+		        setVisible(true);
+		        e.getWindow().dispose();
+		    }
+		});
+		
 		verwaltung.getContentPane().setLayout(null);
 		verwaltung.setVisible(false); 
 		verwaltung.setTitle("Verwaltungsmodus");
@@ -537,6 +524,7 @@ public class GUI extends JFrame {
 		
 		
 		playlistcreate = new JFrame();
+		playlistcreate.setResizable(false);
 		playlistcreate.setVisible(false);
 		playlistcreate.setBounds(100, 100, 300, 166);
 		playlistcreate.setTitle("Playlist - Erstellen");
@@ -586,9 +574,6 @@ public class GUI extends JFrame {
 		 */
 		
 		
-		
-		;
-		
 		btncreateplaylist.addActionListener(e-> { 
 			boolean tmp = Playlist.create_Playlist(textFieldplaylistname.getText());
 			
@@ -597,6 +582,7 @@ public class GUI extends JFrame {
 			textFieldplaylistname.setText("Playlist wurde hinzugefügt");
 			comboBoxplaylist.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
 			comboBoxeditplaylist.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));	
+			
 			
 		}else {textFieldplaylistname.setText("ERROR: Playlistname bereits vergeben.");}
 			
@@ -632,6 +618,7 @@ public class GUI extends JFrame {
 		*/
 		
 		playlistedit = new JFrame();
+		playlistedit.setResizable(false);
 		playlistedit.setVisible(false);
 		playlistedit.setTitle("Playlist - Bearbeiten");
 		playlistedit.setBounds(100, 100, 622, 516);
@@ -683,10 +670,12 @@ public class GUI extends JFrame {
 		
 		JList listplaylist = new JList();
 		
-	
+		
+		
 		if(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()) == null) {
 		
-				
+			
+			
 		}else {	listplaylist.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());	}
 		
 		
@@ -838,9 +827,8 @@ public class GUI extends JFrame {
 		* Inhalt Playlist Löschen.
 		*/
 		
-		
-		
 		playlistdelete = new JFrame();
+		playlistdelete.setResizable(false);
 		playlistdelete.setVisible(false);
 		playlistdelete.setTitle("Playlist - L\u00F6schen");
 		playlistdelete.setBounds(100, 100, 400, 335);
@@ -871,28 +859,20 @@ public class GUI extends JFrame {
 		contentPane.add(lblplaylistdelete);
 		
 		//Alle Playlisten an Combobox übergeben
+		
 		JComboBox comboBoxplaylistdelete = new JComboBox(Playlist.get_all_plname_string());
-		
-		
-		
-		
 		comboBoxplaylistdelete.setBounds(54, 51, 267, 18);
 		contentPane.add(comboBoxplaylistdelete);
 		
 		JList listdelete = new JList();
 		listdelete.setBorder(BorderFactory.createLineBorder(Color.black));
 		listdelete.setBounds(10, 89, 364, 142);
+		listdelete.setEnabled(false);
 		contentPane.add(listdelete);
 		
 		JButton btnplaylistdelete = new JButton("Playlist entfernen");
 		btnplaylistdelete.setBounds(10, 242, 140, 23);
 		contentPane.add(btnplaylistdelete);
-		
-		JButton btnNewButton = new JButton("Playlist entfernen");
-		btnNewButton.setBounds(10, 242, 140, 23);
-		contentPane.add(btnNewButton);
-		
-		
 		
 		/*Logik Playlist loeschen
 		 * 
@@ -903,39 +883,45 @@ public class GUI extends JFrame {
 		 * btnplaylistdelete
 		 * 
 		 */
-		
-	
-		
+
+
+
 		/*JList bekommt Titel der aktuellen Playlist als String[] übergeben.
 		 * + prüft ob es überhaupt Playlisten gibt
 		 */
-		
+
 		if(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()) == null) {}
-		else { listdelete.setListData(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()).get_all_titel_array()); }
-		
-		
-		
-		
+		else { listdelete.setListData(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()).get_all_titel_array());
+			}
+
+		comboBoxplaylistdelete.addActionListener (new ActionListener ()
+		{
+		    public void actionPerformed(ActionEvent e)
+		    {
+		    	listdelete.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()).get_all_titel_array()));
+		       
+		    }
+		});
+
+
 		/*Button bekommt löschen aufforderung von ausgewähler Playlist
 		 * + überprüft ob es überhaupt Playlisten gibt
 		 * 
 		 */
 		if(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()) == null) {System.out.println("true");}
-		else {    btnplaylistdelete.addActionListener(e-> {
+		else {    btnplaylistdelete.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
 			Playlist.delete_playlist((String) comboBoxplaylistdelete.getSelectedItem()); 
-			
-			
 			Playlist.drucke_alle_pl();
-			} );                                        }
-		
-		
-		
-		
-		
-		
-		
-		
-		
+			comboBoxplaylistdelete.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
+			listdelete.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()).get_all_titel_array()));
+			comboBoxplaylist.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
+			}                                        
+		});
+	}
+
 		/*Logik Ende
 		 * 
 		 * 
