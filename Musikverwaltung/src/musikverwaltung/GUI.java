@@ -6,8 +6,6 @@ import java.awt.Panel;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -32,22 +30,51 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-
-
-
 @SuppressWarnings("serial")
 public class GUI extends JFrame {
 	
-	
+	//Frame
 	private JFrame verwaltung;
 	private JFrame playlistedit;
 	private JFrame playlistcreate;
 	private JFrame playlistdelete;
 	
+	//JMenu
+	private JMenu mndatei;
+	private JMenu mnplaylisteditor;
+	
+	//JMenuBar
+	private JMenuBar menuBar;
+	 
+	
+	//JMenuItem
+	private JMenuItem mntmbenutzer;
+	private JMenuItem mntmverwaltung;
+	private JMenuItem mntmcreate;
+	private JMenuItem mntmedit;
+	private JMenuItem mntmdelete;
+	private JMenuItem mntmbeenden;
+	
+	
+	//JLabel
+	private JLabel lbplayback;
+	private JLabel lblsongisplaying;
+	private JLabel lblplaylist;
+	
+	//JButton
+	private JButton btnback;
+	private JButton btnplay;
+	private JButton btnpause;
+	private JButton	btnstop;
+	private JButton btnfoward;
+	
+	//JComboBox
+	private JComboBox<String> comboBoxplaylist;
 	@SuppressWarnings("rawtypes")
 	private JComboBox comboBoxeditplaylist;
+	@SuppressWarnings("rawtypes")
 	private JComboBox comboBoxplaylistdelete;
-	
+	@SuppressWarnings("rawtypes")
 	private JList listdelete;
 	
 	private JPanel contentPane;
@@ -60,11 +87,6 @@ public class GUI extends JFrame {
 	private JTextField textFieldplaylistname;
 	private JTextField textallsearch;
 	private JTextField textFieldfile;
-	
-
-	/**
-	 * Inhalt Benutzermodus.
-	 */
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public GUI() {
@@ -84,7 +106,8 @@ public class GUI extends JFrame {
 		TitelDB.einf(new Titel("T.D.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
 		TitelDB.einf(new Titel("T.E.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
 		TitelDB.einf(new Titel("T.F.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-		
+			
+			// Playlisten erstellen
 			Playlist.create_Playlist("Sommer_Playlist");
 			Playlist.get_playlist_wID("Sommer_Playlist").add_genre("Rock");
 			Playlist.create_Playlist("Sommernacht zu zweit");
@@ -95,6 +118,10 @@ public class GUI extends JFrame {
 		 * 
 		 * 
 		 */
+		
+		/**
+		* Inhalt Benutzermodus.
+		*/	
 		
 		setTitle("Benutzermodus");
 		setResizable(false);
@@ -107,222 +134,183 @@ public class GUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JMenuBar menuBar = new JMenuBar();
+		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu mndatei = new JMenu("Datei");
+		mndatei = new JMenu("Datei");
 		menuBar.add(mndatei);
 		
-		JMenuItem mntmverwaltung = new JMenuItem("Verwaltungsmodus");
+		mntmverwaltung = new JMenuItem("Verwaltungsmodus");
 		mndatei.add(mntmverwaltung);
 		
-		JMenu mnplaylisteditor = new JMenu("Playlist Editor");
+		mnplaylisteditor = new JMenu("Playlist Editor");
 		menuBar.add(mnplaylisteditor);
 		
-		JMenuItem mntmcreate = new JMenuItem("Erstellen");
+		mntmcreate = new JMenuItem("Erstellen");
 		mnplaylisteditor.add(mntmcreate);
 		
-		JMenuItem mntmedit = new JMenuItem("Bearbeiten");
+		mntmedit = new JMenuItem("Bearbeiten");
 		mnplaylisteditor.add(mntmedit);
 		
-		JMenuItem mntmdelete = new JMenuItem("Löschen");
+		mntmdelete = new JMenuItem("Löschen");
 		mnplaylisteditor.add(mntmdelete);
 		
-		JMenuItem mntmbeenden = new JMenuItem("Beenden");
+		mntmbeenden = new JMenuItem("Beenden");
 		mndatei.add(mntmbeenden);
 		mntmbeenden.addActionListener(e->{System.exit(0);});
 		
-		JLabel lbplayback = new JLabel("Aktuelle Wiedergabe:");
+		lblplaylist = new JLabel("Aktuelle Playlist:");
+		lblplaylist.setBounds(10, 119, 414, 14);
+		contentPane.add(lblplaylist);
+		
+		lbplayback = new JLabel("Aktuelle Wiedergabe:");
 		lbplayback.setBounds(10, 26, 414, 14);
 		getContentPane().add(lbplayback);
 		
-		JLabel lblsongisplaying = new JLabel();
+		lblsongisplaying = new JLabel();
 		lblsongisplaying.setHorizontalAlignment(SwingConstants.CENTER);
 		lblsongisplaying.setBounds(10, 51, 414, 14);
 		getContentPane().add(lblsongisplaying);
 		
-		JButton btnback = new JButton("");
+		btnback = new JButton("");
 		btnback.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Back.png")));
 		btnback.setBounds(119, 76, 30, 25);
 		getContentPane().add(btnback);
 		
-		JButton btnplay = new JButton("");
+		btnplay = new JButton("");
 		btnplay.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Play.png")));
 		btnplay.setBounds(159, 76, 30, 25);
 		getContentPane().add(btnplay);
 		
-		JButton btnpause = new JButton("");
+		btnpause = new JButton("");
 		btnpause.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Pause.png")));
 		btnpause.setBounds(199, 76, 30, 25);
 		getContentPane().add(btnpause);
 		
-		JButton btnstop = new JButton("");
+		btnstop = new JButton("");
 		btnstop.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Stop.png")));
 		btnstop.setBounds(239, 76, 30, 25);
 		getContentPane().add(btnstop);
 		
-		JButton btnfoward = new JButton("");
+		btnfoward = new JButton("");
 		btnfoward.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Forward.png")));
 		btnfoward.setBounds(279, 76, 30, 25);
-		getContentPane().add(btnfoward);
+		getContentPane().add(btnfoward);	
 		
 		/*Logik Implementierung Benutzeroberfläsche
 		 * 
 		 * 
 		 */
-
 		/*ComboBox bekommt alle PlaylistNamen Übergeben
 		 * 
 		 */
-		
-		JComboBox<String> comboBoxplaylist = new JComboBox<String>(Playlist.get_all_plname_string());
-		comboBoxplaylist.setBackground(SystemColor.window);
-		comboBoxplaylist.setBounds(10, 143, 414, 20);
-		getContentPane().add(comboBoxplaylist);
-		
-		/*ComboBox übergibt Playlist und Titel and Label
-		 * 
-		 */
-		
-		comboBoxplaylist.addActionListener (new ActionListener ()
-		{
-		    public void actionPerformed(ActionEvent e)
-		    {
-		    	lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
-		       
-		    }
-		});
-		
-		
-		
-		/*ActionListener Benutzeroberfläsche
-		 * 
-		 * 
-		 */
-		
-		/*Playbutton bekommt aktuellen Track.player übergeben
-		 * + speichert diesen in der Hilfsvariable previos_track von Playlist ab um bei Playlist wechsel diesen stoppen zu können.
-		 * 
-		 */
-		btnplay.addActionListener(e-> { if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {
 			
+			comboBoxplaylist = new JComboBox<String>(Playlist.get_all_plname_string());
+			comboBoxplaylist.setBackground(SystemColor.window);
+			comboBoxplaylist.setBounds(10, 143, 414, 20);
+			getContentPane().add(comboBoxplaylist);
 			
-											
+				/*ComboBox übergibt Playlist und Titel and Label
+				 * 
+				 */
 			
-										}else {			
-											Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.play();
-											
-											
-											Playlist.set_previos_track((String)comboBoxplaylist.getSelectedItem());
-											
-											
-										}
-			
-			
-										 });
-		
-		
-		/*Pausebutton wird player.pause() 
-		 * 
-		 */
-		btnpause.addActionListener(e->{				if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {
-			
-			
-			
-			
-		}else {
-			
-			Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.pause();
-			
-			
-		}});
-		
-		
-		
-		
-		btnstop.addActionListener(e-> {if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {
-		
-		}else {		Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.stop();				}
-			
-			
-			
-			
-		});
-		
+				comboBoxplaylist.addActionListener (new ActionListener () {
 				
+				    public void actionPerformed(ActionEvent e)
+				    {
+				    	lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
+				       
+				    }
+				});
 		
-		
-		/*Nächster Titel Track 
-		 * stopt laufenden Track 
-		 * lädt nächsten Track
-		 * repaint() damit neuer Titelname angezeigt wird
-		 */
-		btnfoward.addActionListener(e-> { if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
-		else {
-			Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track().player.stop(); 
-			Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).next_track();	
-			lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
-		}});
-		//repaint hinzufügen
-		
-		
-		
-		
-		
-		
-		/*letzter Titel Track 
-		 * stopt laufenden Track 
-		 * lädt letzten Track
-		 * repaint() damit neuer Titelname angezeigt wird
-		 */
-		btnback.addActionListener(e-> {if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
-		else {
-			Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track().player.stop(); 
-			Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).previos_track();
-			lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
-			
-			
-		}	});				
-										//repaint hinzufügen
 	
-				
-		/*Titelanzeige
-		 * 
-		 */
-		//lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
-		 
-		
-		if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
-		else {
-			lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
-		}
-		
+					/*ActionListener Benutzeroberfläsche
+					 * 
+					 * 
+					 */
+					
+					/*Playbutton bekommt aktuellen Track.player übergeben
+					 * + speichert diesen in der Hilfsvariable previos_track von Playlist ab um bei Playlist wechsel diesen stoppen zu können.
+					 * 
+					 */
+					btnplay.addActionListener(e-> { if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {
+						
+						}else {			
+							Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.play();
+							
+							
+							Playlist.set_previos_track((String)comboBoxplaylist.getSelectedItem());
+						}
+					});
 
-	
-		/*Bei neuer playlist auswahl wird laufender Track aus "alter" Playlist gestoppt.
-		 * -> mit  der Hilfsvariable previos_track aus Playlist.
-		 */
-		comboBoxplaylist.addActionListener(e-> {if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
-		else{Playlist.get_current_playlist(Playlist.get_previos_track()).get_current_track().player.stop();}
-			Playlist.get_current_playlist(Playlist.get_previos_track()).set_current_titel_zero();
-		});
-			
 		
+						/*Pausebutton wird player.pause() 
+						 * 
+						 */
+						btnpause.addActionListener(e->{	if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {
+			
+							}else {
+								
+								Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.pause();								
+						}});
+		
+		
+		
+		
+						btnstop.addActionListener(e-> {if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {
+						
+							}else {		Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.stop();}	
+						});
+		
+				
+		
+		
+							/*Nächster Titel Track 
+							 * stopt laufenden Track 
+							 * lädt nächsten Track
+							 * repaint() damit neuer Titelname angezeigt wird
+							 */
+							btnfoward.addActionListener(e-> { if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
+								else {
+									Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track().player.stop(); 
+									Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).next_track();	
+									lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
+								}});
+												
+							/*letzter Titel Track 
+							 * stopt laufenden Track 
+							 * lädt letzten Track
+							 * repaint() damit neuer Titelname angezeigt wird
+							 */
+							btnback.addActionListener(e-> {if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
+								else {
+									Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track().player.stop(); 
+									Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).previos_track();
+									lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
+								}});				
+							
+								/*Titelanzeige
+								 * 
+								 */
+													
+								if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
+								else {
+									lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
+								}
+														
+									/*Bei neuer playlist auswahl wird laufender Track aus "alter" Playlist gestoppt.
+									 * -> mit  der Hilfsvariable previos_track aus Playlist.
+									 */
+									comboBoxplaylist.addActionListener(e-> {if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
+									else{Playlist.get_current_playlist(Playlist.get_previos_track()).get_current_track().player.stop();}
+										Playlist.get_current_playlist(Playlist.get_previos_track()).set_current_titel_zero();
+									});
+			
 		/*Logik Ende
 		 * 
 		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
 		 */
-		
-
-		JLabel lblplaylist = new JLabel("Aktuelle Playlist:");
-		lblplaylist.setBounds(10, 119, 414, 14);
-		contentPane.add(lblplaylist);
+									
 		
 		/**
 		 * Inhalt Verwaltungsmodus.
@@ -332,9 +320,15 @@ public class GUI extends JFrame {
 		verwaltung.setResizable(false);
 		verwaltung.getContentPane().setBackground(UIManager.getColor("TextField.inactiveBackground"));
 		verwaltung.setBounds(100, 100, 403, 551);
-		
-		
 		verwaltung.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		verwaltung.getContentPane().setLayout(null);
+		verwaltung.setVisible(false); 
+		verwaltung.setTitle("Verwaltungsmodus");
+		
+		/*Wenn Verwaltungsmodus modus geschlossen wird
+		 * -> Benutzermodus wird wieder sichtbar.
+		 */
+		
 		verwaltung.addWindowListener(new java.awt.event.WindowAdapter() {
 		    @Override
 		    public void windowClosing(java.awt.event.WindowEvent e) {
@@ -343,9 +337,8 @@ public class GUI extends JFrame {
 		    }
 		});
 		
-		verwaltung.getContentPane().setLayout(null);
-		verwaltung.setVisible(false); 
-		verwaltung.setTitle("Verwaltungsmodus");
+		
+		
 				
 		menuBar = new JMenuBar();
 		verwaltung.setJMenuBar(menuBar);
@@ -353,7 +346,7 @@ public class GUI extends JFrame {
 		mndatei = new JMenu("Datei");
 		menuBar.add(mndatei);
 	
-		JMenuItem mntmbenutzer = new JMenuItem("Benutzermodus");
+		mntmbenutzer = new JMenuItem("Benutzermodus");
 		mndatei.add(mntmbenutzer);
 		mntmbenutzer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -592,6 +585,7 @@ public class GUI extends JFrame {
 			textFieldplaylistname.setText("Playlist wurde hinzugefügt");
 			comboBoxplaylist.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
 			comboBoxeditplaylist.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));	
+			comboBoxplaylistdelete.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
 			
 			
 		}else {textFieldplaylistname.setText("ERROR: Playlistname bereits vergeben.");}
@@ -756,6 +750,7 @@ public class GUI extends JFrame {
 
 			Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).add_singletitel((String) listall.getSelectedValue());
 			listplaylist.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
+			listdelete.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
 			Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).set_current_titel_zero();	
 
 			}
@@ -773,10 +768,12 @@ public class GUI extends JFrame {
 		btndeletefromplaylist.addActionListener(e-> {
 			if(listplaylist.getSelectedValue() == null) {} 
 			else {Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.stop();	
+			
 				Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).delete_singletitel((String) listplaylist.getSelectedValue());	
 				listplaylist.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
 				listdelete.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
 				Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).set_current_titel_zero();
+				
 				
 				}
 			});
