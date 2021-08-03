@@ -191,16 +191,52 @@ public class GUI extends JFrame {
 		 * + speichert diesen in der Hilfsvariable previos_track von Playlist ab um bei Playlist wechsel diesen stoppen zu können.
 		 * 
 		 */
-		btnplay.addActionListener(e-> {Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.play();
-										Playlist.set_previos_track((String)comboBoxplaylist.getSelectedItem()); });
+		btnplay.addActionListener(e-> { if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {
+			
+			
+											
+			
+										}else {			
+											Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.play();
+											
+											
+											Playlist.set_previos_track((String)comboBoxplaylist.getSelectedItem());
+											
+											
+										}
+			
+			
+										 });
 		
 		
 		/*Pausebutton wird player.pause() 
 		 * 
 		 */
-		btnpause.addActionListener(e->Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.pause());
-		btnstop.addActionListener(e-> Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.stop());
+		btnpause.addActionListener(e->{				if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {
+			
+			
+			
+			
+		}else {
+			
+			Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.pause();
+			
+			
+		}});
 		
+		
+		
+		
+		btnstop.addActionListener(e-> {if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {
+		
+		}else {		Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.stop();				}
+			
+			
+			
+			
+		});
+		
+				
 		
 		
 		/*Nächster Titel Track 
@@ -208,33 +244,61 @@ public class GUI extends JFrame {
 		 * lädt nächsten Track
 		 * repaint() damit neuer Titelname angezeigt wird
 		 */
-		btnfoward.addActionListener(e-> {Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track().player.stop(); 
-										Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).next_track();
-										repaint();});
-										//repaint hinzufügen
+		btnfoward.addActionListener(e-> { if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
+		else {
+			Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track().player.stop(); 
+			Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).next_track();	
+		}});
+		//repaint hinzufügen
+		
+		
+		
+		
+		
 		
 		/*letzter Titel Track 
 		 * stopt laufenden Track 
 		 * lädt letzten Track
 		 * repaint() damit neuer Titelname angezeigt wird
 		 */
-		btnback.addActionListener(e-> {Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track().player.stop(); 
-										Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).previos_track();
-										});				
+		btnback.addActionListener(e-> {if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
+		else {
+			Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track().player.stop(); 
+			Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).previos_track();
+			
+			
+			
+		}	});				
 										//repaint hinzufügen
 	
 				
 		/*Titelanzeige
 		 * 
 		 */
-		lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
+		//lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
+		 
+		
+		if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
+		else {
+			lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 	
 		/*Bei neuer playlist auswahl wird laufender Track aus "alter" Playlist gestoppt.
 		 * -> mit  der Hilfsvariable previos_track aus Playlist.
 		 */
-		comboBoxplaylist.addActionListener(e-> Playlist.get_current_playlist(Playlist.get_previos_track()).get_current_track().player.stop());                                 
-		
+		comboBoxplaylist.addActionListener(e-> {if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
+		else{Playlist.get_current_playlist(Playlist.get_previos_track()).get_current_track().player.stop();}});
 		
 		
 		/*Logik Ende
