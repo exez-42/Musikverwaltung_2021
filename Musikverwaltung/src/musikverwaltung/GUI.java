@@ -694,10 +694,7 @@ public class GUI extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		
-		btndeletefromplaylist.addActionListener(e-> {
-			if(listplaylist.getSelectedValue() == null) {} 
-			else {	Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).delete_singletitel((String) listplaylist.getSelectedValue());							}
-			});
+		
 		
 		
 		
@@ -727,6 +724,29 @@ public class GUI extends JFrame {
 		btndeletefromplaylist.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Right.png")));
 		btndeletefromplaylist.setBounds(286, 187, 33, 23);
 		contentPane.add(btndeletefromplaylist);
+		/*Löschen / hinzufügen
+		 * 
+		 * 
+		 * 
+		 * 
+		 */
+		
+		btndeletefromplaylist.addActionListener(e-> {
+			if(listplaylist.getSelectedValue() == null) {} 
+			else {	Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).delete_singletitel((String) listplaylist.getSelectedValue());							}
+			});
+		
+		
+		/*Ende
+		*
+		*
+		*/
+		
+		
+		
+		
+		
+		
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
