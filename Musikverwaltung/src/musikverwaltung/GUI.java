@@ -184,6 +184,18 @@ public class GUI extends JFrame {
 		comboBoxplaylist.setBounds(10, 143, 414, 20);
 		getContentPane().add(comboBoxplaylist);
 		
+		/*ComboBox übergibt Playlist und Titel and Label
+		 * 
+		 */
+		
+		comboBoxplaylist.addActionListener (new ActionListener ()
+		{
+		    public void actionPerformed(ActionEvent e)
+		    {
+		    	lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
+		       
+		    }
+		});
 		
 		
 		/*ActionListener Benutzeroberfläsche
@@ -251,7 +263,8 @@ public class GUI extends JFrame {
 		btnfoward.addActionListener(e-> { if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
 		else {
 			Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track().player.stop(); 
-			Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).next_track();	
+			Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).next_track();
+			lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
 		}});
 		//repaint hinzufügen
 		
@@ -269,6 +282,7 @@ public class GUI extends JFrame {
 		else {
 			Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track().player.stop(); 
 			Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).previos_track();
+			lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
 			
 			
 			
