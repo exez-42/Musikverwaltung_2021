@@ -245,8 +245,29 @@ public class TitelDB {
 		}
 		return playlist;
 	}
+
+	public static Titel get_singleTitel(String eindeutiger_titel_string) {
+		
+		for (int i = 0; i < alleTitel.size(); i++) {
+			
+		if(alleTitel.get(i).player_out_bearbeiten().equals(eindeutiger_titel_string)) {
+			
+			return alleTitel.get(i);
+			
+			
+		}	
+			
+		return null;	
+			
+			
+		}
+		
+		return null;
+	}
 	
-	public static void saveDB () throws IOException {
+	
+	
+		public static void saveDB () throws IOException {
 		File f = new File(".\\src\\Daten\\TitelDatenBank.txt"); // Ordner "Daten" in "src" erforderlich!
 		OutputStream ostream = new FileOutputStream(f);
 		PrintWriter writer = new PrintWriter(ostream);
