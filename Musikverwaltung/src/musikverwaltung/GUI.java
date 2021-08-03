@@ -692,6 +692,16 @@ public class GUI extends JFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNewLabel.setBounds(243, 10, 121, 18);
 		contentPane.add(lblNewLabel);
+		
+		
+		btndeletefromplaylist.addActionListener(e-> {
+			if(listplaylist.getSelectedValue() == null) {} 
+			else {	Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).delete_singletitel((String) listplaylist.getSelectedValue());							}
+			});
+		
+		
+		
+		
 		/*Playlist auswählen
 		 * 
 		 * 
