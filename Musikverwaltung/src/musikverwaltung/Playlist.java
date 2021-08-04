@@ -55,6 +55,12 @@ public class Playlist {
 	}
 
 	
+	
+	
+	
+	
+	
+	
 	/*
 	 * indirekter Konstruktor
 	 * prüft ob Playlist name schon exestiert 
@@ -196,6 +202,7 @@ public class Playlist {
 	}
 	
 
+	
 	
 	
 	
@@ -373,10 +380,13 @@ public class Playlist {
 	 */
 	public void add_singletitel(String titel) {
 	Titel tmp = TitelDB.get_singleTitel(titel);
-	if(tmp == null) {	System.out.println("null");		}
+	if(tmp == null) {}
 	else {
 	
-	this.playlist.add(tmp);
+		
+	if(this.playlist.contains(tmp)) {}	
+	else { this.playlist.add(tmp); }	
+	
 		
 	}
 		
@@ -386,8 +396,42 @@ public class Playlist {
 	
 	
 	
+	public static void delete_titel_from_all_playlist(String titel_to_string) {
+		
+		for (int i = 0; i < all_pl.size(); i++) {
+			
+			all_pl.get(i).delete_singletitel_verwaltung(titel_to_string);
+			
+		}
+		
+		
+		
+	}
 	
 	
+	
+
+
+	public void delete_singletitel_verwaltung(String titel_to_string) {
+		
+		for(int i = 0; i < this.playlist.size(); i++) {
+			
+			if(this.playlist.get(i).toString().equals(titel_to_string)) {
+				
+				this.playlist.remove(i);
+				
+				
+				
+			}	
+				
+				
+				
+		
+		
+		
+		
+	}
+	}
 	
 	
 	public void delete_singletitel(String titel) {
