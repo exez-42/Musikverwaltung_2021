@@ -373,11 +373,32 @@ public class Playlist {
 	}
 	
 	
+	
+	
+	public void add_auswahl(ArrayList<Titel> titelliste) {
+		if(titelliste == null) {}
+		else {
+		for (int i = 0; i < titelliste.size(); i++) {
+			
+			if(!this.playlist.contains(titelliste.get(i))) {
+			this.playlist.add(titelliste.get(i));	
+			}else { 
+				//titel bereits enthalten
+			}
+
+		}
+		}
+		
+		
+		
+	}
+	
 	/*add_singletitel:
 	 * liefert ein Titelobjekt zurück
 	 * eindeutige eingabe von einem Titel String 
 	 * 
 	 */
+	
 	public void add_singletitel(String titel) {
 	Titel tmp = TitelDB.get_singleTitel(titel);
 	if(tmp == null) {}
