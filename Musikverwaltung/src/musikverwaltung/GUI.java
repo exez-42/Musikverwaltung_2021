@@ -48,6 +48,7 @@ public class GUI extends JFrame {
 	//JMenuBar
 	private JMenuBar menuBar;
 	 
+	
 	//JMenuItem
 	private JMenuItem mntmbenutzer;
 	private JMenuItem mntmverwaltung;
@@ -55,6 +56,7 @@ public class GUI extends JFrame {
 	private JMenuItem mntmedit;
 	private JMenuItem mntmdelete;
 	private JMenuItem mntmbeenden;
+	
 	
 	//JLabel
 	private JLabel lbplayback;
@@ -68,12 +70,6 @@ public class GUI extends JFrame {
 	private JButton	btnstop;
 	private JButton btnfoward;
 	
-	//JList
-	@SuppressWarnings("rawtypes")
-	private JList listsongs;
-	@SuppressWarnings("rawtypes")
-	private JList listdelete;
-	
 	//JComboBox
 	private JComboBox<String> comboBoxplaylist;
 	@SuppressWarnings("rawtypes")
@@ -81,7 +77,7 @@ public class GUI extends JFrame {
 	@SuppressWarnings("rawtypes")
 	private JComboBox comboBoxplaylistdelete;
 	@SuppressWarnings("rawtypes")
-	private JList listall;
+	private JList listdelete;
 	
 	private JPanel contentPane;
 	private JTextField textFieldname;
@@ -93,9 +89,6 @@ public class GUI extends JFrame {
 	private JTextField textFieldplaylistname;
 	private JTextField textallsearch;
 	private JTextField textFieldfile;
-	private JScrollPane songsScrollPane;
-
-	private JScrollPane allScrollPane;
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public GUI() {
@@ -447,7 +440,7 @@ public class GUI extends JFrame {
 		btnaddfile.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent arg0) {
-				// Erstellung unseres FileFilters für Musikdateien
+				// Erstellung unseres FileFilters für Bilddateien
 		        FileFilter filter = new FileNameExtensionFilter("Musik", "wav");      
 				JFileChooser chooser = new JFileChooser("C:/Beispieldatei");
 				chooser.addChoosableFileFilter(filter); 
@@ -516,10 +509,6 @@ public class GUI extends JFrame {
 					System.out.println("Genre: " + genre);
 					System.out.println("Datei: " + path);
 					TitelDB.einf(new Titel(name, artist, album, jahr, genre, path));
-					listsongs.setListData(TitelDB.get_titelDB_array2());
-					listall.setListData(TitelDB.get_titelDB_array());
-					
-					
 				}
 			}
 		});
@@ -531,27 +520,55 @@ public class GUI extends JFrame {
 		verwaltung.getContentPane().add(paneldelete);
 		paneldelete.setLayout(null);
 		
-		
-		listsongs = new JList();
+		JList listsongs = new JList();
 		listsongs.setListData(TitelDB.get_titelDB_array2()); //-------------------- diese Funktion muss oft wiederholt werden (= Anzeige der Songs im Verwaltungsmodus --> immer wenn gelöscht, hinzugefügt oder sortiert wird)
-		songsScrollPane = new JScrollPane(listsongs);
-		songsScrollPane.setBounds(10, 18, 347, 130);
 		listsongs.setBorder(BorderFactory.createLineBorder(Color.black));
 		listsongs.setBounds(10, 18, 347, 130);
-		paneldelete.add(songsScrollPane);  	
+		paneldelete.add(listsongs);
+		
+		/*Delete Track aus Datenbank
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 */
+		
 		
 		JButton btndeletesong = new JButton("L\u00F6schen");
 		btndeletesong.setBounds(10, 154, 111, 23);
 		paneldelete.add(btndeletesong);
 		btndeletesong.addActionListener(new ActionListener() { //aus Datenbank löschen
 			public void actionPerformed (ActionEvent e) {
+				
+				
+				
 				if (!(listsongs.isSelectionEmpty())) {
+
+					
+					if(!(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()) == null)) {
+						Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.stop();	
+						Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).set_current_titel_zero();
+						Playlist.delete_titel_from_all_playlist((String)listsongs.getSelectedValue());
+						
+					}
+					
+					
+					
+					
+					
+					
 					System.out.println("zu Löschen: " + ((String)listsongs.getSelectedValue()));
 					for (int i = 0; i < TitelDB.alleTitel.size(); i++) {
 						if (TitelDB.alleTitel.get(i).toString().equals(((String)listsongs.getSelectedValue()))) {
 							TitelDB.loesche(i);
-							listsongs.setListData(TitelDB.get_titelDB_array2());
-							listall.setListData(TitelDB.get_titelDB_array());
 						}
 					}
 				}
@@ -582,7 +599,6 @@ public class GUI extends JFrame {
 							TitelDB.alleTitel.get(i).printMe();
 						}
 						System.out.println();
-						listsongs.setListData(TitelDB.get_titelDB_array2());
 		    		}
 				});
 				
@@ -599,7 +615,6 @@ public class GUI extends JFrame {
 							TitelDB.alleTitel.get(i).printMe();
 						}
 						System.out.println();
-						listsongs.setListData(TitelDB.get_titelDB_array2());
 		    		}
 				});
 				
@@ -616,7 +631,6 @@ public class GUI extends JFrame {
 							TitelDB.alleTitel.get(i).printMe();
 						}
 						System.out.println();
-						listsongs.setListData(TitelDB.get_titelDB_array2());
 		    		}
 				});
 				
@@ -633,7 +647,6 @@ public class GUI extends JFrame {
 							TitelDB.alleTitel.get(i).printMe();
 						}
 						System.out.println();
-						listsongs.setListData(TitelDB.get_titelDB_array2());
 		    		}
 				});
 				
@@ -650,7 +663,6 @@ public class GUI extends JFrame {
 							TitelDB.alleTitel.get(i).printMe();
 						}
 						System.out.println();
-						listsongs.setListData(TitelDB.get_titelDB_array2());
 		    		}
 				});
 				
@@ -845,9 +857,9 @@ public class GUI extends JFrame {
 		 * 
 		 */
 		
-		listall = new JList();
+		JList listall = new JList();
 		
-		allScrollPane = new JScrollPane(listall);
+		JScrollPane allScrollPane = new JScrollPane(listall);
 		
 		allScrollPane.setBounds(326, 88, 270, 140);
 		listall.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -861,8 +873,7 @@ public class GUI extends JFrame {
 		 * 
 		 */
 		listall.setListData(TitelDB.get_titelDB_array());  //-----------(SongDB-Anzeige im Playlist-Bearbeiten-Modus, Wiederholung wenn gelöscht, hinzugefüggt oder sortiert wird)
-		
-		
+
 
 		/*
 		 * 
@@ -924,7 +935,7 @@ public class GUI extends JFrame {
 				}
 			});
 
-
+		
 		/*Ende
 		*
 		*
@@ -992,7 +1003,7 @@ public class GUI extends JFrame {
 		btnapplyfilter.addActionListener(e -> {
 			ArrayList<Titel> tmp = new ArrayList<Titel>();
 			if (comboBoxfilter1.getSelectedItem().equals("Alle Songs")) {
-				listall.setListData(TitelDB.get_titelDB_array());   
+				tmp = TitelDB.alleTitel; //Zeile muss weg, dafür: alle Titel in listall einfügen (   listall.setListData(TitelDB.get_titelDB_array());   )
 			}
 			if (comboBoxfilter1.getSelectedItem().equals("Interpret")) {
 				tmp = TitelDB.getListInterpret((String) comboBoxfilter2.getSelectedItem());
@@ -1011,7 +1022,7 @@ public class GUI extends JFrame {
 				tmp.get(i).printMe();
 				tmp2[i] = tmp.get(i).player_out_bearbeiten();
 			}
-			listall.setListData(tmp2);
+			//listall.setListData(tmp2);
 			System.out.println("----------------------------------");
 			});
 		
@@ -1050,10 +1061,6 @@ public class GUI extends JFrame {
 		JRadioButton rdbtnAbsteigend = new JRadioButton("Absteigend");
 		rdbtnAbsteigend.setBounds(146, 93, 109, 23);
 		panel.add(rdbtnAbsteigend);
-		
-		JButton btneditsort = new JButton("Sotieren");
-		btneditsort.setBounds(147, 147, 117, 23);
-		panel.add(btneditsort);
 		
 		//Grupppierung fuer die radio buttons 
 		ButtonGroup groupleft = new ButtonGroup();
