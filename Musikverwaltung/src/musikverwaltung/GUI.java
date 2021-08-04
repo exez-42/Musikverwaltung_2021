@@ -922,13 +922,76 @@ public class GUI extends JFrame {
 		panel.add(textallsearch);
 		textallsearch.setColumns(10);
 		
-		JComboBox comboBoxfilter1 = new JComboBox();
+		//--------------------------------------------
+		
+		JComboBox comboBoxfilter2 = new JComboBox();
+		comboBoxfilter2.setBounds(322, 148, 117, 20);
+		panel.add(comboBoxfilter2);
+		
+		String filterListe[] = {"Alle Songs", "Interpret", "Album", "Erscheinungsjahr", "Genre"};
+		JComboBox comboBoxfilter1 = new JComboBox(filterListe);
 		comboBoxfilter1.setBounds(322, 120, 117, 20);
 		panel.add(comboBoxfilter1);
+		comboBoxfilter1.addActionListener(e -> {
+			if (comboBoxfilter1.getSelectedItem().equals("Alle Songs")) {
+				comboBoxfilter2.removeAllItems();
+			}
+			if (comboBoxfilter1.getSelectedItem().equals("Interpret")) {
+				comboBoxfilter2.removeAllItems();
+				for (int i = 0; i < TitelDB.interpreten.size(); i++) {
+					comboBoxfilter2.addItem(TitelDB.interpreten.get(i));
+				}
+			}
+			if (comboBoxfilter1.getSelectedItem().equals("Album")) {
+				comboBoxfilter2.removeAllItems();
+				for (int i = 0; i < TitelDB.alben.size(); i++) {
+					comboBoxfilter2.addItem(TitelDB.alben.get(i));
+				}
+			}
+			if (comboBoxfilter1.getSelectedItem().equals("Erscheinungsjahr")) {
+				comboBoxfilter2.removeAllItems();
+				for (int i = 0; i < TitelDB.jahre.size(); i++) {
+					comboBoxfilter2.addItem(TitelDB.jahre.get(i));
+				}
+			}
+			if (comboBoxfilter1.getSelectedItem().equals("Genre")) {
+				comboBoxfilter2.removeAllItems();
+				for (int i = 0; i < TitelDB.genres.size(); i++) {
+					comboBoxfilter2.addItem(TitelDB.genres.get(i));
+				}
+			}
+		});
 		
 		JButton btnapplyfilter = new JButton("Filter anwenden");
 		btnapplyfilter.setBounds(449, 119, 127, 23);
 		panel.add(btnapplyfilter);
+		btnapplyfilter.addActionListener(e -> {
+			ArrayList<Titel> tmp = new ArrayList<Titel>();
+			if (comboBoxfilter1.getSelectedItem().equals("Alle Songs")) {
+				tmp = TitelDB.alleTitel; //Zeile muss weg, dafür: alle Titel in listall einfügen (   listall.setListData(TitelDB.get_titelDB_array());   )
+			}
+			if (comboBoxfilter1.getSelectedItem().equals("Interpret")) {
+				tmp = TitelDB.getListInterpret((String) comboBoxfilter2.getSelectedItem());
+				}
+			if (comboBoxfilter1.getSelectedItem().equals("Album")) {
+				tmp = TitelDB.getListAlbum((String) comboBoxfilter2.getSelectedItem());
+				}
+			if (comboBoxfilter1.getSelectedItem().equals("Erscheinungsjahr")) {
+				tmp = TitelDB.getListJahr((Integer) comboBoxfilter2.getSelectedItem());
+				}
+			if (comboBoxfilter1.getSelectedItem().equals("Genre")) {
+				tmp = TitelDB.getListGenre((String) comboBoxfilter2.getSelectedItem());
+				}
+			String[] tmp2 = new String[tmp.size()];
+			for (int i = 0; i < tmp.size(); i++) {
+				tmp.get(i).printMe();
+				tmp2[i] = tmp.get(i).player_out_bearbeiten();
+			}
+			//listall.setListData(tmp2);
+			System.out.println("----------------------------------");
+			});
+		
+		//------------------------------------------------------
 		
 		JButton btnaddall = new JButton("Alle hinzuf\u00FCgen");
 		btnaddall.setBounds(449, 147, 127, 23);
@@ -979,10 +1042,6 @@ public class GUI extends JFrame {
 		panel_1.setBackground(UIManager.getColor("TextField.foreground"));
 		panel_1.setBounds(289, 0, 3, 181);
 		panel.add(panel_1);
-		
-		JComboBox comboBoxfilter2 = new JComboBox();
-		comboBoxfilter2.setBounds(322, 148, 117, 20);
-		panel.add(comboBoxfilter2);
 		
 		JLabel lblNewLabel_1 = new JLabel("Sotieren:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
