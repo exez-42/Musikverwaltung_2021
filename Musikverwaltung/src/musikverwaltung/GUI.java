@@ -448,7 +448,8 @@ public class GUI extends JFrame {
 	        				{
 	             					// Ausgabe der ausgewaehlten Datei
 	            					System.out.println("Die zu öffnende Datei ist: " +
-	                 					chooser.getSelectedFile().getAbsoluteFile());
+	                 					chooser.getSelectedFile().getAbsoluteFile()); //Ausgabe
+	            					textFieldfile.setText(chooser.getSelectedFile().getPath());
 	        				}
     				}
 		});
@@ -456,6 +457,59 @@ public class GUI extends JFrame {
 		JButton btnaddsong = new JButton("Hinzuf\u00FCgen");
 		btnaddsong.setBounds(240, 171, 117, 23);
 		paneladd.add(btnaddsong);
+		btnaddsong.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { //Repaint -------------------------------------------------------------
+				boolean infosKomplett = true;
+				String name = textFieldname.getText();
+				String artist = textFieldartist.getText();
+				String album = textFieldalbum.getText();
+				String genre = textFieldgenre.getText();
+				String path = textFieldfile.getText();
+				Integer jahr = null;
+				if (name.isEmpty()) {
+					textFieldname.setText("Bitte Songtitel eintragen!");
+					infosKomplett = false;
+				}
+				if (artist.isEmpty()) {
+					textFieldartist.setText("Bitte Interpret eintragen!");
+					infosKomplett = false;
+				}
+				if (album.isEmpty()) {
+					textFieldalbum.setText("Bitte Albumtitel eintragen!");
+					infosKomplett = false;
+				}
+				if (textFielddate.getText().isEmpty()) {
+					textFielddate.setText("Bitte Erscheinungsjahr eintragen!");
+					infosKomplett = false;
+				}
+				else {
+					try {
+						jahr = Integer.valueOf(textFielddate.getText());
+					} catch (Exception ex) {
+						textFielddate.setText("Bitte gültiges Erscheinungsjahr eintragen!");
+						infosKomplett = false;
+					}
+				}
+				if (genre.isEmpty()) {
+					textFieldgenre.setText("Bitte Genre eintragen!");
+					infosKomplett = false;
+				}
+				if (path.isEmpty()) {
+					System.out.println("Datei auswählen!");
+					infosKomplett = false;
+				}
+				if (infosKomplett) {
+					System.out.println(" - alle Infos da -");
+					System.out.println("Titel: " + name);
+					System.out.println("Interpret: " + artist);
+					System.out.println("Album: " + album);
+					System.out.println("Jahr: " + jahr);
+					System.out.println("Genre: " + genre);
+					System.out.println("Datei: " + path);
+					TitelDB.einf(new Titel(name, artist, album, jahr, genre, path));
+				}
+			}
+		});
 		
 		JPanel paneldelete = new JPanel();
 		paneldelete.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
@@ -465,6 +519,7 @@ public class GUI extends JFrame {
 		paneldelete.setLayout(null);
 		
 		JList listsongs = new JList();
+		listsongs.setListData(TitelDB.get_titelDB_array2()); //-------------------- diese Funktion muss oft wiederholt werden (= Anzeige der Songs im Verwaltungsmodus --> immer wenn gelöscht, hinzugefügt oder sortiert wird)
 		listsongs.setBorder(BorderFactory.createLineBorder(Color.black));
 		listsongs.setBounds(10, 18, 347, 130);
 		paneldelete.add(listsongs);
@@ -482,35 +537,89 @@ public class GUI extends JFrame {
 		textFieldsearch.setBounds(131, 189, 226, 20);
 		paneldelete.add(textFieldsearch);
 		
-		JButton btntitle = new JButton("Titel");
-		btntitle.setBounds(10, 5, 70, 12);
-		paneldelete.add(btntitle);
-		btntitle.setOpaque(false);
-		btntitle.setContentAreaFilled(false);
+		//----------------------------------------------------------------------------- Ausgaben müssen weg
 		
-		JButton btnartist = new JButton("Interpr.");
-		btnartist.setBounds(80, 5, 70, 12);
-		paneldelete.add(btnartist);
-		btnartist.setOpaque(false);
-		btnartist.setContentAreaFilled(false);
-		
-		JButton btnalbum = new JButton("Album");
-		btnalbum.setBounds(149, 5, 70, 12);
-		paneldelete.add(btnalbum);
-		btnalbum.setOpaque(false);
-		btnalbum.setContentAreaFilled(false);
-		
-		JButton btnyear = new JButton("Jahr");
-		btnyear.setBounds(219, 5, 70, 12);
-		paneldelete.add(btnyear);
-		btnyear.setOpaque(false);
-		btnyear.setContentAreaFilled(false);
-		
-		JButton btngenre = new JButton("Genre");
-		btngenre.setBounds(287, 5, 70, 12);
-		paneldelete.add(btngenre);
-		btngenre.setOpaque(false);
-		btngenre.setContentAreaFilled(false);
+				JButton btntitle = new JButton("Titel");
+				btntitle.setBounds(10, 5, 70, 12);
+				paneldelete.add(btntitle);
+				btntitle.setOpaque(false);
+				btntitle.setContentAreaFilled(false);
+				btntitle.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						TitelDB.sortiere('n');
+						System.out.println("Nach Titel sortiert:");
+						for (int i = 0; i < TitelDB.alleTitel.size(); i++) {
+							TitelDB.alleTitel.get(i).printMe();
+						}
+						System.out.println();
+		    		}
+				});
+				
+				JButton btnartist = new JButton("Interpr.");
+				btnartist.setBounds(80, 5, 70, 12);
+				paneldelete.add(btnartist);
+				btnartist.setOpaque(false);
+				btnartist.setContentAreaFilled(false);
+				btnartist.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						TitelDB.sortiere('i');
+						System.out.println("Nach Interpret sortiert:");
+						for (int i = 0; i < TitelDB.alleTitel.size(); i++) {
+							TitelDB.alleTitel.get(i).printMe();
+						}
+						System.out.println();
+		    		}
+				});
+				
+				JButton btnalbum = new JButton("Album");
+				btnalbum.setBounds(149, 5, 70, 12);
+				paneldelete.add(btnalbum);
+				btnalbum.setOpaque(false);
+				btnalbum.setContentAreaFilled(false);
+				btnalbum.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						TitelDB.sortiere('a');
+						System.out.println("Nach Album sortiert:");
+						for (int i = 0; i < TitelDB.alleTitel.size(); i++) {
+							TitelDB.alleTitel.get(i).printMe();
+						}
+						System.out.println();
+		    		}
+				});
+				
+				JButton btnyear = new JButton("Jahr");
+				btnyear.setBounds(219, 5, 70, 12);
+				paneldelete.add(btnyear);
+				btnyear.setOpaque(false);
+				btnyear.setContentAreaFilled(false);
+				btnyear.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						TitelDB.sortiere('j');
+						System.out.println("Nach Jahr sortiert:");
+						for (int i = 0; i < TitelDB.alleTitel.size(); i++) {
+							TitelDB.alleTitel.get(i).printMe();
+						}
+						System.out.println();
+		    		}
+				});
+				
+				JButton btngenre = new JButton("Genre");
+				btngenre.setBounds(287, 5, 70, 12);
+				paneldelete.add(btngenre);
+				btngenre.setOpaque(false);
+				btngenre.setContentAreaFilled(false);
+				btngenre.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						TitelDB.sortiere('g');
+						System.out.println("Nach Genre sortiert:");
+						for (int i = 0; i < TitelDB.alleTitel.size(); i++) {
+							TitelDB.alleTitel.get(i).printMe();
+						}
+						System.out.println();
+		    		}
+				});
+				
+				//------------------------------------------------------------------------
 			
 		mntmverwaltung.addActionListener(new ActionListener() {
 			
@@ -702,6 +811,7 @@ public class GUI extends JFrame {
 		 */
 		
 		JList listall = new JList();
+		
 		JScrollPane allScrollPane = new JScrollPane(listall);
 		
 		allScrollPane.setBounds(326, 88, 270, 140);
@@ -715,7 +825,7 @@ public class GUI extends JFrame {
 		 * 
 		 * 
 		 */
-		listall.setListData(TitelDB.get_titelDB_array());
+		listall.setListData(TitelDB.get_titelDB_array());  //-----------(SongDB-Anzeige im Playlist-Bearbeiten-Modus, Wiederholung wenn gelöscht, hinzugefüggt oder sortiert wird)
 
 
 		/*
