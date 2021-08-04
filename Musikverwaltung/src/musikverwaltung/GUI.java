@@ -102,27 +102,31 @@ public class GUI extends JFrame {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public GUI() {
 	
-		
+		 TitelDB.erzeuge_TitelDB();
 		/*Titel, TitelDB, Playlisten werden erstellt
+		 * 
+		 *TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\2Pac-Changesft.Talent.wav"));
+			TitelDB.einf(new Titel("Sommer Sonne Kaktus", "Helge Schneider", "Sommer auf Balkonien", 2013, "Pop","C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\2Pac-Changesft.Talent.wav"));
+			TitelDB.einf(new Titel("T.A.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
+			TitelDB.einf(new Titel("T.B.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
+			TitelDB.einf(new Titel("T.C.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
+			TitelDB.einf(new Titel("T.D.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
+			TitelDB.einf(new Titel("T.E.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
+			TitelDB.einf(new Titel("T.F.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
+				
+				// Playlisten erstellen
+				Playlist.create_Playlist("Sommer_Playlist");
+				Playlist.get_playlist_wID("Sommer_Playlist").add_genre("Rock");
+				Playlist.create_Playlist("Sommernacht zu zweit");
+				Playlist.get_playlist_wID("Sommernacht zu zweit").add_Interpret("Helge Schneider");
+		
 		 * 
 		 * 
 		 * 
 		 */
-		TitelDB.erzeuge_TitelDB();
-		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\2Pac-Changesft.Talent.wav"));
-		TitelDB.einf(new Titel("Sommer Sonne Kaktus", "Helge Schneider", "Sommer auf Balkonien", 2013, "Pop","C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\2Pac-Changesft.Talent.wav"));
-		TitelDB.einf(new Titel("T.A.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-		TitelDB.einf(new Titel("T.B.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-		TitelDB.einf(new Titel("T.C.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-		TitelDB.einf(new Titel("T.D.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-		TitelDB.einf(new Titel("T.E.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-		TitelDB.einf(new Titel("T.F.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-			
-			// Playlisten erstellen
-			Playlist.create_Playlist("Sommer_Playlist");
-			Playlist.get_playlist_wID("Sommer_Playlist").add_genre("Rock");
-			Playlist.create_Playlist("Sommernacht zu zweit");
-			Playlist.get_playlist_wID("Sommernacht zu zweit").add_Interpret("Helge Schneider");
+		 
+		 
+		 
 			
 		/*Ende
 		 * 
@@ -1212,21 +1216,65 @@ public class GUI extends JFrame {
 		 * + überprüft ob es überhaupt Playlisten gibt
 		 * 
 		 */
-		if(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()) == null) {System.out.println("true");}
-		else {    btnplaylistdelete.addActionListener(new ActionListener() {
+	 
+			btnplaylistdelete.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
 				
 			Playlist.delete_playlist((String) comboBoxplaylistdelete.getSelectedItem()); 
 			Playlist.drucke_alle_pl();
 			comboBoxplaylistdelete.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
-			listdelete.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()).get_all_titel_array()));
+			
+			if(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()) == null) {System.out.println("truesyx");}
+			else {
+				
+				listdelete.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()).get_all_titel_array()));
+				
+			}
+			
+			
 			comboBoxplaylist.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
 			comboBoxeditplaylist.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
 			}                                        
 		});
-	}
+	//}
 
+			
+			
+			
+			
+			
+			
+			
+			/*
+			 * 	if(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()) == null) {
+		
+		
+		}else {	listplaylist.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());	
+		
+			comboBoxeditplaylist.addActionListener (new ActionListener ()
+			{
+			    public void actionPerformed(ActionEvent e)
+			    {
+			    	listplaylist.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
+			       
+			    }
+			});
+		}
+		
+			 * 
+			 * 
+			 */
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		/*Logik Ende
 		 * 
 		 * 
