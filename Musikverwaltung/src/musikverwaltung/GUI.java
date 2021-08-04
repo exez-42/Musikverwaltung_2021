@@ -527,6 +527,18 @@ public class GUI extends JFrame {
 		JButton btndeletesong = new JButton("L\u00F6schen");
 		btndeletesong.setBounds(10, 154, 111, 23);
 		paneldelete.add(btndeletesong);
+		btndeletesong.addActionListener(new ActionListener() { //aus Datenbank löschen
+			public void actionPerformed (ActionEvent e) {
+				if (!(listsongs.isSelectionEmpty())) {
+					System.out.println("zu Löschen: " + ((String)listsongs.getSelectedValue()));
+					for (int i = 0; i < TitelDB.alleTitel.size(); i++) {
+						if (TitelDB.alleTitel.get(i).toString().equals(((String)listsongs.getSelectedValue()))) {
+							TitelDB.loesche(i);
+						}
+					}
+				}
+			}
+		});
 		
 		JButton btnsearch = new JButton("Suchen");
 		btnsearch.setBounds(10, 188, 111, 23);
