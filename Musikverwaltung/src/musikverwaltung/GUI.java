@@ -940,7 +940,8 @@ public class GUI extends JFrame {
 
 		});
 
-
+		//add_auswahl(ArrayList<Titel> titelliste)
+		
 
 		//löschen
 
@@ -1053,6 +1054,34 @@ public class GUI extends JFrame {
 		JButton btnaddall = new JButton("Alle hinzuf\u00FCgen");
 		btnaddall.setBounds(449, 147, 127, 23);
 		panel.add(btnaddall);
+		
+		/*Meine vorgeschriebene FUnktion:
+		 * Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).add_auswahl(------   Liste mit Titeln übergeben ----------------------);
+		 * 
+		 *Wie meine Funktion funktioniert. 
+		 *1: Playlist.get_current_playlist() returnt die aktuell ausgewählte Playlist
+		 * 
+		 * 2: add_auswahl() dieser funktion übergibst du eine Liste mit den Titeln die ausgewählt wurden-
+		 * -> automatisch werden duplicate nicht hinzugefügt 
+		 */
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("Nach Interpret");
 		rdbtnNewRadioButton.setBounds(6, 54, 109, 23);
