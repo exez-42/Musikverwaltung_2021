@@ -1113,9 +1113,32 @@ public class GUI extends JFrame {
 		rdbtnAbsteigend.setBounds(146, 93, 109, 23);
 		panel.add(rdbtnAbsteigend);
 		
-		JButton btneditsort = new JButton("Sotieren");
+		JButton btneditsort = new JButton("Sortieren");
 		btneditsort.setBounds(147, 147, 117, 23);
 		panel.add(btneditsort);
+		btneditsort.addActionListener(e -> { // ------------------------------ REPAINT benötigt
+			if (rdbtnNewRadioButton.isSelected()) {
+				TitelDB.sortiere('i');
+			}
+			if (rdbtnNach.isSelected()) {
+				TitelDB.sortiere('n');
+			}
+			if (rdbtnNachAlbum.isSelected()) {
+				TitelDB.sortiere('a');
+			}
+			if (rdbtnNachErscheinungsjahr.isSelected()) {
+				TitelDB.sortiere('j');
+			}
+			if (rdbtnNachGenre.isSelected()) {
+				TitelDB.sortiere('g');
+			}
+			if (rdbtnAbsteigend.isSelected()) {
+				Collections.reverse(TitelDB.alleTitel);
+			}
+			for (int i = 0; i < TitelDB.alleTitel.size(); i++) { //Ausgabe
+				TitelDB.alleTitel.get(i).printMe();
+			}
+		});
 		
 		//Grupppierung fuer die radio buttons 
 		ButtonGroup groupleft = new ButtonGroup();
@@ -1133,7 +1156,7 @@ public class GUI extends JFrame {
 		panel_1.setBounds(289, 0, 3, 181);
 		panel.add(panel_1);
 		
-		JLabel lblNewLabel_1 = new JLabel("Sotieren:");
+		JLabel lblNewLabel_1 = new JLabel("Sortieren:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNewLabel_1.setBounds(10, 246, 81, 14);
 		contentPane.add(lblNewLabel_1);
