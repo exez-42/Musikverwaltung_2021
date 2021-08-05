@@ -171,21 +171,14 @@ public class GUI extends JFrame {
 		 * 
 		 */
 		TitelDB.erzeuge_TitelDB();
-		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
-		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage1", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
-		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage2", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
-		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage3", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
-		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage4", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
-		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage5", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
-		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage6", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
-		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage7", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
-		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage8", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
-		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage9", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
-		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage10", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
-		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage11", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
-		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage12", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
-		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage13", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
-		TitelDB.einf(new Titel("Sommer Sonne Kaktus", "Helge Schneider", "Sommer auf Balkonien", 2013, "Pop","C:\\\\Beispieldatei\\\\LOL.wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\2Pac-Changesft.Talent.wav"));
+		TitelDB.einf(new Titel("Sommer Sonne Kaktus", "Helge Schneider", "Sommer auf Balkonien", 2013, "Pop","C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\2Pac-Changesft.Talent.wav"));
+		TitelDB.einf(new Titel("T.A.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
+		TitelDB.einf(new Titel("T.B.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
+		TitelDB.einf(new Titel("T.C.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
+		TitelDB.einf(new Titel("T.D.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
+		TitelDB.einf(new Titel("T.E.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
+		TitelDB.einf(new Titel("T.F.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
 			
 			// Playlisten erstellen
 			Playlist.create_Playlist("Sommer_Playlist");
