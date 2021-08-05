@@ -1025,9 +1025,6 @@ public class GUI extends JFrame {
 		panel.add(btnapplyfilter);
 		btnapplyfilter.addActionListener(e -> {
 			ArrayList<Titel> tmp = new ArrayList<Titel>();
-			if (comboBoxfilter1.getSelectedItem().equals("Alle Songs")) {
-				listall.setListData(TitelDB.get_titelDB_array());   
-			}
 			if (comboBoxfilter1.getSelectedItem().equals("Interpret")) {
 				tmp = TitelDB.getListInterpret((String) comboBoxfilter2.getSelectedItem());
 				}
@@ -1047,6 +1044,9 @@ public class GUI extends JFrame {
 			}
 			listall.setListData(tmp2);
 			System.out.println("----------------------------------");
+			if (comboBoxfilter1.getSelectedItem().equals("Alle Songs")) {
+				listall.setListData(TitelDB.get_titelDB_array());   
+			}
 			});
 		
 		//------------------------------------------------------
