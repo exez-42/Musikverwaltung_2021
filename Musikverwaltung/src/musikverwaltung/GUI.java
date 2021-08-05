@@ -896,9 +896,17 @@ public class GUI extends JFrame {
 		 * 
 		 */
 		comboBoxeditplaylist = new JComboBox(Playlist.get_all_plname_string());
-		
 		comboBoxeditplaylist.setBounds(142, 39, 322, 18);
 		contentPane.add(comboBoxeditplaylist);
+		
+		comboBoxeditplaylist.addActionListener (new ActionListener ()
+			{
+			    public void actionPerformed(ActionEvent e)
+			    {
+			    	listplaylist.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());
+			       
+			    }
+			});
 		
 		/*JLIST: Listet alle Titel der ausgewählten Playlist auf.
 		 * 
@@ -919,14 +927,6 @@ public class GUI extends JFrame {
 		
 		}else {	listplaylist.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());	
 		
-			comboBoxeditplaylist.addActionListener (new ActionListener ()
-			{
-			    public void actionPerformed(ActionEvent e)
-			    {
-			    	listplaylist.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
-			       
-			    }
-			});
 		}
 		
 		
