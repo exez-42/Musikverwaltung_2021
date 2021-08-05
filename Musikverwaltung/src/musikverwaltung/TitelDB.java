@@ -128,7 +128,7 @@ public class TitelDB {
 	static void einf(Titel s) {
 		boolean enthalten = false;
 		for (int i = 0; i < alleTitel.size(); i++) {
-			if (alleTitel.get(i).toString().equals(s.toString())) { //funktioniert noch nicht
+			if (alleTitel.get(i).toString().equals(s.toString())) {
 				enthalten = true;
 			}
 		}
@@ -139,11 +139,11 @@ public class TitelDB {
 			alleTitel.add(s);
 			if (!(interpreten.contains(s.getInterpret()))) {
 				interpreten.add(s.getInterpret());
-				Collections.sort(interpreten);
+				Collections.sort(interpreten, String.CASE_INSENSITIVE_ORDER);
 			}
 			if (!(alben.contains(s.getAlbum()))) {
 				alben.add(s.getAlbum());
-				Collections.sort(alben);
+				Collections.sort(alben, String.CASE_INSENSITIVE_ORDER);
 			}
 			if (!(jahre.contains(s.getJahr()))) {
 				jahre.add(s.getJahr());
@@ -151,7 +151,7 @@ public class TitelDB {
 			}
 			if (!(genres.contains(s.getGenre()))) {
 				genres.add(s.getGenre());
-				Collections.sort(genres);
+				Collections.sort(genres, String.CASE_INSENSITIVE_ORDER);
 			}
 		}
 	}
