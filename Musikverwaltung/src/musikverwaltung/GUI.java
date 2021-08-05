@@ -7,6 +7,7 @@ import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -35,7 +36,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 @SuppressWarnings("serial")
 public class GUI extends JFrame {
 	
-	//Frame
+	//JFrame
 	private JFrame verwaltung;
 	private JFrame playlistedit;
 	private JFrame playlistcreate;
@@ -44,9 +45,13 @@ public class GUI extends JFrame {
 	//JMenu
 	private JMenu mndatei;
 	private JMenu mnplaylisteditor;
+	private JMenu mnplaylistwindow;
+	private JMenu mnmnplaylistwindow;
+	private JMenu mnwindow;
 	
 	//JMenuBar
 	private JMenuBar menuBar;
+	private JMenuBar menuBaredit;
 	 
 	//JMenuItem
 	private JMenuItem mntmbenutzer;
@@ -55,35 +60,71 @@ public class GUI extends JFrame {
 	private JMenuItem mntmedit;
 	private JMenuItem mntmdelete;
 	private JMenuItem mntmbeenden;
+	private JMenuItem mntmclose;
+	private JMenuItem mntmclose1;
+	private JMenuItem mntmclose2;
+	
+	//JPanel
+	private JPanel contentPane;
+	private JPanel panel;
+	private Panel panel_1;
 	
 	//JLabel
 	private JLabel lbplayback;
 	private JLabel lblsongisplaying;
 	private JLabel lblplaylist;
-	
+	private JLabel lbladd;
+	private JLabel lbldelete;
+	private JPanel paneladd;
+	private JPanel paneldelete;
+	private JLabel lblname;
+	private JLabel lblartist;
+	private JLabel lblalbum;
+	private JLabel lblgenre;
+	private JLabel lblplaylistname;
+	private JLabel lblchooseplaylist;
+	private JLabel lblsort;
+	private JLabel lbleditplaylist;
+	private JLabel lbleditsongs;
+	private JLabel lblsearch;
+	private JLabel lbldate;
+	private JLabel lblplaylistdelete;
+		
 	//JButton
 	private JButton btnback;
 	private JButton btnplay;
 	private JButton btnpause;
 	private JButton	btnstop;
 	private JButton btnfoward;
+	private JButton btnaddfile;
+	private JButton btnaddsong;
+	private JButton btndeletesong;
+	private JButton btnsearch;
+	private JButton btntitle;
+	private JButton btnartist;
+	private JButton btnalbum;
+	private JButton btnyear;
+	private JButton btngenre;
+	private JButton btncreateplaylist;
+	private JButton btncreatecategory;
+	private JButton btnaddtoplaylist;
+	private JButton btndeletefromplaylist;
+	private JButton btnsearchedit;
+	private JButton btnapplyfilter;
+	private JButton btnaddall;
+	private JButton btneditsort;
+	private JButton btnplaylistdelete;
 	
-	//JList
-	@SuppressWarnings("rawtypes")
-	private JList listsongs;
-	@SuppressWarnings("rawtypes")
-	private JList listdelete;
+	//JRadioButton
+	private JRadioButton rdbtnartist;
+	private JRadioButton rdbtntitle;
+	private JRadioButton rdbtnalbum;
+	private JRadioButton rdbtnyear;
+	private JRadioButton rdbtngenre;
+	private JRadioButton rdbtnAufsteigend;
+	private JRadioButton rdbtnAbsteigend;
 	
-	//JComboBox
-	private JComboBox<String> comboBoxplaylist;
-	@SuppressWarnings("rawtypes")
-	private JComboBox comboBoxeditplaylist;
-	@SuppressWarnings("rawtypes")
-	private JComboBox comboBoxplaylistdelete;
-	@SuppressWarnings("rawtypes")
-	private JList listall;
-	
-	private JPanel contentPane;
+	//JTextField
 	private JTextField textFieldname;
 	private JTextField textFieldartist;
 	private JTextField textFieldalbum;
@@ -93,37 +134,64 @@ public class GUI extends JFrame {
 	private JTextField textFieldplaylistname;
 	private JTextField textallsearch;
 	private JTextField textFieldfile;
-	private JScrollPane songsScrollPane;
-
-	private JScrollPane allScrollPane;
+	
+	//JList
+	@SuppressWarnings("rawtypes")
+	private JList listsongs;
+	@SuppressWarnings("rawtypes")
+	private JList listall;
+	@SuppressWarnings("rawtypes")
+	private JList listdelete;
+	@SuppressWarnings("rawtypes")
 	private JList listplaylist;
+	
+	//JScrollPane
+	private JScrollPane songsScrollPane;
+	private JScrollPane allScrollPane;
 	private JScrollPane playlistScrollPane;
+	private JScrollPane deleteScrollPane;
+	
+	//JComboBox
+	private JComboBox<String> comboBoxplaylist;
+	@SuppressWarnings("rawtypes")
+	private JComboBox comboBoxeditplaylist;
+	@SuppressWarnings("rawtypes")
+	private JComboBox comboBoxplaylistdelete;
+	@SuppressWarnings("rawtypes")
+	private JComboBox comboBoxfilter2;
+	@SuppressWarnings("rawtypes")
+	private JComboBox comboBoxfilter1;
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public GUI() {
 	
-		 TitelDB.erzeuge_TitelDB();
 		/*Titel, TitelDB, Playlisten werden erstellt
-		 * 
-		 *TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\2Pac-Changesft.Talent.wav"));
-			TitelDB.einf(new Titel("Sommer Sonne Kaktus", "Helge Schneider", "Sommer auf Balkonien", 2013, "Pop","C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\2Pac-Changesft.Talent.wav"));
-			TitelDB.einf(new Titel("T.A.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-			TitelDB.einf(new Titel("T.B.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-			TitelDB.einf(new Titel("T.C.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-			TitelDB.einf(new Titel("T.D.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-			TitelDB.einf(new Titel("T.E.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-			TitelDB.einf(new Titel("T.F.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-				
-				// Playlisten erstellen
-				Playlist.create_Playlist("Sommer_Playlist");
-				Playlist.get_playlist_wID("Sommer_Playlist").add_genre("Rock");
-				Playlist.create_Playlist("Sommernacht zu zweit");
-				Playlist.get_playlist_wID("Sommernacht zu zweit").add_Interpret("Helge Schneider");
-		
 		 * 
 		 * 
 		 * 
 		 */
+		TitelDB.erzeuge_TitelDB();
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage1", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage2", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage3", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage4", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage5", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage6", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage7", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage8", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage9", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage10", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage11", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage12", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage13", 1976, "Rock", "C:\\Beispieldatei\\T.N.T..wav"));
+		TitelDB.einf(new Titel("Sommer Sonne Kaktus", "Helge Schneider", "Sommer auf Balkonien", 2013, "Pop","C:\\\\Beispieldatei\\\\LOL.wav"));
+			
+			// Playlisten erstellen
+			Playlist.create_Playlist("Sommer_Playlist");
+			Playlist.get_playlist_wID("Sommer_Playlist").add_genre("Rock");
+			Playlist.create_Playlist("Sommernacht zu zweit");
+			Playlist.get_playlist_wID("Sommernacht zu zweit").add_Interpret("Helge Schneider");
 		 
 		 
 		 
@@ -141,7 +209,7 @@ public class GUI extends JFrame {
 		setTitle("Benutzermodus");
 		setResizable(false);
 		setBackground(SystemColor.inactiveCaption);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 235);
 		contentPane = new JPanel();
 		contentPane.setBackground(UIManager.getColor("TextField.inactiveBackground"));
@@ -371,42 +439,42 @@ public class GUI extends JFrame {
 			}
 		});
 		
-		JLabel lbladd = new JLabel("Hinzuf\u00FCgen");
+		lbladd = new JLabel("Hinzuf\u00FCgen");
 		lbladd.setBounds(10, 11, 90, 14);
 		verwaltung.getContentPane().add(lbladd);
 		
-		JLabel lbldelete = new JLabel("Entfernen");
+		lbldelete = new JLabel("Entfernen");
 		lbldelete.setBounds(10, 246, 57, 14);
 		verwaltung.getContentPane().add(lbldelete);
 		
-		JPanel paneladd = new JPanel();
+		paneladd = new JPanel();
 		paneladd.setBackground(UIManager.getColor("TextField.inactiveBackground"));
 		paneladd.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		paneladd.setBounds(10, 29, 367, 206);
 		verwaltung.getContentPane().add(paneladd);
 		paneladd.setLayout(null);
 		
-		JLabel lblname = new JLabel("Titel:");
+		lblname = new JLabel("Titel:");
 		lblname.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblname.setBounds(10, 23, 46, 14);
 		paneladd.add(lblname);
 		
-		JLabel lblartist = new JLabel("Interpret:");
+		lblartist = new JLabel("Interpret:");
 		lblartist.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblartist.setBounds(10, 54, 59, 14);
 		paneladd.add(lblartist);
 		
-		JLabel lblalbum = new JLabel("Album:");
+		lblalbum = new JLabel("Album:");
 		lblalbum.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblalbum.setBounds(10, 85, 46, 14);
 		paneladd.add(lblalbum);
 		
-		JLabel lbldate = new JLabel("Erscheinungsjahr:");
+		lbldate = new JLabel("Erscheinungsjahr:");
 		lbldate.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lbldate.setBounds(9, 115, 100, 14);
 		paneladd.add(lbldate);
 		
-		JLabel lblgenre = new JLabel("Genre:");
+		lblgenre = new JLabel("Genre:");
 		lblgenre.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblgenre.setBounds(10, 143, 46, 14);
 		paneladd.add(lblgenre);
@@ -447,9 +515,10 @@ public class GUI extends JFrame {
 		paneladd.add(textFieldfile);
 		textFieldfile.setColumns(10);
 		
-		JButton btnaddfile = new JButton("Datei ausw\u00E4hlen");
+		btnaddfile = new JButton("Datei ausw\u00E4hlen");
 		btnaddfile.setBounds(10, 171, 99, 23);
 		paneladd.add(btnaddfile);
+		
 		btnaddfile.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent arg0) {
@@ -469,7 +538,7 @@ public class GUI extends JFrame {
     				}
 		});
 		
-		JButton btnaddsong = new JButton("Hinzuf\u00FCgen");
+		btnaddsong = new JButton("Hinzuf\u00FCgen");
 		btnaddsong.setBounds(240, 171, 117, 23);
 		paneladd.add(btnaddsong);
 		btnaddsong.addActionListener(new ActionListener() {
@@ -530,7 +599,7 @@ public class GUI extends JFrame {
 			}
 		});
 		
-		JPanel paneldelete = new JPanel();
+		paneldelete = new JPanel();
 		paneldelete.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		paneldelete.setBackground(UIManager.getColor("TextField.inactiveBackground"));
 		paneldelete.setBounds(10, 264, 367, 216);
@@ -562,7 +631,7 @@ public class GUI extends JFrame {
 		 * 
 		 */
 		
-		JButton btndeletesong = new JButton("L\u00F6schen");
+		btndeletesong = new JButton("L\u00F6schen");
 		btndeletesong.setBounds(10, 154, 111, 23);
 		paneldelete.add(btndeletesong);
 		btndeletesong.addActionListener(new ActionListener() { //aus Datenbank löschen
@@ -591,7 +660,7 @@ public class GUI extends JFrame {
 			}
 		});
 		
-		JButton btnsearch = new JButton("Suchen");
+		btnsearch = new JButton("Suchen");
 		btnsearch.setBounds(10, 188, 111, 23);
 		paneldelete.add(btnsearch);
 		
@@ -602,7 +671,7 @@ public class GUI extends JFrame {
 		
 		//----------------------------------------------------------------------------- Ausgaben müssen weg
 		
-				JButton btntitle = new JButton("Titel");
+				btntitle = new JButton("Titel");
 				btntitle.setBounds(10, 5, 70, 12);
 				paneldelete.add(btntitle);
 				btntitle.setOpaque(false);
@@ -619,7 +688,7 @@ public class GUI extends JFrame {
 		    		}
 				});
 				
-				JButton btnartist = new JButton("Interpr.");
+				btnartist = new JButton("Interpr.");
 				btnartist.setBounds(80, 5, 70, 12);
 				paneldelete.add(btnartist);
 				btnartist.setOpaque(false);
@@ -636,7 +705,7 @@ public class GUI extends JFrame {
 		    		}
 				});
 				
-				JButton btnalbum = new JButton("Album");
+				btnalbum = new JButton("Album");
 				btnalbum.setBounds(149, 5, 70, 12);
 				paneldelete.add(btnalbum);
 				btnalbum.setOpaque(false);
@@ -653,7 +722,7 @@ public class GUI extends JFrame {
 		    		}
 				});
 				
-				JButton btnyear = new JButton("Jahr");
+				btnyear = new JButton("Jahr");
 				btnyear.setBounds(219, 5, 70, 12);
 				paneldelete.add(btnyear);
 				btnyear.setOpaque(false);
@@ -670,7 +739,7 @@ public class GUI extends JFrame {
 		    		}
 				});
 				
-				JButton btngenre = new JButton("Genre");
+				btngenre = new JButton("Genre");
 				btngenre.setBounds(287, 5, 70, 12);
 				paneldelete.add(btngenre);
 				btngenre.setOpaque(false);
@@ -712,10 +781,10 @@ public class GUI extends JFrame {
 		menuBar = new JMenuBar();
 		playlistcreate.setJMenuBar(menuBar);
 		
-		JMenu mnplaylistwindow = new JMenu("Fenster");
+		mnplaylistwindow = new JMenu("Fenster");
 		menuBar.add(mnplaylistwindow);
 	
-		JMenuItem mntmclose = new JMenuItem("Schlie\u00DFen");
+		mntmclose = new JMenuItem("Schlie\u00DFen");
 		mnplaylistwindow.add(mntmclose);
 		mntmclose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -730,7 +799,7 @@ public class GUI extends JFrame {
 		playlistcreate.setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblplaylistname = new JLabel("Name eingeben:");
+		lblplaylistname = new JLabel("Name eingeben:");
 		lblplaylistname.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblplaylistname.setBounds(10, 11, 99, 14);
 		contentPane.add(lblplaylistname);
@@ -740,11 +809,11 @@ public class GUI extends JFrame {
 		contentPane.add(textFieldplaylistname);
 		textFieldplaylistname.setColumns(10);
 		
-		JButton btncreateplaylist = new JButton("Erstellen");
+		btncreateplaylist = new JButton("Erstellen");
 		btncreateplaylist.setBounds(10, 67, 105, 25);
 		contentPane.add(btncreateplaylist);
 		
-		JButton btncreatecategory = new JButton("Titel hinzuf\u00FCgen");
+		btncreatecategory = new JButton("Titel hinzuf\u00FCgen");
 		btncreatecategory.setBounds(125, 67, 149, 25);
 		contentPane.add(btncreatecategory);
 		/*LOGIK PLAYLIST hinzufügen
@@ -804,13 +873,13 @@ public class GUI extends JFrame {
 		playlistedit.setTitle("Playlist - Bearbeiten");
 		playlistedit.setBounds(100, 100, 622, 516);
 		
-		JMenuBar menuBaredit = new JMenuBar();
+		menuBaredit = new JMenuBar();
 		playlistedit.setJMenuBar(menuBaredit);
 		
-		JMenu mnmnplaylistwindow = new JMenu("Fenster");
+		mnmnplaylistwindow = new JMenu("Fenster");
 		menuBaredit.add(mnmnplaylistwindow);
 		
-		JMenuItem mntmclose1 = new JMenuItem("Schlie\u00DFen");
+		mntmclose1 = new JMenuItem("Schlie\u00DFen");
 		mnmnplaylistwindow.add(mntmclose1);
 		mntmclose1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -868,10 +937,10 @@ public class GUI extends JFrame {
 		}
 		
 		
-		JLabel lblNewLabel = new JLabel("Playlist ausw\u00E4hlen:");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel.setBounds(243, 10, 121, 18);
-		contentPane.add(lblNewLabel);
+		lblchooseplaylist = new JLabel("Playlist ausw\u00E4hlen:");
+		lblchooseplaylist.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblchooseplaylist.setBounds(243, 10, 121, 18);
+		contentPane.add(lblchooseplaylist);
 		
 		/*Playlist auswählen
 		 * 
@@ -906,12 +975,12 @@ public class GUI extends JFrame {
 		 * 
 		 */
 		
-		JButton btnaddtoplaylist = new JButton("");
+		btnaddtoplaylist = new JButton("");
 		btnaddtoplaylist.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Left.png")));
 		btnaddtoplaylist.setBounds(286, 108, 33, 23);
 		contentPane.add(btnaddtoplaylist);
 			
-		JButton btndeletefromplaylist = new JButton("");
+		btndeletefromplaylist = new JButton("");
 		btndeletefromplaylist.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Right.png")));
 		btndeletefromplaylist.setBounds(286, 187, 33, 23);
 		contentPane.add(btndeletefromplaylist);
@@ -965,13 +1034,13 @@ public class GUI extends JFrame {
 		*/
 		
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel.setBounds(10, 264, 586, 181);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JButton btnsearchedit = new JButton("Manuelle Suche");
+		btnsearchedit = new JButton("Manuelle Suche");
 		btnsearchedit.setBounds(372, 71, 135, 23);
 		panel.add(btnsearchedit);
 		
@@ -982,12 +1051,12 @@ public class GUI extends JFrame {
 		
 		//--------------------------------------------
 		
-		JComboBox comboBoxfilter2 = new JComboBox();
+		comboBoxfilter2 = new JComboBox();
 		comboBoxfilter2.setBounds(322, 148, 117, 20);
 		panel.add(comboBoxfilter2);
 		
 		String filterListe[] = {"Alle Songs", "Interpret", "Album", "Erscheinungsjahr", "Genre"};
-		JComboBox comboBoxfilter1 = new JComboBox(filterListe);
+		comboBoxfilter1 = new JComboBox(filterListe);
 		comboBoxfilter1.setBounds(322, 120, 117, 20);
 		panel.add(comboBoxfilter1);
 		comboBoxfilter1.addActionListener(e -> {
@@ -1020,7 +1089,7 @@ public class GUI extends JFrame {
 			}
 		});
 		
-		JButton btnapplyfilter = new JButton("Filter anwenden");
+		btnapplyfilter = new JButton("Filter anwenden");
 		btnapplyfilter.setBounds(449, 119, 127, 23);
 		panel.add(btnapplyfilter);
 		btnapplyfilter.addActionListener(e -> {
@@ -1042,16 +1111,17 @@ public class GUI extends JFrame {
 				tmp.get(i).printMe();
 				tmp2[i] = tmp.get(i).player_out_bearbeiten();
 			}
+			  
 			listall.setListData(tmp2);
 			System.out.println("----------------------------------");
 			if (comboBoxfilter1.getSelectedItem().equals("Alle Songs")) {
-				listall.setListData(TitelDB.get_titelDB_array());   
+				listall.setListData(TitelDB.get_titelDB_array()); 
 			}
 			});
 		
 		//------------------------------------------------------
 		
-		JButton btnaddall = new JButton("Alle hinzuf\u00FCgen");
+		btnaddall = new JButton("Alle hinzuf\u00FCgen");
 		btnaddall.setBounds(449, 147, 127, 23);
 		panel.add(btnaddall);
 		
@@ -1083,96 +1153,102 @@ public class GUI extends JFrame {
 		
 		
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Nach Interpret");
-		rdbtnNewRadioButton.setBounds(6, 54, 109, 23);
-		panel.add(rdbtnNewRadioButton);
+		rdbtnartist = new JRadioButton("Nach Interpret");
+		rdbtnartist.setBounds(6, 54, 109, 23);
+		panel.add(rdbtnartist);
 		
-		JRadioButton rdbtnNach = new JRadioButton("Nach Titel");
-		rdbtnNach.setSelected(true);
-		rdbtnNach.setBounds(6, 22, 109, 23);
-		panel.add(rdbtnNach);
+		rdbtntitle = new JRadioButton("Nach Titel");
+		rdbtntitle.setSelected(true);
+		rdbtntitle.setBounds(6, 22, 109, 23);
+		panel.add(rdbtntitle);
 		
-		JRadioButton rdbtnNachAlbum = new JRadioButton("Nach Album");
-		rdbtnNachAlbum.setBounds(6, 87, 109, 23);
-		panel.add(rdbtnNachAlbum);	
+		rdbtnalbum = new JRadioButton("Nach Album");
+		rdbtnalbum.setBounds(6, 87, 109, 23);
+		panel.add(rdbtnalbum);	
 		
-		JRadioButton rdbtnNachErscheinungsjahr = new JRadioButton("Nach Erscheinungsjahr");
-		rdbtnNachErscheinungsjahr.setBounds(6, 119, 135, 23);
-		panel.add(rdbtnNachErscheinungsjahr);
+		rdbtnyear = new JRadioButton("Nach Erscheinungsjahr");
+		rdbtnyear.setBounds(6, 119, 135, 23);
+		panel.add(rdbtnyear);
 		
-		JRadioButton rdbtnNachGenre = new JRadioButton("Nach Genre");
-		rdbtnNachGenre.setBounds(6, 147, 135, 23);
-		panel.add(rdbtnNachGenre);
+		rdbtngenre = new JRadioButton("Nach Genre");
+		rdbtngenre.setBounds(6, 147, 135, 23);
+		panel.add(rdbtngenre);
 		
-		JRadioButton rdbtnAufsteigend = new JRadioButton("Aufsteigend");
+		rdbtnAufsteigend = new JRadioButton("Aufsteigend");
 		rdbtnAufsteigend.setSelected(true);
 		rdbtnAufsteigend.setBounds(146, 67, 109, 23);
 		panel.add(rdbtnAufsteigend);
 		
-		JRadioButton rdbtnAbsteigend = new JRadioButton("Absteigend");
+		rdbtnAbsteigend = new JRadioButton("Absteigend");
 		rdbtnAbsteigend.setBounds(146, 93, 109, 23);
 		panel.add(rdbtnAbsteigend);
 		
-		JButton btneditsort = new JButton("Sortieren");
+		btneditsort = new JButton("Sotieren");
+		btneditsort = new JButton("Sortieren");
 		btneditsort.setBounds(147, 147, 117, 23);
 		panel.add(btneditsort);
 		btneditsort.addActionListener(e -> { // ------------------------------ REPAINT benötigt
-			if (rdbtnNewRadioButton.isSelected()) {
+			if (rdbtnartist.isSelected()) {
 				TitelDB.sortiere('i');
+				
 			}
-			if (rdbtnNach.isSelected()) {
+			if (rdbtntitle.isSelected()) {
 				TitelDB.sortiere('n');
+				
 			}
-			if (rdbtnNachAlbum.isSelected()) {
+			if (rdbtnalbum.isSelected()) {
 				TitelDB.sortiere('a');
+				
 			}
-			if (rdbtnNachErscheinungsjahr.isSelected()) {
+			if (rdbtnyear.isSelected()) {
 				TitelDB.sortiere('j');
+				
 			}
-			if (rdbtnNachGenre.isSelected()) {
+			if (rdbtngenre.isSelected()) {
 				TitelDB.sortiere('g');
+				
 			}
 			if (rdbtnAbsteigend.isSelected()) {
 				Collections.reverse(TitelDB.alleTitel);
 			}
 			for (int i = 0; i < TitelDB.alleTitel.size(); i++) { //Ausgabe
-				TitelDB.alleTitel.get(i).printMe();
+				TitelDB.alleTitel.get(i).printMe();		
 			}
 		});
 		
 		//Grupppierung fuer die radio buttons 
 		ButtonGroup groupleft = new ButtonGroup();
-		groupleft.add(rdbtnNewRadioButton);
-		groupleft.add(rdbtnNach);
-		groupleft.add(rdbtnNachAlbum);
-		groupleft.add(rdbtnNachErscheinungsjahr);
-		groupleft.add(rdbtnNachGenre);
+		groupleft.add(rdbtnartist);
+		groupleft.add(rdbtntitle);
+		groupleft.add(rdbtnalbum);
+		groupleft.add(rdbtnyear);
+		groupleft.add(rdbtngenre);
 		ButtonGroup groupright = new ButtonGroup();
 		groupright.add(rdbtnAufsteigend);
 		groupright.add(rdbtnAbsteigend);
 		
-		Panel panel_1 = new Panel();
+		panel_1 = new Panel();
 		panel_1.setBackground(UIManager.getColor("TextField.foreground"));
 		panel_1.setBounds(289, 0, 3, 181);
 		panel.add(panel_1);
 		
-		JLabel lblNewLabel_1 = new JLabel("Sortieren:");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1.setBounds(10, 246, 81, 14);
-		contentPane.add(lblNewLabel_1);
+		lblsort = new JLabel("Sotieren:");
+		lblsort.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblsort.setBounds(10, 246, 81, 14);
+		contentPane.add(lblsort);
 		
-		JLabel lblNewLabel_2 = new JLabel("Playlist");
-		lblNewLabel_2.setBounds(115, 68, 46, 14);
-		contentPane.add(lblNewLabel_2);
+		lbleditplaylist = new JLabel("Playlist");
+		lbleditplaylist.setBounds(115, 68, 46, 14);
+		contentPane.add(lbleditplaylist);
 		
-		JLabel lblNewLabel_3 = new JLabel("Song Bibliothek");
-		lblNewLabel_3.setBounds(418, 68, 93, 14);
-		contentPane.add(lblNewLabel_3);
+		lbleditsongs = new JLabel("Song Bibliothek");
+		lbleditsongs.setBounds(418, 68, 93, 14);
+		contentPane.add(lbleditsongs);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Suchen:");
-		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1_1.setBounds(304, 246, 81, 14);
-		contentPane.add(lblNewLabel_1_1);
+		lblsearch = new JLabel("Suchen:");
+		lblsearch.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblsearch.setBounds(304, 246, 81, 14);
+		contentPane.add(lblsearch);
 		mntmedit.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
@@ -1195,10 +1271,10 @@ public class GUI extends JFrame {
 		menuBar = new JMenuBar();
 		playlistdelete.setJMenuBar(menuBar);
 		
-		JMenu mnwindow = new JMenu("Fenster");
+		mnwindow = new JMenu("Fenster");
 		menuBar.add(mnwindow);
 		
-		JMenuItem mntmclose2 = new JMenuItem("Schlie\u00DFen");
+		mntmclose2 = new JMenuItem("Schlie\u00DFen");
 		mnwindow.add(mntmclose2);
 		mntmclose2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -1212,7 +1288,7 @@ public class GUI extends JFrame {
 		playlistdelete.setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblplaylistdelete = new JLabel("Playlist ausw\u00E4hlen:");
+		lblplaylistdelete = new JLabel("Playlist ausw\u00E4hlen:");
 		lblplaylistdelete.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblplaylistdelete.setBounds(123, 22, 121, 18);
 		contentPane.add(lblplaylistdelete);
@@ -1224,14 +1300,14 @@ public class GUI extends JFrame {
 		contentPane.add(comboBoxplaylistdelete);
 		
 		listdelete = new JList();
-		JScrollPane deleteScrollPane = new JScrollPane(listdelete);
+		deleteScrollPane = new JScrollPane(listdelete);
 		
 		deleteScrollPane.setBounds(10, 89, 364, 142);
 		listdelete.setBorder(BorderFactory.createLineBorder(Color.black));
 		listdelete.setBounds(10, 89, 364, 142);
 		contentPane.add(deleteScrollPane); 
 	
-		JButton btnplaylistdelete = new JButton("Playlist entfernen");
+		btnplaylistdelete = new JButton("Playlist entfernen");
 		btnplaylistdelete.setBounds(10, 242, 140, 23);
 		contentPane.add(btnplaylistdelete);
 		
