@@ -294,15 +294,9 @@ public class GUI extends JFrame {
 				 * 
 				 */
 			
-				comboBoxplaylist.addActionListener (new ActionListener () {
-				
-				    public void actionPerformed(ActionEvent e)
-				    {
-				    	lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
-				       
-				    }
-				});
-		
+				comboBoxplaylist.addActionListener(e-> {
+				    	lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());				       
+				    });
 	
 					/*ActionListener Benutzeroberfläsche
 					 * 
@@ -549,18 +543,38 @@ public class GUI extends JFrame {
 				Integer jahr = null;
 				if (name.isEmpty()) {
 					textFieldname.setText("Bitte Songtitel eintragen!");
+					textFieldname.addMouseListener(new MouseAdapter(){
+			            public void mouseClicked(MouseEvent e){
+			            	textFieldname.setText("");
+			            }
+					});
 					infosKomplett = false;
 				}
 				if (artist.isEmpty()) {
 					textFieldartist.setText("Bitte Interpret eintragen!");
+					textFieldartist.addMouseListener(new MouseAdapter(){
+			            public void mouseClicked(MouseEvent e){
+			            	textFieldartist.setText("");
+			            }
+					});
 					infosKomplett = false;
 				}
 				if (album.isEmpty()) {
 					textFieldalbum.setText("Bitte Albumtitel eintragen!");
+					textFieldalbum.addMouseListener(new MouseAdapter(){
+			            public void mouseClicked(MouseEvent e){
+			            	textFieldalbum.setText("");
+			            }
+					});
 					infosKomplett = false;
 				}
 				if (textFielddate.getText().isEmpty()) {
 					textFielddate.setText("Bitte Erscheinungsjahr eintragen!");
+					textFielddate.addMouseListener(new MouseAdapter(){
+			            public void mouseClicked(MouseEvent e){
+			            	textFielddate.setText("");
+			            }
+					});
 					infosKomplett = false;
 				}
 				else {
@@ -568,11 +582,21 @@ public class GUI extends JFrame {
 						jahr = Integer.valueOf(textFielddate.getText());
 					} catch (Exception ex) {
 						textFielddate.setText("Bitte gültiges Erscheinungsjahr eintragen!");
+						textFielddate.addMouseListener(new MouseAdapter(){
+				            public void mouseClicked(MouseEvent e){
+				            	textFielddate.setText("");
+				            }
+						});
 						infosKomplett = false;
 					}
 				}
 				if (genre.isEmpty()) {
 					textFieldgenre.setText("Bitte Genre eintragen!");
+					textFieldgenre.addMouseListener(new MouseAdapter(){
+			            public void mouseClicked(MouseEvent e){
+			            	textFieldgenre.setText("");
+			            }
+					});
 					infosKomplett = false;
 				}
 				if (path.isEmpty()) {
@@ -964,9 +988,10 @@ public class GUI extends JFrame {
 			else {
 
 			Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).add_singletitel((String) listall.getSelectedValue());
+			Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).set_current_titel_zero();	
 			listplaylist.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
 			listdelete.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
-			Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).set_current_titel_zero();	
+			lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
 
 			}
 
@@ -986,9 +1011,9 @@ public class GUI extends JFrame {
 			else {Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.stop();	
 			
 				Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).delete_singletitel((String) listplaylist.getSelectedValue());	
+				Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).set_current_titel_zero();
 				listplaylist.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
 				listdelete.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
-				Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).set_current_titel_zero();
 				
 				
 				}
