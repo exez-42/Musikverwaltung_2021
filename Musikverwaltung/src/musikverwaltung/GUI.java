@@ -672,7 +672,7 @@ public class GUI extends JFrame {
 							listsongs.setListData(TitelDB.get_titelDB_array2());
 							listall.setListData(TitelDB.get_titelDB_array());
 							listdelete.setListData(TitelDB.get_titelDB_array());
-							listplaylist.setListData(TitelDB.get_titelDB_array());
+							listplaylist.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
 							
 						}
 					}
@@ -683,6 +683,14 @@ public class GUI extends JFrame {
 		btnsearch = new JButton("Suchen");
 		btnsearch.setBounds(10, 188, 111, 23);
 		paneldelete.add(btnsearch);
+		btnsearch.addActionListener(e -> {
+			if (textFieldsearch.getText().isEmpty()) {
+				listsongs.setListData(TitelDB.get_titelDB_array2());
+			}
+			else {
+				listsongs.setListData(TitelDB.get_suche2((String) textFieldsearch.getText()));
+			}
+		});
 		
 		textFieldsearch = new JTextField();
 		textFieldsearch.setColumns(10);
@@ -1035,6 +1043,14 @@ public class GUI extends JFrame {
 		btnsearchedit = new JButton("Manuelle Suche");
 		btnsearchedit.setBounds(372, 71, 135, 23);
 		panel.add(btnsearchedit);
+		btnsearchedit.addActionListener(e -> {
+			if (textallsearch.getText().isEmpty()) {
+				listall.setListData(TitelDB.get_titelDB_array());
+			}
+			else {
+				listall.setListData(TitelDB.get_suche((String) textallsearch.getText()));
+			}
+		});
 		
 		textallsearch = new JTextField();
 		textallsearch.setBounds(322, 38, 239, 22);
