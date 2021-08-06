@@ -283,6 +283,30 @@ public class TitelDB {
 		return null;
 	}
 	
+	public static String[] get_suche(String eingabe) {
+		String[] tmp = new String[alleTitel.size()];
+		int zaehler = 0;
+		for (int i = 0; i < alleTitel.size(); i++) {
+			if (alleTitel.get(i).toString().toUpperCase().contains(eingabe.toUpperCase())) {
+				tmp[zaehler] = alleTitel.get(i).player_out_bearbeiten();
+				zaehler++;
+			}
+		}
+		return tmp;
+	}
+	
+	public static String[] get_suche2 (String eingabe) {
+		String[] tmp = new String[alleTitel.size()];
+		int zaehler = 0;
+		for (int i = 0; i < alleTitel.size(); i++) {
+			if (alleTitel.get(i).toString().toUpperCase().contains(eingabe.toUpperCase())) {
+				tmp[zaehler] = alleTitel.get(i).toString();
+				zaehler++;
+			}
+		}
+		return tmp;
+	}
+	
 	public static String[] get_titelDB_array() {
         String[] tmp = new String[alleTitel.size()];
         for (int i = 0; i < alleTitel.size(); i++) {
