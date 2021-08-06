@@ -689,7 +689,7 @@ public class GUI extends JFrame {
 		textFieldsearch.setBounds(131, 189, 226, 20);
 		paneldelete.add(textFieldsearch);
 		
-				JButton btntitle = new JButton("Titel");
+				btntitle = new JButton("Titel");
 				btntitle.setBounds(10, 5, 70, 12);
 				paneldelete.add(btntitle);
 				btntitle.setOpaque(false);
@@ -701,7 +701,7 @@ public class GUI extends JFrame {
 		    		}
 				});
 				
-				JButton btnartist = new JButton("Interpr.");
+				btnartist = new JButton("Interpr.");
 				btnartist.setBounds(80, 5, 70, 12);
 				paneldelete.add(btnartist);
 				btnartist.setOpaque(false);
@@ -712,8 +712,8 @@ public class GUI extends JFrame {
 						listsongs.setListData(TitelDB.get_titelDB_array2());
 		    		}
 				});
-				
-				JButton btnalbum = new JButton("Album");
+			
+				btnalbum = new JButton("Album");
 				btnalbum.setBounds(149, 5, 70, 12);
 				paneldelete.add(btnalbum);
 				btnalbum.setOpaque(false);
@@ -725,7 +725,7 @@ public class GUI extends JFrame {
 		    		}
 				});
 				
-				JButton btnyear = new JButton("Jahr");
+				btnyear = new JButton("Jahr");
 				btnyear.setBounds(219, 5, 70, 12);
 				paneldelete.add(btnyear);
 				btnyear.setOpaque(false);
@@ -737,7 +737,7 @@ public class GUI extends JFrame {
 		    		}
 				});
 				
-				JButton btngenre = new JButton("Genre");
+				btngenre = new JButton("Genre");
 				btngenre.setBounds(287, 5, 70, 12);
 				paneldelete.add(btngenre);
 				btngenre.setOpaque(false);
