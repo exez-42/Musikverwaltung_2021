@@ -245,6 +245,25 @@ public class TitelDB {
 		}
 		return playlist;
 	}
+	
+	public static ArrayList<Titel> getListFilter (String f1, Object f2) {
+		ArrayList<Titel> tmp = new ArrayList<Titel>();
+		switch (f1) {
+		case "Interpret":
+			tmp = getListInterpret((String) f2);
+			break;
+		case "Album":
+			tmp = getListAlbum((String) f2);
+			break;
+		case "Erscheinungsjahr":
+			tmp = getListJahr((Integer) f2);
+			break;
+		case "Genre":
+			tmp = getListGenre((String) f2);
+			break;
+		}
+		return tmp;
+	}
 
 	public static Titel get_singleTitel(String eindeutiger_titel_string) {
 		
