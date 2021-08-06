@@ -638,7 +638,6 @@ public class GUI extends JFrame {
 
 					}
 					
-					System.out.println("zu Löschen: " + ((String)listsongs.getSelectedValue()));
 					for (int i = 0; i < TitelDB.alleTitel.size(); i++) {
 						if (TitelDB.alleTitel.get(i).toString().equals(((String)listsongs.getSelectedValue()))) {
 							TitelDB.loesche(i);
@@ -662,9 +661,7 @@ public class GUI extends JFrame {
 		textFieldsearch.setBounds(131, 189, 226, 20);
 		paneldelete.add(textFieldsearch);
 		
-		//----------------------------------------------------------------------------- Ausgaben müssen weg
-		
-				btntitle = new JButton("Titel");
+				JButton btntitle = new JButton("Titel");
 				btntitle.setBounds(10, 5, 70, 12);
 				paneldelete.add(btntitle);
 				btntitle.setOpaque(false);
@@ -672,16 +669,11 @@ public class GUI extends JFrame {
 				btntitle.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						TitelDB.sortiere('n');
-						System.out.println("Nach Titel sortiert:");
-						for (int i = 0; i < TitelDB.alleTitel.size(); i++) {
-							TitelDB.alleTitel.get(i).printMe();
-						}
-						System.out.println();
 						listsongs.setListData(TitelDB.get_titelDB_array2());
 		    		}
 				});
 				
-				btnartist = new JButton("Interpr.");
+				JButton btnartist = new JButton("Interpr.");
 				btnartist.setBounds(80, 5, 70, 12);
 				paneldelete.add(btnartist);
 				btnartist.setOpaque(false);
@@ -689,16 +681,11 @@ public class GUI extends JFrame {
 				btnartist.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						TitelDB.sortiere('i');
-						System.out.println("Nach Interpret sortiert:");
-						for (int i = 0; i < TitelDB.alleTitel.size(); i++) {
-							TitelDB.alleTitel.get(i).printMe();
-						}
-						System.out.println();
 						listsongs.setListData(TitelDB.get_titelDB_array2());
 		    		}
 				});
 				
-				btnalbum = new JButton("Album");
+				JButton btnalbum = new JButton("Album");
 				btnalbum.setBounds(149, 5, 70, 12);
 				paneldelete.add(btnalbum);
 				btnalbum.setOpaque(false);
@@ -706,16 +693,11 @@ public class GUI extends JFrame {
 				btnalbum.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						TitelDB.sortiere('a');
-						System.out.println("Nach Album sortiert:");
-						for (int i = 0; i < TitelDB.alleTitel.size(); i++) {
-							TitelDB.alleTitel.get(i).printMe();
-						}
-						System.out.println();
 						listsongs.setListData(TitelDB.get_titelDB_array2());
 		    		}
 				});
 				
-				btnyear = new JButton("Jahr");
+				JButton btnyear = new JButton("Jahr");
 				btnyear.setBounds(219, 5, 70, 12);
 				paneldelete.add(btnyear);
 				btnyear.setOpaque(false);
@@ -723,16 +705,11 @@ public class GUI extends JFrame {
 				btnyear.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						TitelDB.sortiere('j');
-						System.out.println("Nach Jahr sortiert:");
-						for (int i = 0; i < TitelDB.alleTitel.size(); i++) {
-							TitelDB.alleTitel.get(i).printMe();
-						}
-						System.out.println();
 						listsongs.setListData(TitelDB.get_titelDB_array2());
 		    		}
 				});
 				
-				btngenre = new JButton("Genre");
+				JButton btngenre = new JButton("Genre");
 				btngenre.setBounds(287, 5, 70, 12);
 				paneldelete.add(btngenre);
 				btngenre.setOpaque(false);
@@ -740,16 +717,9 @@ public class GUI extends JFrame {
 				btngenre.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						TitelDB.sortiere('g');
-						System.out.println("Nach Genre sortiert:");
-						for (int i = 0; i < TitelDB.alleTitel.size(); i++) {
-							TitelDB.alleTitel.get(i).printMe();
-						}
-						System.out.println();
 						listsongs.setListData(TitelDB.get_titelDB_array2());
 		    		}
 				});
-				
-				//------------------------------------------------------------------------
 			
 		mntmverwaltung.addActionListener(new ActionListener() {
 			
@@ -1086,29 +1056,17 @@ public class GUI extends JFrame {
 		btnapplyfilter.setBounds(449, 119, 127, 23);
 		panel.add(btnapplyfilter);
 		btnapplyfilter.addActionListener(e -> {
-			ArrayList<Titel> tmp = new ArrayList<Titel>();
-			if (comboBoxfilter1.getSelectedItem().equals("Interpret")) {
-				tmp = TitelDB.getListInterpret((String) comboBoxfilter2.getSelectedItem());
-				}
-			if (comboBoxfilter1.getSelectedItem().equals("Album")) {
-				tmp = TitelDB.getListAlbum((String) comboBoxfilter2.getSelectedItem());
-				}
-			if (comboBoxfilter1.getSelectedItem().equals("Erscheinungsjahr")) {
-				tmp = TitelDB.getListJahr((Integer) comboBoxfilter2.getSelectedItem());
-				}
-			if (comboBoxfilter1.getSelectedItem().equals("Genre")) {
-				tmp = TitelDB.getListGenre((String) comboBoxfilter2.getSelectedItem());
-				}
-			String[] tmp2 = new String[tmp.size()];
-			for (int i = 0; i < tmp.size(); i++) {
-				tmp.get(i).printMe();
-				tmp2[i] = tmp.get(i).player_out_bearbeiten();
-			}
-			  
-			listall.setListData(tmp2);
-			System.out.println("----------------------------------");
 			if (comboBoxfilter1.getSelectedItem().equals("Alle Songs")) {
-				listall.setListData(TitelDB.get_titelDB_array()); 
+				listall.setListData(TitelDB.get_titelDB_array());   
+			}
+			else {
+				ArrayList<Titel> tmp = new ArrayList<Titel>();
+				tmp = TitelDB.getListFilter((String) comboBoxfilter1.getSelectedItem(), comboBoxfilter2.getSelectedItem());
+				String[] tmp2 = new String[tmp.size()];
+				for (int i = 0; i < tmp.size(); i++) {
+					tmp2[i] = tmp.get(i).player_out_bearbeiten();
+				}
+				listall.setListData(tmp2);
 			}
 			});
 		
@@ -1117,6 +1075,15 @@ public class GUI extends JFrame {
 		btnaddall = new JButton("Alle hinzuf\u00FCgen");
 		btnaddall.setBounds(449, 147, 127, 23);
 		panel.add(btnaddall);
+		btnaddall.addActionListener(e -> {
+			if (comboBoxfilter1.getSelectedItem().equals("Alle Songs")) {
+				Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).add_auswahl(TitelDB.alleTitel);
+			}
+			else {
+			Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).add_auswahl(TitelDB.getListFilter((String) comboBoxfilter1.getSelectedItem(), comboBoxfilter2.getSelectedItem()));
+			}
+			listplaylist.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());	
+		});
 		
 		/*Meine vorgeschriebene FUnktion:
 		 * Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).add_auswahl(------   Liste mit Titeln übergeben ----------------------);
@@ -1176,36 +1143,39 @@ public class GUI extends JFrame {
 		rdbtnAbsteigend.setBounds(146, 93, 109, 23);
 		panel.add(rdbtnAbsteigend);
 		
-		btneditsort = new JButton("Sotieren");
 		btneditsort = new JButton("Sortieren");
 		btneditsort.setBounds(147, 147, 117, 23);
 		panel.add(btneditsort);
-		btneditsort.addActionListener(e -> { // ------------------------------ REPAINT benötigt
+		btneditsort.addActionListener(e -> {
 			if (rdbtnartist.isSelected()) {
 				TitelDB.sortiere('i');
-				
 			}
 			if (rdbtntitle.isSelected()) {
 				TitelDB.sortiere('n');
-				
 			}
 			if (rdbtnalbum.isSelected()) {
 				TitelDB.sortiere('a');
-				
 			}
 			if (rdbtnyear.isSelected()) {
 				TitelDB.sortiere('j');
-				
 			}
 			if (rdbtngenre.isSelected()) {
 				TitelDB.sortiere('g');
-				
 			}
 			if (rdbtnAbsteigend.isSelected()) {
 				Collections.reverse(TitelDB.alleTitel);
 			}
-			for (int i = 0; i < TitelDB.alleTitel.size(); i++) { //Ausgabe
-				TitelDB.alleTitel.get(i).printMe();		
+			if (comboBoxfilter1.getSelectedItem().equals("Alle Songs")) {
+				listall.setListData(TitelDB.get_titelDB_array());   
+			}
+			else {
+				ArrayList<Titel> tmp = new ArrayList<Titel>();
+				tmp = TitelDB.getListFilter((String) comboBoxfilter1.getSelectedItem(), comboBoxfilter2.getSelectedItem());
+				String[] tmp2 = new String[tmp.size()];
+				for (int i = 0; i < tmp.size(); i++) {
+					tmp2[i] = tmp.get(i).player_out_bearbeiten();
+				}
+				listall.setListData(tmp2);
 			}
 		});
 		
