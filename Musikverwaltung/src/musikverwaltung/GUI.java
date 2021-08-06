@@ -838,7 +838,11 @@ public class GUI extends JFrame {
 			
 			
 		});
-		
+		textFieldplaylistname.addMouseListener(new MouseAdapter(){
+            		public void mouseClicked(MouseEvent e){
+            		textFieldplaylistname.setText("");
+            		}
+		});
 		
 		
 		
