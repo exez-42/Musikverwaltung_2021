@@ -12,7 +12,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class Wave_player {
 	
 	//File object von .wav datei
-	public static File datei;
+	private File datei;
 	//Clip object
 	private Clip clip;
 	//Dateipfad von .wav datei
@@ -23,7 +23,7 @@ public class Wave_player {
 	public Wave_player(String pathname) {
 
 		this.pathname = pathname;
-		datei = new File(pathname);
+		this.datei = new File(pathname);
 		
 		// the reference to the clip 
 		try {
