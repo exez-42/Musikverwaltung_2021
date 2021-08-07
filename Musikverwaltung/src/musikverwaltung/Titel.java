@@ -43,7 +43,7 @@ public class Titel {
 	/*
 	 * \brief player_out
 	 * 
-	 * 		Umwandlung des Namen und Interpreten eines Titels in einen String, genutzt zur Anzeige Abspiel-Modus
+	 * 		Umwandlung des Namen und Interpreten eines Titels in einen String, genutzt zur Anzeige im Abspiel-Modus
 	 * 
 	 * \param nichts
 	 * \return String --> Kombination der beiden Eigenschaften
