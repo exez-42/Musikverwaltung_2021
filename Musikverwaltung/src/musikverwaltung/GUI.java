@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Panel;
 import java.awt.SystemColor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -33,6 +31,7 @@ import javax.swing.UIManager;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -174,11 +173,20 @@ public class GUI extends JFrame {
 		 * 
 		 * 
 		 */
+		/*Titel, TitelDB, Playlisten werden erstellt
+		 * 
+		 * 
+		 * 
+		 */
+		
 		TitelDB.erzeuge_TitelDB();
 		
-		 
-		 
-			
+		/*Titel, TitelDB, Playlisten werden erstellt
+		 * 
+		 * 
+		 * 
+		 */
+		
 		/*Ende
 		 * 
 		 * 
@@ -195,7 +203,7 @@ public class GUI extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		/*Wenn Benutzermodus geschlossen wird
-		 * -> 
+		 * -> Datenbank wird gespeichert
 		 */
 		
 		addWindowListener(new java.awt.event.WindowAdapter() {
@@ -301,143 +309,118 @@ public class GUI extends JFrame {
 				 */
 			
 				comboBoxplaylist.addActionListener(e-> {
-				    	
+					
 					if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track() == null) {}
 					else {
 						lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
-						
-						
+						Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.stop();
 					}
-									       
-				    });
+			    	
+			    });
 	
-					/*ActionListener Benutzeroberfläsche
-					 * 
-					 * 
-					 */
-					
-					/*Playbutton bekommt aktuellen Track.player übergeben
-					 * + speichert diesen in der Hilfsvariable previos_track von Playlist ab um bei Playlist wechsel diesen stoppen zu können.
-					 * 
-					 */
-					btnplay.addActionListener(e-> { if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {
-						
-						}else {			
-							if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track() == null) {}
-							else {
-								
-								Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.play();
-								
-							}
-							
-							
-							
-							
-							
-							Playlist.set_previos_track((String)comboBoxplaylist.getSelectedItem());
-						}
-					});
-
-		
-						/*Pausebutton wird player.pause() 
+						/*ActionListener Benutzeroberfläsche
+						 * 
 						 * 
 						 */
-						btnpause.addActionListener(e->{	if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {
-			
+						
+						/*Playbutton bekommt aktuellen Track.player übergeben
+						 * + speichert diesen in der Hilfsvariable previos_track von Playlist ab um bei Playlist wechsel diesen stoppen zu können.
+						 * 
+						 */
+						btnplay.addActionListener(e-> { if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {
+							
+							}else {			
+								if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track() == null) {}
+								else {
+	
+									Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.play();
+	
+								}
+									Playlist.set_previos_track((String)comboBoxplaylist.getSelectedItem());
+								}
+						});
+
+
+		
+							/*Pausebutton wird player.pause() 
+							 * 
+							 */
+							btnpause.addActionListener(e->{	if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {
+		
 							}else {
-								
+							
 								if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track() == null) {}
 								else {		Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.pause();			}
-																
-						}});
+		
+							}});
 		
 		
+
+								btnstop.addActionListener(e-> {if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {
 		
+								}else {	
 		
-						btnstop.addActionListener(e-> {if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {
-						
-							}else {	
-								
-								if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track() == null) {}
-								else {	Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.stop();		}
-								}	
-						});
+									if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track() == null) {}
+									else {	Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.stop();		}
+									}	
+								});
 		
-				
-		
-		
-							/*Nächster Titel Track 
-							 * stopt laufenden Track 
-							 * lädt nächsten Track
-							 * repaint() damit neuer Titelname angezeigt wird
-							 */
-							btnfoward.addActionListener(e-> { if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
-								else {
-									if(Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track() == null) {}
-									else {Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track().player.stop(); 
-									Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).next_track();	
-									lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());}
-									
-									
-									
-								}});
-												
-							/*letzter Titel Track 
-							 * stopt laufenden Track 
-							 * lädt letzten Track
-							 * repaint() damit neuer Titelname angezeigt wird
-							 */
-							btnback.addActionListener(e-> {if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
-								else {
-									if(Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track() == null) {}
-									else {
-										Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track().player.stop(); 
-										Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).previos_track();
-										lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
-										
-										
-									}
-									
-									
-								
-								}});				
-							
-								/*Titelanzeige
-								 * 
-								 */
-													
-								if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
-								else {
-									lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
-								}
-														
-									/*Bei neuer playlist auswahl wird laufender Track aus "alter" Playlist gestoppt.
-									 * -> mit  der Hilfsvariable previos_track aus Playlist.
+					
+									/*Nächster Titel Track 
+									 * stopt laufenden Track 
+									 * lädt nächsten Track
+									 * repaint() damit neuer Titelname angezeigt wird
 									 */
-									comboBoxplaylist.addActionListener(e-> {if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
-									else{
-										
-										
-										
-										if(Playlist.get_current_playlist(Playlist.get_previos_track()) == null  ){       }
+										btnfoward.addActionListener(e-> { if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
 										else {
-											
-										if(Playlist.get_current_playlist(Playlist.get_previos_track()).get_current_track() == null) {}
-										else {		Playlist.get_current_playlist(Playlist.get_previos_track()).get_current_track().player.stop();										}
-										
-										Playlist.get_current_playlist(Playlist.get_previos_track()).set_current_titel_zero();
-										}
-										
-										
-										
-										
-										
-										}
-										
-									
-									
-									
-									});
+											if(Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track() == null) {}
+											else {Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track().player.stop(); 
+											Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).next_track();	
+											lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());}												
+										}});
+												
+											/*letzter Titel Track 
+											 * stopt laufenden Track 
+											 * lädt letzten Track
+											 * repaint() damit neuer Titelname angezeigt wird
+											 */
+												btnback.addActionListener(e-> {if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
+												else {					
+													if(Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track() == null) {}
+													else {
+														Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track().player.stop(); 
+														Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).previos_track();
+														lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());		
+													}
+												}});					
+							
+													/*Titelanzeige
+													 * 
+													 */
+																		
+													if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
+													else {
+														lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
+													}
+																			
+														/*Bei neuer playlist auswahl wird laufender Track aus "alter" Playlist gestoppt.
+														 * -> mit  der Hilfsvariable previos_track aus Playlist.
+														 */
+														comboBoxplaylist.addActionListener(e-> {if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}												
+														else{
+	
+	
+	
+															if(Playlist.get_current_playlist(Playlist.get_previos_track()) == null  ){       }
+															else {
+	
+															if(Playlist.get_current_playlist(Playlist.get_previos_track()).get_current_track() == null) {}
+															else {		Playlist.get_current_playlist(Playlist.get_previos_track()).get_current_track().player.stop();										}
+	
+															Playlist.get_current_playlist(Playlist.get_previos_track()).set_current_titel_zero();
+															}
+															}
+														});
 			
 		/*Logik Ende
 		 * 
@@ -481,13 +464,11 @@ public class GUI extends JFrame {
 	
 		mntmbenutzer = new JMenuItem("Benutzermodus");
 		mndatei.add(mntmbenutzer);
-		mntmbenutzer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		mntmbenutzer.addActionListener(e -> {
 				verwaltung.setVisible(false); 
 				setVisible(true);
 				
-			}
-		});
+			});
 		
 		lbladd = new JLabel("Hinzuf\u00FCgen");
 		lbladd.setBounds(10, 11, 90, 14);
@@ -569,9 +550,7 @@ public class GUI extends JFrame {
 		btnaddfile.setBounds(10, 171, 99, 23);
 		paneladd.add(btnaddfile);
 		
-		btnaddfile.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent arg0) {
+		btnaddfile.addActionListener(e -> {
 				// Erstellung unseres FileFilters für Musikdateien
 		        FileFilter filter = new FileNameExtensionFilter("Musik", "wav");      
 				JFileChooser chooser = new JFileChooser("C:/Beispieldatei");
@@ -585,14 +564,12 @@ public class GUI extends JFrame {
 	                 					chooser.getSelectedFile().getAbsoluteFile()); //Ausgabe
 	            					textFieldfile.setText(chooser.getSelectedFile().getPath());
 	        				}
-    				}
-		});
+    				});
 		
 		btnaddsong = new JButton("Hinzuf\u00FCgen");
 		btnaddsong.setBounds(240, 171, 117, 23);
 		paneladd.add(btnaddsong);
-		btnaddsong.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) { //Repaint -------------------------------------------------------------
+		btnaddsong.addActionListener(e -> { //Repaint -------------------------------------------------------------
 				boolean infosKomplett = true;
 				String name = textFieldname.getText();
 				String artist = textFieldartist.getText();
@@ -676,8 +653,7 @@ public class GUI extends JFrame {
 					
 					
 				}
-			}
-		});
+			});
 		
 		paneldelete = new JPanel();
 		paneldelete.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
@@ -714,8 +690,7 @@ public class GUI extends JFrame {
 		btndeletesong = new JButton("L\u00F6schen");
 		btndeletesong.setBounds(10, 154, 111, 23);
 		paneldelete.add(btndeletesong);
-		btndeletesong.addActionListener(new ActionListener() { //aus Datenbank löschen
-			public void actionPerformed (ActionEvent e) {
+		btndeletesong.addActionListener(e -> {		//aus Datenbank löschen
 				if (!(listsongs.isSelectionEmpty())) {
 					
 					if(!(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()) == null)) {
@@ -736,8 +711,7 @@ public class GUI extends JFrame {
 						}
 					}
 				}
-			}
-		});
+			});
 		
 		btnsearch = new JButton("Suchen");
 		btnsearch.setBounds(10, 188, 111, 23);
@@ -761,68 +735,55 @@ public class GUI extends JFrame {
 				paneldelete.add(btntitle);
 				btntitle.setOpaque(false);
 				btntitle.setContentAreaFilled(false);
-				btntitle.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+				btntitle.addActionListener(e -> {
 						TitelDB.sortiere('n');
 						listsongs.setListData(TitelDB.get_titelDB_array2());
-		    		}
-				});
+		    		});
 				
 				btnartist = new JButton("Interpr.");
 				btnartist.setBounds(80, 5, 70, 12);
 				paneldelete.add(btnartist);
 				btnartist.setOpaque(false);
 				btnartist.setContentAreaFilled(false);
-				btnartist.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+				btnartist.addActionListener(e -> {
 						TitelDB.sortiere('i');
 						listsongs.setListData(TitelDB.get_titelDB_array2());
-		    		}
-				});
+		    		});
 			
 				btnalbum = new JButton("Album");
 				btnalbum.setBounds(149, 5, 70, 12);
 				paneldelete.add(btnalbum);
 				btnalbum.setOpaque(false);
 				btnalbum.setContentAreaFilled(false);
-				btnalbum.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+				btnalbum.addActionListener(e -> {
 						TitelDB.sortiere('a');
 						listsongs.setListData(TitelDB.get_titelDB_array2());
-		    		}
-				});
+		    		});
 				
 				btnyear = new JButton("Jahr");
 				btnyear.setBounds(219, 5, 70, 12);
 				paneldelete.add(btnyear);
 				btnyear.setOpaque(false);
 				btnyear.setContentAreaFilled(false);
-				btnyear.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+				btnyear.addActionListener(e -> {
 						TitelDB.sortiere('j');
 						listsongs.setListData(TitelDB.get_titelDB_array2());
-		    		}
-				});
+		    		});
 				
 				btngenre = new JButton("Genre");
 				btngenre.setBounds(287, 5, 70, 12);
 				paneldelete.add(btngenre);
 				btngenre.setOpaque(false);
 				btngenre.setContentAreaFilled(false);
-				btngenre.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+				btngenre.addActionListener(e -> {
 						TitelDB.sortiere('g');
 						listsongs.setListData(TitelDB.get_titelDB_array2());
-		    		}
-				});
+		    		});
 			
-		mntmverwaltung.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
+		mntmverwaltung.addActionListener(e -> {
 				verwaltung.setVisible(true);
 				setVisible(false);
-			}
-		});
+			});
  	
 		
 		/**
@@ -844,11 +805,9 @@ public class GUI extends JFrame {
 	
 		mntmclose = new JMenuItem("Schlie\u00DFen");
 		mnplaylistwindow.add(mntmclose);
-		mntmclose.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		mntmclose.addActionListener(e -> {
 				playlistcreate.setVisible(false);
-				}
-			});
+				});
 		
 		
 		contentPane = new JPanel();
@@ -906,23 +865,13 @@ public class GUI extends JFrame {
 		
 		
 		
-		btncreatecategory.addActionListener(new ActionListener() {
-		
-			
-			
-			
-			
-			public void actionPerformed(ActionEvent e) {
+		btncreatecategory.addActionListener(e -> {
 				playlistedit.setVisible(true);
-			}
-		});
+			});
 		
-		mntmcreate.addActionListener(new ActionListener() {
-					
-			public void actionPerformed(ActionEvent e) {
+		mntmcreate.addActionListener(e -> {
 				playlistcreate.setVisible(true);
-			}
-		});
+			});
 		
 		
 		/**
@@ -943,11 +892,9 @@ public class GUI extends JFrame {
 		
 		mntmclose1 = new JMenuItem("Schlie\u00DFen");
 		mnmnplaylistwindow.add(mntmclose1);
-		mntmclose1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		mntmclose1.addActionListener(e -> {
 				playlistedit.setVisible(false);
-			}
-		});
+			});
 		
 		contentPane = new JPanel();
 		contentPane.setBackground(UIManager.getColor("TextField.inactiveBackground"));
@@ -968,14 +915,11 @@ public class GUI extends JFrame {
 		comboBoxeditplaylist.setBounds(142, 39, 322, 18);
 		contentPane.add(comboBoxeditplaylist);
 		
-		comboBoxeditplaylist.addActionListener (new ActionListener ()
-			{
-			    public void actionPerformed(ActionEvent e)
-			    {
+		comboBoxeditplaylist.addActionListener(e -> {
+			    
 			    	listplaylist.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());
 			       
-			    }
-			});
+			    });
 		
 		/*JLIST: Listet alle Titel der ausgewählten Playlist auf.
 		 * 
@@ -1056,20 +1000,18 @@ public class GUI extends JFrame {
 		
 		btnaddtoplaylist.addActionListener(e-> {
 			if(listall.getSelectedValue() == null) {}
+			
+			else if(comboBoxeditplaylist.getSelectedItem() == null) {}	
+			
 			else {
-
 			Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).add_singletitel((String) listall.getSelectedValue());
 			Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).set_current_titel_zero();	
 			listplaylist.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());
 			listdelete.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());
 			lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
-
 			}
-
-
-
-
-
+			
+			
 		});
 
 		//add_auswahl(ArrayList<Titel> titelliste)
@@ -1193,25 +1135,6 @@ public class GUI extends JFrame {
 			listplaylist.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());	
 		});
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		rdbtnartist = new JRadioButton("Nach Interpret");
 		rdbtnartist.setBounds(6, 54, 109, 23);
 		panel.add(rdbtnartist);
@@ -1311,12 +1234,9 @@ public class GUI extends JFrame {
 		lblsearch.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblsearch.setBounds(304, 246, 81, 14);
 		contentPane.add(lblsearch);
-		mntmedit.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
+		mntmedit.addActionListener(e -> {
 				playlistedit.setVisible(true);
-			}
-		});
+			});
 			
 		
 		
@@ -1338,11 +1258,9 @@ public class GUI extends JFrame {
 		
 		mntmclose2 = new JMenuItem("Schlie\u00DFen");
 		mnwindow.add(mntmclose2);
-		mntmclose2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		mntmclose2.addActionListener(e -> {
 				playlistdelete.setVisible(false);
-				}
-			});
+				});
 		
 		contentPane = new JPanel();
 		contentPane.setBackground(UIManager.getColor("TextField.inactiveBackground"));
@@ -1392,14 +1310,10 @@ public class GUI extends JFrame {
 		else { listdelete.setListData(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()).get_all_titel_array());
 			}
 
-		comboBoxplaylistdelete.addActionListener (new ActionListener ()
-		{
-		    public void actionPerformed(ActionEvent e)
-		    {
+		comboBoxplaylistdelete.addActionListener(e -> {
 		    	listdelete.setListData(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()).get_all_titel_array());
 		       
-		    }
-		});
+		    });
 
 
 		/*Button bekommt löschen aufforderung von ausgewähler Playlist
@@ -1407,34 +1321,27 @@ public class GUI extends JFrame {
 		 * 
 		 */
 	 
-			btnplaylistdelete.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
+			btnplaylistdelete.addActionListener(e -> {
 				
 			Playlist.delete_playlist((String) comboBoxplaylistdelete.getSelectedItem()); 
 			comboBoxplaylistdelete.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
 			
-			if(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()) == null) {}
+			if(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()) == null) {
+				DefaultListModel model = new DefaultListModel();
+				model.clear();
+				listdelete.setModel(model);
+				}
 			else {
 				
 				listdelete.setListData(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()).get_all_titel_array());
 				
 			}
 			
-			
 			comboBoxplaylist.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
 			comboBoxeditplaylist.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
-			}                                        
-		});
+			});
 	//}
-
-			
-			
-			
-			
-			
-			
-			
+		
 			/*
 			 * 	if(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()) == null) {
 		
@@ -1454,15 +1361,7 @@ public class GUI extends JFrame {
 			 * 
 			 * 
 			 */
-			
-			
-			
-			
-			
-			
-			
-			
-			
+					
 			
 		/*Logik Ende
 		 * 
@@ -1471,12 +1370,9 @@ public class GUI extends JFrame {
 		 * 
 		 */
 		
-		mntmdelete.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
+		mntmdelete.addActionListener(e -> {
 				
 				playlistdelete.setVisible(true);
-			}
 		});
 	}
 }
