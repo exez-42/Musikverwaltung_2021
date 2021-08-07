@@ -2,7 +2,19 @@ package musikverwaltung;
 
 import java.util.Comparator;
 
-public class NamensVgl implements Comparator<Titel>{
+// Comparator-Klasse, welche beim Sortieren nach Name von Titelobjekten zum Einsatz kommt
+public class NamensVgl implements Comparator<Titel> {
+	/*
+	 * \brief compare
+	 * 
+	 * Vergleichsfunktion von zweit Titel-Objekten, welche für eine alphabetische
+	 * Sortierung nach Namen sorgt (Groß- und Kleinschreibung werden ignoriert;
+	 * Zahlen kommen von Buchstaben)
+	 * 
+	 * \param Titel t1, t2 --> die beiden zu vergleichenden Titel 
+	 * \return int --> -1 (t1 < t2), 0 (t1 = t2) oder 1 (t1 > t2) 
+	 * \pre Titel werden im Verwaltung- oder Bearbeiten-Modus nach Namen sortiert
+	 */
 	public int compare(Titel t1, Titel t2) {
 		String name1 = t1.getName();
 		String name2 = t2.getName();
@@ -16,13 +28,10 @@ public class NamensVgl implements Comparator<Titel>{
 		}
 		if (name1.length() < name2.length()) {
 			return -1;
-		}
-		else if (name1.length() > name2.length()) {
+		} else if (name1.length() > name2.length()) {
 			return 1;
-		}
-		else {
+		} else {
 			return 0;
 		}
 	}
-
 }
