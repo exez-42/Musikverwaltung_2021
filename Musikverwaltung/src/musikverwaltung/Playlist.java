@@ -4,44 +4,48 @@ import java.util.ArrayList;
 
 public class Playlist {
 
+	
+	
+	
 	/*
-	 * Arraylist die alle erstellten Playlisten speichert
+	 * static Arraylist all_pl
+	 * Alle erstellten Playlisten werden hier gespeichert
 	 */
 	private static ArrayList<Playlist> all_pl = new ArrayList<Playlist>();
 	
 	
-	/*
-	 * Hilfsvariable.
-	 * Speichert den track ab der als letzts gespielt hat.
-	 * mit dieser Variable kann man bei Playlist wechsel den laufenden Track stoppen.
+	/* static String previos_track
+	 * Speichert den track ab der als letztes gespielt hat.
+	 * 
 	 */
 	static String previos_track;
 	
 	
-	/*
-	 * Name der Playlist & ID
-	 * -> kein Name wird doppelt vergeben 
-	 * -> somit eindeutig
+	/*private String pl_name
+	 * Name der Playlist
+	 * Name dient ebenfalls als eindeutiger Key 
+	 * -> keine PL name doppelt vergeben
 	 */
 	private String pl_name;				
 	
-	/*
-	 * Arraylist die alle Titel der Playlist abseichert 
+	
+	/*private Arraylist playlist
+	 * 
+	 * Arraylist die alle Titel der Playlist abspeicehrt
 	 */
 	private ArrayList<Titel> playlist;
 	
 	
-	/*
-	 * Gibt an welcher Index in der Playlist als letztes gespielt wurde
-	 * -> macht vorheriger & nächster Track möglich
+	/*private int current_titel
+	 * speichert den Index des Titels in der @playlist der gerade gespielt wird.
 	 * 
 	 */
-	private int current_titel = 0; 	//implementieren
+	private int current_titel = 0; 
 	
 	
 	
-	/*
-	 * Privater Kontruktor
+	/* private Konstrukor von Playlist
+	 * 
 	 * 
 	 */
 	private Playlist(String pl_name) {
@@ -61,15 +65,17 @@ public class Playlist {
 	
 	
 	
-	/*
-	 * indirekter Konstruktor
-	 * prüft ob Playlist name schon exestiert 
-	 * wenn ja 
-	 * 		-> Playlist wird nicht erzeugt
-	 * 		-> return true
-	 * wenn nein:
-	 * 		-> Playlist wird erzeugt
-	 * 		-> return true
+	/*static boolean create_Playlist(String)
+	 * 
+	 * Diese Methode ist der indirekte Konstruktor für Playlist der Klassenaußerhalb aufgerufen werden kann.
+	 * Dieser prüft ob ein Playlistname bereitsvergeben wurde. 
+	 * Ist dies der Fall wird ein false returnt und kein Playlist objekt erstellt da der Playlist name unser eindeutiger Playlist key ist.
+	 * 
+	 * \param pl_name -> name der Playlist die der Nutzer erstellen möchte
+	 *\return -> true falls Playlistobject erstellt wurde 
+	 *		-> fals wenn kein Playlistobject erstellt wurde
+	 * 
+	 * 
 	 */
 	static boolean create_Playlist(String pl_name) {
 	boolean name_vergeben = false;
@@ -103,6 +109,19 @@ public class Playlist {
 	
 	
 	
+	
+	
+	/*static void delete_playlist(String)
+	 * 
+	 * Diese Mehtode bekommt einen Playlistnamen übergeben. 
+	 * Es wird geprüft ob dieser Playlistname einem Playlistobject im static Arraylist @all_pl zugeordnet werden kann.
+	 * Wenn ja wird diese aus der all_pl arraylist entfernt 
+	 * Falls nein -> passiert nicht 
+	 * 
+	 * \param @playlist_name -> Name der Playlist die der Nutzer löschen möchte
+	 * \return void
+	 * 
+	 */
 	static void delete_playlist(String playlist_name) {
 		
 	for(int i = 0; i < all_pl.size(); i++) {
@@ -117,8 +136,13 @@ public class Playlist {
 	
 	
 	
-	/*
-	 * Liefert geuschte Playlist zurück mit übergebenen eindeutigen Playlist namen
+	/*static Playlist get_playlist_wID(String pl_name) 
+	 * Diese metode bekommt einen Playlist namen übergeben. 
+	 * Falls dieser genau zuordbare Playlist name mit einer Playlist in der static Arraylist @all_pl zugeordnet werden kann. 
+	 * Wird genau dieses Playlistobjekt returnt
+	 * 
+	 * \param @pl_name String der ein Playlistobjekt beschreibt.
+	 * \return ein Playlistobject
 	 * 
 	 */
 	static Playlist get_playlist_wID(String pl_name) {
@@ -138,8 +162,11 @@ public class Playlist {
 	
 	
 	/*
-	 * Mehtode für Combobox
-	 * return -> String Feld mit allen PLaylist namen 
+	 * Methode für Comboboxen in der GUI
+	 * 
+	 * 
+	 * 
+	 * \return -> String Feld mit allen PLaylist.pl_namen 
 	 */
  	public static String[] get_all_plname_string() {
 		
@@ -153,7 +180,12 @@ public class Playlist {
 		return tmp;
 	}
 	
-	
+	/*
+	 * 	Mehtode für Comboboxen in der GUI
+	 * 
+	 * \return ein StringFeld mit alllen Titel namen die in der @playlist gespeichert sind
+	 * 
+	 */
 	public String[] get_all_titel_array() {
 		String[] tmp = new String[this.playlist.size()];
 		for (int i = 0; i < this.playlist.size(); i++) {
@@ -178,7 +210,12 @@ public class Playlist {
  	
  	
 	/*
-	 * return : ausgewählte PLaylist von ComboBox
+	 * Diese metode bekommt einen Playlist namen übergeben. 
+	 * Falls dieser genau zuordbare Playlist name mit einer Playlist in der static Arraylist @all_pl zugeordnet werden kann. 
+	 * Wird genau dieses Playlistobjekt returnt
+	 * 
+	 * \param @pl_name String der ein Playlistobjekt beschreibt.
+	 * \return ein Playlistobject
 	 * 
 	 */
 	public static Playlist  get_current_playlist(String pl_name) {
@@ -204,24 +241,11 @@ public class Playlist {
 
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/*return aktuellen Playlist Titel 
+	/*
+	 * Diese Methode liefert den aktuellen Titel der Playlist zurück
+	 * Dieser Titel wird über den parameter @current_titel ermittelt
 	 * 
+	 * \return Titel object
 	 */
 	public Titel get_current_track() {
 		
@@ -239,8 +263,11 @@ public class Playlist {
 	
 	
 	
-	/*
-	 * aktualisiert current_titel variable +1 
+	/*next_track()
+	 * Diese Methode setzt den parameter @current_titel +1.
+	 * Diese passiert wenn im wiedergabe mods der nächste Track ausgewählt wird
+	 * 
+	 * 
 	 * 
 	 */
 	public void next_track() {
@@ -260,8 +287,9 @@ public class Playlist {
 	}
 	
 	
-	/*
-	 * aktualisiert current_titel variable -1
+	/*previos_track()
+	 * Diese Methode setzt den parameter @currenttitel -1
+	 * DIes passiert wenn im wiedergabe modus der vorherige titel agewählt wird.
 	 * 
 	 */
 	public void previos_track() {
@@ -282,6 +310,12 @@ public class Playlist {
 	}
 
 
+	
+	/*set_crrent_titel_zero
+	 * 
+	 * setzt den Parameter @currenttitel 0. -> ersten Titel der Playlist
+	 * 
+	 */
 	public void set_current_titel_zero() {
 		
 	this.current_titel = 0;	
@@ -292,9 +326,9 @@ public class Playlist {
 	}
 	
 	
-	/*
-	 * To String AUsgabe 
-	 * Ausgabe : Playlistname + Anzahl Tracks
+	/*toString()
+	 * 
+	 * return String mit Playlistobjekt informationen
 	 */
 	@Override
 	public String toString() {
@@ -303,9 +337,8 @@ public class Playlist {
 
 	
 	
-	/*
-	 * To String
-	 * Ausgabe : toString() + alleTitelinformationen 
+	/*drucke_playlits()
+	 *tostringmehtode + Playlist titelinformationen
 	 */
 	public void drucke_playlist() {	
 	System.out.print(this.toString() + "\n");
@@ -319,9 +352,11 @@ public class Playlist {
 	
 	
 
-	/*
-	 * Playlist nach Kategorie mit Tracks füllen
+	/*add_Interpret()
 	 * 
+	 * Fügt Titel eines speziellen INterpreten ur Playlist hinzu.
+	 * 
+	 *  
 	 */
 	public void add_Interpret(String Interpretname) {	
 	//temporärer zwichenspeicher um nach duplicaten zu überprüfen
@@ -339,7 +374,8 @@ public class Playlist {
 	//add_playlist_to_db(this);
 	
 	}
-	
+
+
 	public void add_Album(String albumname) {
 		
 	ArrayList<Titel> tmp =	TitelDB.getListAlbum(albumname);
@@ -374,7 +410,13 @@ public class Playlist {
 	
 	
 	
-	
+	/*add_auswahl()
+	 * 
+	 * Fügt ein übergebenes Array mit Titeln der Playlist hinzu. 
+	 * + filtert duplicate
+	 * 
+	 * 
+	 */
 	public void add_auswahl(ArrayList<Titel> titelliste) {
 		if(titelliste == null) {}
 		else {
@@ -393,12 +435,12 @@ public class Playlist {
 		
 	}
 	
-	/*add_singletitel:
-	 * liefert ein Titelobjekt zurück
-	 * eindeutige eingabe von einem Titel String 
+	/*add_singletitel()
+	 * 
+	 * Fügt ein Titel der Playlist i + flitert duplicate
+	 * 
 	 * 
 	 */
-	
 	public void add_singletitel(String titel) {
 	Titel tmp = TitelDB.get_singleTitel(titel);
 	if(tmp == null) {}
@@ -416,7 +458,13 @@ public class Playlist {
 	}
 	
 	
-	
+	/*delete_titel_from_all_playlist()
+	 * 
+	 * Dese Mehtode löscht einen Titel aus allen PLaylisten. 
+	 * 
+	 * \param titel_to_string eindeutiger titelname 
+	 * 
+	 */
 	public static void delete_titel_from_all_playlist(String titel_to_string) {
 		
 		for (int i = 0; i < all_pl.size(); i++) {
@@ -432,7 +480,10 @@ public class Playlist {
 	
 	
 
-
+/*delete_titel_from_all_playlist()
+ * löscht titel as einer Playlist
+ * 
+ */
 	public void delete_singletitel_verwaltung(String titel_to_string) {
 		
 		for(int i = 0; i < this.playlist.size(); i++) {
@@ -454,7 +505,10 @@ public class Playlist {
 	}
 	}
 	
-	
+	/*delete_singletitel(String titel)
+	 * löscht titel aus einer Playlist
+	 * 
+	 */
 	public void delete_singletitel(String titel) {
 		
 	for(int i = 0; i < this.playlist.size(); i++) {
