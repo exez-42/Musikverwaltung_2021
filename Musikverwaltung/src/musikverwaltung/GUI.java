@@ -175,6 +175,7 @@ public class GUI extends JFrame {
 		 * 
 		 */
 		TitelDB.erzeuge_TitelDB();
+		TitelDB.initDB();
 		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\2Pac-Changesft.Talent.wav"));
 		TitelDB.einf(new Titel("Sommer Sonne Kaktus", "Helge Schneider", "Sommer auf Balkonien", 2013, "Pop","C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\2Pac-Changesft.Talent.wav"));
 		TitelDB.einf(new Titel("T.A.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
@@ -237,7 +238,12 @@ public class GUI extends JFrame {
 		
 		mntmbeenden = new JMenuItem("Beenden");
 		mndatei.add(mntmbeenden);
-		mntmbeenden.addActionListener(e->{System.exit(0);});
+		mntmbeenden.addActionListener(e-> {
+			try {
+				TitelDB.saveDB();
+			} catch (IOException e1) {}
+			System.exit(0);
+			});
 		
 		lblplaylist = new JLabel("Aktuelle Playlist:");
 		lblplaylist.setBounds(10, 119, 414, 14);
