@@ -216,7 +216,7 @@ public class GUI extends JFrame {
 		addWindowListener(new java.awt.event.WindowAdapter() {
 		    
 		    public void windowClosing(java.awt.event.WindowEvent e) {
-		    	System.out.println("xDDDD");	// hier die Funktion reinsetzen
+		    	TitelDB.saveDB(); //Speichert die Datenbank ab
 		        e.getWindow().dispose();  // schließt den Benutzermodus
 		    }
 		});
