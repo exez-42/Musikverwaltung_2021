@@ -208,6 +208,19 @@ public class GUI extends JFrame {
 		setResizable(false);
 		setBackground(SystemColor.inactiveCaption);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		/*Wenn Benutzermodus geschlossen wird
+		 * -> 
+		 */
+		
+		addWindowListener(new java.awt.event.WindowAdapter() {
+		    
+		    public void windowClosing(java.awt.event.WindowEvent e) {
+		    	System.out.println("xDDDD");	// hier die Funktion reinsetzen
+		        e.getWindow().dispose();  // schließt den Benutzermodus
+		    }
+		});
+		
 		setBounds(100, 100, 450, 235);
 		contentPane = new JPanel();
 		contentPane.setBackground(UIManager.getColor("TextField.inactiveBackground"));
@@ -678,7 +691,7 @@ public class GUI extends JFrame {
 							listsongs.setListData(TitelDB.get_titelDB_array2());
 							listall.setListData(TitelDB.get_titelDB_array());
 							listdelete.setListData(TitelDB.get_titelDB_array());
-							listplaylist.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
+							listplaylist.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());
 							
 						}
 					}
@@ -1007,8 +1020,8 @@ public class GUI extends JFrame {
 
 			Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).add_singletitel((String) listall.getSelectedValue());
 			Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).set_current_titel_zero();	
-			listplaylist.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
-			listdelete.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
+			listplaylist.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());
+			listdelete.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());
 			lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
 
 			}
@@ -1030,8 +1043,8 @@ public class GUI extends JFrame {
 			
 				Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).delete_singletitel((String) listplaylist.getSelectedValue());	
 				Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).set_current_titel_zero();
-				listplaylist.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
-				listdelete.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
+				listplaylist.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());
+				listdelete.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());
 				
 				
 				}
@@ -1352,7 +1365,7 @@ public class GUI extends JFrame {
 		{
 		    public void actionPerformed(ActionEvent e)
 		    {
-		    	listdelete.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()).get_all_titel_array()));
+		    	listdelete.setListData(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()).get_all_titel_array());
 		       
 		    }
 		});
@@ -1374,7 +1387,7 @@ public class GUI extends JFrame {
 			if(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()) == null) {System.out.println("truesyx");}
 			else {
 				
-				listdelete.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()).get_all_titel_array()));
+				listdelete.setListData(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()).get_all_titel_array());
 				
 			}
 			
