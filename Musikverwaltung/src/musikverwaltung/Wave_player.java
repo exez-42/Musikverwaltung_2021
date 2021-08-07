@@ -11,11 +11,13 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Wave_player {
 	
+	//File object von .wav datei
 	public static File datei;
+	//Clip object
 	private Clip clip;
-	private float gain;
+	//Dateipfad von .wav datei
 	private String pathname;
-	private String status = "xxx";
+	
 	
 	
 	public Wave_player(String pathname) {
@@ -44,7 +46,11 @@ public class Wave_player {
 	
 	
 	
-	
+	/*play()
+	 * 
+	 * spielt (wav)Clip objekt ab 
+	 * 
+	 */
 	 public void play() {
 			
 		 
@@ -52,7 +58,6 @@ public class Wave_player {
 		 try {
 			 
 			 
-			 status = "play";
 			 clip.start();
 			 
 			 
@@ -64,16 +69,26 @@ public class Wave_player {
 		 
 	 } 
 
-	 
+	 /*pause()
+	  * 
+	  * pausiert Clip objekt
+	  * 
+	  */
 	 public void pause() 
 		{ 
 		 	
 		 	
-		 	status = "pause";
 			clip.stop(); 
 		
 		}
 	
+	 
+	 /*stop()
+	  * 
+	  * pausiert clip objekt und setzt zeitstempel zurück auf anfang
+	  * 
+	  * 
+	  */
 	 public void stop() {
 		 
 			pause();
@@ -83,6 +98,12 @@ public class Wave_player {
 			 
 		 }
 	
+	 
+	 /*play_repeat()
+	  * 
+	  * setzt Clip zeitstempel auf 0 zurück
+	  * 
+	  */
 	 public void play_repeat() {
 		 clip.setMicrosecondPosition(0); 
 		 
@@ -90,52 +111,8 @@ public class Wave_player {
 		 
 	 }
 	
-	 public void select() {
-		 Scanner scanner = new Scanner(System.in); 
-		 
-	while(true) {
-		
-		System.out.println("Eingabe : 1  play"); 
-		System.out.println("Eingabe : 2 pause"); 
-		System.out.println("Eingabe : 3 repeat"); 
-		System.out.println("Eingabe : 4 Stop");
-		System.out.println("Eingabe : 0 Player beenden");
-		int a = scanner.nextInt(); 
-		if (a == 0) { break;}
-		auswahl(a);
-		
-	}	
-			 
-		 
-		 
-	 }
 
 	 
-public void auswahl(int auswahl) {
-		 	
-		 
-		 switch (auswahl) 
-			{ 
-				case 1: 
-					play(); 
-					break; 
-				case 2: 
-					pause(); 
-					break; 
-				case 3:
-					play_repeat();
-					break;
-				case 4:
-					stop();
-					break;
-		
-				default:
-					return;
-			}
-		 
-		 
-		 
-	 }
 	 
 	 
 	
