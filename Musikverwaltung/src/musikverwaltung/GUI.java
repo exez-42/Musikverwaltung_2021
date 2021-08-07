@@ -175,22 +175,7 @@ public class GUI extends JFrame {
 		 * 
 		 */
 		TitelDB.erzeuge_TitelDB();
-		TitelDB.initDB();
-		TitelDB.einf(new Titel("T.N.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\2Pac-Changesft.Talent.wav"));
-		TitelDB.einf(new Titel("Sommer Sonne Kaktus", "Helge Schneider", "Sommer auf Balkonien", 2013, "Pop","C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\2Pac-Changesft.Talent.wav"));
-		TitelDB.einf(new Titel("T.A.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-		TitelDB.einf(new Titel("T.B.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-		TitelDB.einf(new Titel("T.C.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-		TitelDB.einf(new Titel("T.D.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-		TitelDB.einf(new Titel("T.E.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-		TitelDB.einf(new Titel("T.F.T.", "AC/DC", "High Voltage", 1976, "Rock", "C:\\Users\\charl\\OneDrive\\Desktop\\project_musik\\Helge Schneider - Sommer, Sonne Kaktus.wav"));
-			
-			// Playlisten erstellen
-			Playlist.create_Playlist("Sommer_Playlist");
-			Playlist.get_playlist_wID("Sommer_Playlist").add_genre("Rock");
-			Playlist.create_Playlist("Sommernacht zu zweit");
-			Playlist.get_playlist_wID("Sommernacht zu zweit").add_Interpret("Helge Schneider");
-		 
+		
 		 
 		 
 			
@@ -316,7 +301,14 @@ public class GUI extends JFrame {
 				 */
 			
 				comboBoxplaylist.addActionListener(e-> {
-				    	lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());				       
+				    	
+					if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track() == null) {}
+					else {
+						lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
+						
+						
+					}
+									       
 				    });
 	
 					/*ActionListener Benutzeroberfläsche
@@ -331,7 +323,15 @@ public class GUI extends JFrame {
 					btnplay.addActionListener(e-> { if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {
 						
 						}else {			
-							Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.play();
+							if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track() == null) {}
+							else {
+								
+								Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.play();
+								
+							}
+							
+							
+							
 							
 							
 							Playlist.set_previos_track((String)comboBoxplaylist.getSelectedItem());
@@ -346,7 +346,9 @@ public class GUI extends JFrame {
 			
 							}else {
 								
-								Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.pause();								
+								if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track() == null) {}
+								else {		Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.pause();			}
+																
 						}});
 		
 		
@@ -354,7 +356,11 @@ public class GUI extends JFrame {
 		
 						btnstop.addActionListener(e-> {if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {
 						
-							}else {		Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.stop();}	
+							}else {	
+								
+								if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track() == null) {}
+								else {	Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.stop();		}
+								}	
 						});
 		
 				
@@ -367,9 +373,13 @@ public class GUI extends JFrame {
 							 */
 							btnfoward.addActionListener(e-> { if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
 								else {
-									Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track().player.stop(); 
+									if(Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track() == null) {}
+									else {Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track().player.stop(); 
 									Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).next_track();	
-									lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
+									lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());}
+									
+									
+									
 								}});
 												
 							/*letzter Titel Track 
@@ -379,9 +389,17 @@ public class GUI extends JFrame {
 							 */
 							btnback.addActionListener(e-> {if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
 								else {
-									Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track().player.stop(); 
-									Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).previos_track();
-									lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
+									if(Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track() == null) {}
+									else {
+										Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).get_current_track().player.stop(); 
+										Playlist.get_current_playlist((String) comboBoxplaylist.getSelectedItem()).previos_track();
+										lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
+										
+										
+									}
+									
+									
+								
 								}});				
 							
 								/*Titelanzeige
@@ -397,8 +415,28 @@ public class GUI extends JFrame {
 									 * -> mit  der Hilfsvariable previos_track aus Playlist.
 									 */
 									comboBoxplaylist.addActionListener(e-> {if(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()) == null) {}
-									else{Playlist.get_current_playlist(Playlist.get_previos_track()).get_current_track().player.stop();}
+									else{
+										
+										
+										
+										if(Playlist.get_current_playlist(Playlist.get_previos_track()) == null  ){       }
+										else {
+											
+										if(Playlist.get_current_playlist(Playlist.get_previos_track()).get_current_track() == null) {}
+										else {		Playlist.get_current_playlist(Playlist.get_previos_track()).get_current_track().player.stop();										}
+										
 										Playlist.get_current_playlist(Playlist.get_previos_track()).set_current_titel_zero();
+										}
+										
+										
+										
+										
+										
+										}
+										
+									
+									
+									
 									});
 			
 		/*Logik Ende
@@ -1155,15 +1193,6 @@ public class GUI extends JFrame {
 			listplaylist.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());	
 		});
 		
-		/*Meine vorgeschriebene FUnktion:
-		 * Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).add_auswahl(------   Liste mit Titeln übergeben ----------------------);
-		 * 
-		 *Wie meine Funktion funktioniert. 
-		 *1: Playlist.get_current_playlist() returnt die aktuell ausgewählte Playlist
-		 * 
-		 * 2: add_auswahl() dieser funktion übergibst du eine Liste mit den Titeln die ausgewählt wurden-
-		 * -> automatisch werden duplicate nicht hinzugefügt 
-		 */
 		
 		
 		
@@ -1383,10 +1412,9 @@ public class GUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 			Playlist.delete_playlist((String) comboBoxplaylistdelete.getSelectedItem()); 
-			Playlist.drucke_alle_pl();
 			comboBoxplaylistdelete.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
 			
-			if(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()) == null) {System.out.println("truesyx");}
+			if(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()) == null) {}
 			else {
 				
 				listdelete.setListData(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()).get_all_titel_array());
