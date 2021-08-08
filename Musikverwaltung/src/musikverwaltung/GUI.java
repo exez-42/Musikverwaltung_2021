@@ -446,7 +446,7 @@ public class GUI extends JFrame {
 		 */
 		
 		verwaltung.addWindowListener(new java.awt.event.WindowAdapter() {
-		    @Override
+		    
 		    public void windowClosing(java.awt.event.WindowEvent e) {
 		        setVisible(true);
 		        e.getWindow().dispose();
@@ -553,7 +553,7 @@ public class GUI extends JFrame {
 		btnaddfile.addActionListener(e -> {
 				// Erstellung unseres FileFilters für Musikdateien
 		        FileFilter filter = new FileNameExtensionFilter("Musik", "wav");      
-				JFileChooser chooser = new JFileChooser("C:/Beispieldatei");
+				JFileChooser chooser = new JFileChooser("");
 				chooser.addChoosableFileFilter(filter); 
 				chooser.setAcceptAllFileFilterUsed(false);
 				int rueckgabeWert = chooser.showOpenDialog(null);
@@ -1153,7 +1153,7 @@ public class GUI extends JFrame {
 		rdbtnalbum.setBounds(6, 87, 109, 23);
 		panel.add(rdbtnalbum);	
 		
-		rdbtnyear = new JRadioButton("Nach Erscheinungsjahr");
+		rdbtnyear = new JRadioButton("Nach Jahr");
 		rdbtnyear.setBounds(6, 119, 135, 23);
 		panel.add(rdbtnyear);
 		
@@ -1340,8 +1340,7 @@ public class GUI extends JFrame {
 				
 				listdelete.setListData(Playlist.get_current_playlist((String) comboBoxplaylistdelete.getSelectedItem()).get_all_titel_array());
 				
-			}
-			
+			}	
 			comboBoxplaylist.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
 			comboBoxeditplaylist.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
 			});
