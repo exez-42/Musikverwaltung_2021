@@ -179,7 +179,7 @@ public class GUI extends JFrame {
 		 * 
 		 */
 		
-		TitelDB.erzeuge_TitelDB();
+		TitelDB.initDB();
 		
 		/*Titel, TitelDB, Playlisten werden erstellt
 		 * 
