@@ -168,30 +168,8 @@ public class GUI extends JFrame {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public GUI() {
 	
-		/*Titel, TitelDB, Playlisten werden erstellt
-		 * 
-		 * 
-		 * 
-		 */
-		/*Titel, TitelDB, Playlisten werden erstellt
-		 * 
-		 * 
-		 * 
-		 */
-		
+		TitelDB.erzeuge_TitelDB();
 		TitelDB.initDB();
-		
-		/*Titel, TitelDB, Playlisten werden erstellt
-		 * 
-		 * 
-		 * 
-		 */
-		
-		/*Ende
-		 * 
-		 * 
-		 * 
-		 */
 		
 		/**
 		* Inhalt Benutzermodus.
@@ -422,7 +400,7 @@ public class GUI extends JFrame {
 															}
 														});
 			
-		/*Logik Ende
+		/*Benutzermodus Logik Ende
 		 * 
 		 * 
 		 */
@@ -453,9 +431,6 @@ public class GUI extends JFrame {
 		    }
 		});
 		
-		
-		
-				
 		menuBar = new JMenuBar();
 		verwaltung.setJMenuBar(menuBar);
 				
@@ -467,7 +442,6 @@ public class GUI extends JFrame {
 		mntmbenutzer.addActionListener(e -> {
 				verwaltung.setVisible(false); 
 				setVisible(true);
-				
 			});
 		
 		lbladd = new JLabel("Hinzuf\u00FCgen");
@@ -559,9 +533,6 @@ public class GUI extends JFrame {
 				int rueckgabeWert = chooser.showOpenDialog(null);
 		 			if(rueckgabeWert == JFileChooser.APPROVE_OPTION)
 	        				{
-	             					// Ausgabe der ausgewaehlten Datei
-	            					System.out.println("Die zu öffnende Datei ist: " +
-	                 					chooser.getSelectedFile().getAbsoluteFile()); //Ausgabe
 	            					textFieldfile.setText(chooser.getSelectedFile().getPath());
 	        				}
     				});
@@ -569,7 +540,7 @@ public class GUI extends JFrame {
 		btnaddsong = new JButton("Hinzuf\u00FCgen");
 		btnaddsong.setBounds(240, 171, 117, 23);
 		paneladd.add(btnaddsong);
-		btnaddsong.addActionListener(e -> { //Repaint -------------------------------------------------------------
+		btnaddsong.addActionListener(e -> {
 				boolean infosKomplett = true;
 				String name = textFieldname.getText();
 				String artist = textFieldartist.getText();
@@ -636,22 +607,12 @@ public class GUI extends JFrame {
 					infosKomplett = false;
 				}
 				if (path.isEmpty()) {
-					System.out.println("Datei auswählen!");
 					infosKomplett = false;
 				}
 				if (infosKomplett) {
-					System.out.println(" - alle Infos da -");
-					System.out.println("Titel: " + name);
-					System.out.println("Interpret: " + artist);
-					System.out.println("Album: " + album);
-					System.out.println("Jahr: " + jahr);
-					System.out.println("Genre: " + genre);
-					System.out.println("Datei: " + path);
 					TitelDB.einf(new Titel(name, artist, album, jahr, genre, path));
 					listsongs.setListData(TitelDB.get_titelDB_array2());
 					listall.setListData(TitelDB.get_titelDB_array());
-					
-					
 				}
 			});
 		
@@ -664,7 +625,7 @@ public class GUI extends JFrame {
 		
 		
 		listsongs = new JList();
-		listsongs.setListData(TitelDB.get_titelDB_array2()); //-------------------- diese Funktion muss oft wiederholt werden (= Anzeige der Songs im Verwaltungsmodus --> immer wenn gelöscht, hinzugefügt oder sortiert wird)
+		listsongs.setListData(TitelDB.get_titelDB_array2());
 		songsScrollPane = new JScrollPane(listsongs);
 		songsScrollPane.setBounds(10, 18, 347, 130);
 		listsongs.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -672,17 +633,7 @@ public class GUI extends JFrame {
 		paneldelete.add(songsScrollPane);  	
 		
 
-		/*Delete Track aus Datenbank
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
+		/*Logik Track aus Datenbank löschen
 		 * 
 		 * 
 		 */
@@ -706,8 +657,9 @@ public class GUI extends JFrame {
 							listsongs.setListData(TitelDB.get_titelDB_array2());
 							listall.setListData(TitelDB.get_titelDB_array());
 							listdelete.setListData(TitelDB.get_titelDB_array());
-							listplaylist.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());
-							
+							if (Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()) != null) {
+								listplaylist.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());
+							}
 						}
 					}
 				}
@@ -809,7 +761,6 @@ public class GUI extends JFrame {
 				playlistcreate.setVisible(false);
 				});
 		
-		
 		contentPane = new JPanel();
 		contentPane.setBackground(UIManager.getColor("TextField.inactiveBackground"));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -833,12 +784,10 @@ public class GUI extends JFrame {
 		btncreatecategory = new JButton("Titel hinzuf\u00FCgen");
 		btncreatecategory.setBounds(125, 67, 149, 25);
 		contentPane.add(btncreatecategory);
-		/*LOGIK PLAYLIST hinzufügen
-		 * 
-		 * 
+		
+		/**LOGIK Playlist hinzufügen
 		 * 
 		 */
-		
 		
 		btncreateplaylist.addActionListener(e-> { 
 			boolean tmp = Playlist.create_Playlist(textFieldplaylistname.getText());
@@ -938,13 +887,10 @@ public class GUI extends JFrame {
 		listplaylist.setBounds(10, 88, 270, 140);
 		contentPane.add(playlistScrollPane);  
 		
-
-		
 		if(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()) == null) {
 		
 		
 		}else {	listplaylist.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());	
-		
 		}
 		
 		
@@ -970,21 +916,9 @@ public class GUI extends JFrame {
 		
 		/*Liste mit allen Tracks füllen
 		 * 
-		 * 
-		 * 
 		 */
-		listall.setListData(TitelDB.get_titelDB_array());  //-----------(SongDB-Anzeige im Playlist-Bearbeiten-Modus, Wiederholung wenn gelöscht, hinzugefüggt oder sortiert wird)
+		listall.setListData(TitelDB.get_titelDB_array()); 
 		
-		
-
-		/*
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 */
 		
 		btnaddtoplaylist = new JButton("");
 		btnaddtoplaylist.setIcon(new ImageIcon(GUI.class.getResource("/Resources/Left.png")));
@@ -997,9 +931,6 @@ public class GUI extends JFrame {
 		contentPane.add(btndeletefromplaylist);
 		
 		/*Löschen / hinzufügen
-		 * 
-		 * 
-		 * 
 		 * 
 		 */
 		
@@ -1015,8 +946,6 @@ public class GUI extends JFrame {
 			listdelete.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());
 			lblsongisplaying.setText(Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player_out());
 			}
-			
-			
 		});
 
 		//add_auswahl(ArrayList<Titel> titelliste)
@@ -1036,13 +965,6 @@ public class GUI extends JFrame {
 				
 				}
 			});
-
-
-		/*Ende
-		*
-		*
-		*/
-		
 		
 		panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1066,8 +988,6 @@ public class GUI extends JFrame {
 		textallsearch.setBounds(322, 38, 239, 22);
 		panel.add(textallsearch);
 		textallsearch.setColumns(10);
-		
-		//--------------------------------------------
 		
 		comboBoxfilter2 = new JComboBox();
 		comboBoxfilter2.setBounds(322, 148, 117, 20);
@@ -1124,8 +1044,6 @@ public class GUI extends JFrame {
 				listall.setListData(tmp2);
 			}
 			});
-		
-		//------------------------------------------------------
 		
 		btnaddall = new JButton("Alle hinzuf\u00FCgen");
 		btnaddall.setBounds(449, 147, 127, 23);
@@ -1242,8 +1160,6 @@ public class GUI extends JFrame {
 		mntmedit.addActionListener(e -> {
 				playlistedit.setVisible(true);
 			});
-			
-		
 		
 		/**
 		* Inhalt Playlist Löschen.
@@ -1327,7 +1243,7 @@ public class GUI extends JFrame {
 		 */
 	 
 			btnplaylistdelete.addActionListener(e -> {
-				
+			Playlist.get_current_playlist((String)comboBoxplaylist.getSelectedItem()).get_current_track().player.stop();
 			Playlist.delete_playlist((String) comboBoxplaylistdelete.getSelectedItem()); 
 			comboBoxplaylistdelete.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
 			
@@ -1344,36 +1260,7 @@ public class GUI extends JFrame {
 			comboBoxplaylist.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
 			comboBoxeditplaylist.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
 			});
-	//}
-		
-			/*
-			 * 	if(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()) == null) {
-		
-		
-		}else {	listplaylist.setListData(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array());	
-		
-			comboBoxeditplaylist.addActionListener (new ActionListener ()
-			{
-			    public void actionPerformed(ActionEvent e)
-			    {
-			    	listplaylist.setModel(new DefaultComboBoxModel(Playlist.get_current_playlist((String) comboBoxeditplaylist.getSelectedItem()).get_all_titel_array()));
-			       
-			    }
-			});
-		}
-		
-			 * 
-			 * 
-			 */
-					
 			
-		/*Logik Ende
-		 * 
-		 * 
-		 * 
-		 * 
-		 */
-		
 		mntmdelete.addActionListener(e -> {
 				
 				playlistdelete.setVisible(true);
