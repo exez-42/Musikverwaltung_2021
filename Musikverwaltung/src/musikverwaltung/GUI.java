@@ -842,20 +842,25 @@ public class GUI extends JFrame {
 		
 		btncreateplaylist.addActionListener(e-> { 
 			boolean tmp = Playlist.create_Playlist(textFieldplaylistname.getText());
+			String tmp2 = textFieldplaylistname.getText();
 			
-			if(tmp == true) {
+			if (tmp2.isEmpty()) {			
+				Playlist.delete_playlist((String) textFieldplaylistname.getText()); 
+				textFieldplaylistname.setText("ERROR: Bitte Playlistname eingeben.");	
+				
+				}
+			
+			else if(tmp == true) {
 			
 			textFieldplaylistname.setText("Playlist wurde hinzugefügt");
 			comboBoxplaylist.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
 			comboBoxeditplaylist.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));	
-			comboBoxplaylistdelete.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));
+			comboBoxplaylistdelete.setModel(new DefaultComboBoxModel(Playlist.get_all_plname_string()));}
 			
+			else {textFieldplaylistname.setText("ERROR: Playlistname bereits vergeben.");}
 			
-		}else {textFieldplaylistname.setText("ERROR: Playlistname bereits vergeben.");}
-			
-			
-			
-		});
+			});	
+		
 		textFieldplaylistname.addMouseListener(new MouseAdapter(){
             		public void mouseClicked(MouseEvent e){
             		textFieldplaylistname.setText("");
